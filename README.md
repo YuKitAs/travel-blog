@@ -2,5 +2,5 @@
 
 ## TODOs List
 - [x] Setup vue.js project;
-- [ ] Setup Ruby on Rails project;
+- [x] Setup Ruby on Rails project;
 - [ ] Write Rakefile to bind two projects.
