@@ -10,4 +10,4 @@
 - [ ] Research for Rails with MongoDB (@YuKitAs)
 - [ ] Setup Rails with MongoDB (@YuKitAs)
 - [ ] Research for reading/writing images with MongoDB (@YuKitAs)
-- [ ] Setup local test environment with two servers
+- [ ] Setup local test environment (@xiGUAwanOU)
