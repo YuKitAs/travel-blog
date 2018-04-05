@@ -25,6 +25,7 @@ module.exports = {
   },
   // add your custom rules here
   rules: {
+    'class-methods-use-this': 'off',
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       js: 'never',
