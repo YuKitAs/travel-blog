@@ -1,39 +1,56 @@
+import _ from 'lodash';
 import axios from 'axios';
 
-class CrudHttpClient {
-  get(url, params) {
+export default class CrudHttpClient {
+  constructor(resourcePluralName) {
+    this.resourcePluralName = resourcePluralName;
+  }
+
+  buildUrl(id) {
+    const idSuffix = id ? `/${id}` : '';
+    return `api/${this.resourcePluralName}${idSuffix}`;
+  }
+
+  getOne(id) {
     return axios({
       ...this.buildCommonHttpClientSettings(),
       method: 'get',
-      url,
-      params,
+      url: this.buildUrl(id),
     });
   }
 
-  put(url, data) {
+  getMany(limit = 10, offset = 0) {
+    return axios({
+      ...this.buildCommonHttpClientSettings(),
+      method: 'get',
+      url: this.buildUrl(),
+      params: { limit, offset },
+    });
+  }
+
+  create(data) {
     return axios({
       ...this.buildCommonHttpClientSettings(),
       method: 'put',
-      url,
-      data,
+      url: this.buildUrl(),
+      data: this.removeId(data),
     });
   }
 
-  post(url, data) {
+  update(id, data) {
     return axios({
       ...this.buildCommonHttpClientSettings(),
       method: 'post',
-      url,
-      data,
+      url: this.buildUrl(id),
+      data: this.removeId(data),
     });
   }
 
-  delete(url, params) {
+  delete(id) {
     return axios({
       ...this.buildCommonHttpClientSettings(),
       method: 'delete',
-      url,
-      params,
+      url: this.buildUrl(id),
     });
   }
 
@@ -45,6 +62,11 @@ class CrudHttpClient {
       timeout: 5000,
     };
   }
-}
 
-export default new CrudHttpClient();
+  removeId(data) {
+    const clonedData = _.cloneDeep(data);
+    delete clonedData.id;
+
+    return clonedData;
+  }
+}
