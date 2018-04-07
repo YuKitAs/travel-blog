@@ -8,6 +8,5 @@ RSpec.describe ArticlesController, type: 'controller' do
   end
 
   it 'lists all articles' do
-    puts @articles['title']
   end
 end
