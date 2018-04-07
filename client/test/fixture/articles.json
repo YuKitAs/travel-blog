@@ -5,7 +5,7 @@
   "location": {
     "name": "Human Readable Name 方便阅读的文字",
     "latitude": "49.013030",
-    "longitude": "8.404331",
+    "longitude": "8.404331"
   },
   "content": "Lorem __ipsum__ dolor sit amet, consectetur adipiscing elit.\n测试文本，本段文字为测试文本。"
 }
