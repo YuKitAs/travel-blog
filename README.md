@@ -7,7 +7,7 @@
 
 - [ ] Research for list view and post view (@xiGUAwanOU)
 - [ ] Implement list view and post view (@xiGUAwanOU)
-- [ ] Research for Rails with MongoDB (@YuKitAs)
-- [ ] Setup Rails with MongoDB (@YuKitAs)
+- [x] Research for Rails with MongoDB (@YuKitAs)
+- [x] Setup Rails with MongoDB (@YuKitAs)
 - [ ] Research for reading/writing images with MongoDB (@YuKitAs)
 - [ ] Setup local test environment (@xiGUAwanOU)
