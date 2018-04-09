@@ -31,7 +31,7 @@ export default class CrudHttpClient {
   create(data) {
     return axios({
       ...this.buildCommonHttpClientSettings(),
-      method: 'put',
+      method: 'post',
       url: this.buildUrl(),
       data: this.removeId(data),
     });
@@ -40,7 +40,7 @@ export default class CrudHttpClient {
   update(id, data) {
     return axios({
       ...this.buildCommonHttpClientSettings(),
-      method: 'post',
+      method: 'put',
       url: this.buildUrl(id),
       data: this.removeId(data),
     });

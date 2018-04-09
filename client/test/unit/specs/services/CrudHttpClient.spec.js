@@ -48,7 +48,7 @@ describe('CrudHttpClient', () => {
   it('creates object', async () => {
     let requestBody;
 
-    server.respondWith('PUT', RESOURCE_PLURAL_URL, (request) => {
+    server.respondWith('POST', RESOURCE_PLURAL_URL, (request) => {
       requestBody = request.requestBody;
       request.respond(200, { 'Content-Type': 'application/json' }, RESPONSE_STRING);
     });
@@ -63,7 +63,7 @@ describe('CrudHttpClient', () => {
   it('updates entity', async () => {
     let requestBody;
 
-    server.respondWith('POST', RESOURCE_SINGULAR_URL, (request) => {
+    server.respondWith('PUT', RESOURCE_SINGULAR_URL, (request) => {
       requestBody = request.requestBody;
       request.respond(200, { 'Content-Type': 'application/json' }, RESPONSE_STRING);
     });
