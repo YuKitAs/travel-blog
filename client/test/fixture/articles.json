@@ -2,10 +2,12 @@
   "id": "00000000-0000-0000-0000-000000000000",
   "title": "Some Title 标题标题",
   "date": "2018-04-06",
-  "location": {
+  "place": {
     "name": "Human Readable Name 方便阅读的文字",
-    "latitude": "49.013030",
-    "longitude": "8.404331"
+    "location": {
+      "latitude": "49.013030",
+      "longitude": "8.404331"
+    }
   },
   "content": "Lorem __ipsum__ dolor sit amet, consectetur adipiscing elit.\n测试文本，本段文字为测试文本。"
 }
