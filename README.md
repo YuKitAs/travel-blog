@@ -11,3 +11,5 @@
 - [x] Setup Rails with MongoDB (@YuKitAs)
 - [ ] Research for reading/writing images with MongoDB (@YuKitAs)
 - [ ] Setup local test environment (@xiGUAwanOU)
+
+- [ ] Authentication
