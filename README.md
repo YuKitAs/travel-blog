@@ -1,5 +1,10 @@
 # Travel Blog
 
+## Start Server and client
+1. Make sure that MongoDB (>= 3.6.0) is installed and running.
+2. Use `$ bundle install` in `server` folder to install dependencies.
+3. Use `$ rails server` to start the server.
+
 ## TODO List
 - [x] Setup vue.js project
 - [x] Setup Ruby on Rails project
