@@ -2,42 +2,40 @@ require 'securerandom'
 
 class ArticlesController < ApplicationController
   def index
-    @documents = Article.all
-    @articles = []
-    @documents.each do |doc|
-      @articles.push(convert_to_article(doc))
+    article_models = Article.all
+    article_representations = []
+    article_models.each do |article_model|
+      article_representations.push(article_model.representation)
     end
-    render(json: @articles)
+    render(json: article_representations)
   end
 
   def show
-    @document = Article.find(params[:id])
-    render(json: convert_to_article(@document))
+    article_model = Article.find(params[:id])
+    render(json: article_model.representation)
   end
 
   def create
-    @document = Article.new(article_params.merge(_id: SecureRandom.uuid))
-    @document.save
-    render(json: convert_to_article(@document))
+    article_model = Article.new(article_params.merge(_id: SecureRandom.uuid))
+    article_model.save!
+    render(json: article_model.representation)
   end
 
   def update
-    @document = Article.find(params[:id])
-    @document.update(article_params)
+    article_model = Article.find(params[:id])
+    article_model.update(article_params)
   end
 
   def destroy
-    @document = Article.find(params[:id])
-    @document.destroy
+    article_model = Article.find(params[:id])
+    article_model.destroy
   end
 
   private
 
   def article_params
-    params.require(:article).permit(:title, :content)
-  end
-
-  def convert_to_article(document)
-    return { id: document[:_id], title: document[:title], content: document[:content], date: document[:date] }
+    params[:article][:place] = params[:place]
+    params[:article][:place][:_id] = SecureRandom.uuid
+    params.require(:article).permit(:title, :content, :date, place: [:_id, :name, location: [:lat, :long]])
   end
 end

@@ -155,7 +155,7 @@ development:
 test:
   clients:
     default:
-      database: server_test
+      database: travel_blog_test
       hosts:
         - localhost:27017
       options:
