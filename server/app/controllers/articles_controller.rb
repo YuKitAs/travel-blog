@@ -34,8 +34,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params[:article][:place] = params[:place]
-    params[:article][:place][:_id] = SecureRandom.uuid
-    params.require(:article).permit(:title, :content, :date, place: [:_id, :name, location: [:lat, :long]])
+    params.require(:article).permit(:title, :content, :date, :place_id)
   end
 end

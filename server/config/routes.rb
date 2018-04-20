@@ -4,4 +4,10 @@ Rails.application.routes.draw do
   post 'api/articles' => 'articles#create'
   put 'api/articles/:id' => 'articles#update'
   delete 'api/articles/:id' => 'articles#destroy'
+
+  get 'api/places' => 'places#index'
+  get 'api/places/:id' => 'places#show'
+  post 'api/places' => 'places#create'
+  put 'api/places/:id' => 'places#update'
+  delete 'api/places/:id' => 'places#destroy'
 end
