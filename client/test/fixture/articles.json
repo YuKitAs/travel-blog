@@ -1,13 +1,14 @@
 {
-  "id": "00000000-0000-0000-0000-000000000000",
-  "title": "Some Title 标题标题",
-  "date": "2018-04-06",
-  "place": {
-    "name": "Human Readable Name 方便阅读的文字",
-    "location": {
-      "latitude": "49.013030",
-      "longitude": "8.404331"
-    }
+  "article": {
+    "title": "Some Title 标题标题",
+    "content": "Lorem __ipsum__ dolor sit amet, consectetur adipiscing elit.\n测试文本，本段文字为测试文本。",
+    "date": "2018-04-06",
+    "place_id": "00000000-0000-0000-0000-111111111111"
   },
-  "content": "Lorem __ipsum__ dolor sit amet, consectetur adipiscing elit.\n测试文本，本段文字为测试文本。"
+  "new_article": {
+    "title": "Another Title 标题标题",
+    "content": "Lorem __ipsum__ dolor sit amet, consectetur adipiscing elit.\n测试文本，本段文字为测试文本。",
+    "date": "2018-04-07",
+    "place_id": "00000000-0000-0000-0000-111111111112"
+  }
 }
