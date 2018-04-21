@@ -1,34 +1,22 @@
-require 'securerandom'
-
 class ArticlesController < ApplicationController
   def index
-    article_models = Article.all
-    article_representations = []
-    article_models.each do |article_model|
-      article_representations.push(article_model.representation)
-    end
-    render(json: article_representations)
+    super(Article)
   end
 
   def show
-    article_model = Article.find(params[:id])
-    render(json: article_model.representation)
+    super(Article)
   end
 
   def create
-    article_model = Article.new(article_params.merge(_id: SecureRandom.uuid))
-    article_model.save!
-    render(json: article_model.representation)
+    super(Article, article_params)
   end
 
   def update
-    article_model = Article.find(params[:id])
-    article_model.update(article_params)
+    super(Article, article_params)
   end
 
   def destroy
-    article_model = Article.find(params[:id])
-    article_model.destroy
+    super(Article)
   end
 
   private
