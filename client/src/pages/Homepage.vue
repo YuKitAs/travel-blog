@@ -10,3 +10,7 @@ export default {
   name: 'Homepage',
 };
 </script>
+
+<style lang="sass">
+  @import "src/assets/styles/main"
+</style>
