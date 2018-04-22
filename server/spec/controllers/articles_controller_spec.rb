@@ -1,6 +1,4 @@
 require_relative '../utils/fixture_reader'
-require 'controllers/articles_controller'
-require 'json'
 
 RSpec.describe ArticlesController, type: 'controller' do
   before :each do
@@ -40,6 +38,8 @@ RSpec.describe ArticlesController, type: 'controller' do
   end
 
   it 'creates a new article' do
+    login
+
     post :create, params: { article: @new_article }
     new_article = JSON.parse(response.body)
 
@@ -53,7 +53,15 @@ RSpec.describe ArticlesController, type: 'controller' do
     expect(new_article['place_id']).to eq @new_article['place_id']
   end
 
+  it 'does not create article without authorization' do
+    post :create, params: { article: @new_article }
+
+    expect(response.message).to eq 'Unauthorized'
+  end
+
   it 'updates a new article' do
+    login
+
     put :update, params: { id: @article_id, article: @new_article }
     article = Article.find(@article_id)
 
@@ -63,9 +71,29 @@ RSpec.describe ArticlesController, type: 'controller' do
     expect(article['place_id']).to eq @new_article['place_id']
   end
 
+  it 'does not create article without authorization' do
+    put :update, params: { id: @article_id, article: @new_article }
+
+    expect(response.message).to eq 'Unauthorized'
+  end
+
   it 'deletes an article by id' do
+    login
+
     delete :destroy, params: { id: @article_id }
 
     expect(Article.all).to be_empty
   end
+
+  it 'does not create article without authorization' do
+    delete :destroy, params: { id: @article_id }
+
+    expect(response.message).to eq 'Unauthorized'
+  end
+end
+
+private
+
+def login
+  allow(AuthorizeApiRequest).to receive_message_chain(:call, :result){:user}
 end

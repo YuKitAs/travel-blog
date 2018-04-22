@@ -1,7 +1,16 @@
 {
-  "name": "Human Readable Name 方便阅读的文字",
-  "location": {
-    "lat": "49.013030",
-    "lng": "8.404331"
+  "place": {
+    "name": "Human Readable Name 方便阅读的文字",
+    "location": {
+      "lat": "49.01303",
+      "lng": "8.40433"
+    }
+  },
+  "new_place": {
+    "name": "Another Human Readable Name 方便阅读的文字",
+    "location": {
+      "lat": "-49.01303",
+      "lng": "-8.40433"
+    }
   }
 }
