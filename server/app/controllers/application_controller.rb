@@ -1,6 +1,11 @@
 require 'securerandom'
 
 class ApplicationController < ActionController::API
+  include TokenAuthenticatable
+  include DocumentAccessible
+
+  skip_before_action :authenticate_request, only: [:index, :show]
+
   def index(entity)
     models = entity.all
     model_representations = []

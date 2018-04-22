@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   post 'api/places' => 'places#create'
   put 'api/places/:id' => 'places#update'
   delete 'api/places/:id' => 'places#destroy'
+
+  post 'login(:username&:password)' => 'authentication#login'
 end
