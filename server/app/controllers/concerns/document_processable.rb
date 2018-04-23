@@ -1,4 +1,4 @@
-module DocumentAccessible
+module DocumentProcessable
   extend ActiveSupport::Concern
 
   included do

@@ -2,37 +2,50 @@ require 'securerandom'
 
 class ApplicationController < ActionController::API
   include TokenAuthenticatable
-  include DocumentAccessible
+  include DocumentProcessable
 
   skip_before_action :authenticate_request, only: [:index, :show]
 
-  def index(entity)
-    models = entity.all
+  class_attribute :entity
+  class_attribute :model_params
+
+  def index
     model_representations = []
-    models.each do |model|
+    @entity.all.each do |model|
       model_representations.push(model.representation)
     end
     render(json: model_representations)
   end
 
-  def show(entity)
-    model = entity.find(params[:id])
-    render(json: model.representation)
+  def show
+    render(json: @model.representation)
   end
 
-  def create(entity, model_params)
-    model = entity.new(model_params.merge(_id: SecureRandom.uuid))
-    model.save!
-    render(json: model.representation)
+  def create
+    @model = entity.new(@model_params.merge(_id: SecureRandom.uuid))
+
+    if @model.save
+      render(json: @model.representation)
+    else
+      render(json: @model.errors, status: :unprocessable_entity)
+    end
   end
 
-  def update(entity, model_params)
-    model = entity.find(params[:id])
-    model.update(model_params)
+  def update
+    if @model.update(@model_params)
+      render(json: @model)
+    else
+      render(json: @model.errors, status: :unprocessable_entity)
+    end
   end
 
-  def destroy(entity)
-    model = entity.find(params[:id])
-    model.destroy
+  def destroy
+    @model.destroy
+  end
+
+  protected
+
+  def set_model
+    @model = @entity.find(params[:id])
   end
 end
