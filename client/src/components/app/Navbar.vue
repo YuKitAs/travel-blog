@@ -1,6 +1,6 @@
 <template>
   <ul class="tb-navbar">
-    <li v-for="navItem in navItems" :key="navItem"
+    <li v-for="navItem in navItems" :key="navItem" @click="navigateTo(navItem)"
         class="tb-navbar__item"
         :class="{'tb-navbar__item--activated': navItemActivated(navItem)}">
       <img :src="imagePath(navItem)"
@@ -19,7 +19,7 @@ export default {
 
   data() {
     return {
-      navItems: ['About', 'Articles', 'Places', 'Timeline'],
+      navItems: ['Articles', 'Places', 'Timeline', 'About'],
     };
   },
 
@@ -35,6 +35,10 @@ export default {
 
     navItemActivated(navItem) {
       return this.$route.name === navItem;
+    },
+
+    navigateTo(navItem) {
+      this.$router.push(navItem);
     },
   },
 };
