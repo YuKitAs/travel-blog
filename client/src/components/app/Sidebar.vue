@@ -64,8 +64,8 @@ export default {
 
       &--expanded
         @include page-width(small)
-          padding-top: 2rem
-          max-height: 150vh
+          padding-top: 1rem
+          max-height: 120vh
 
     &__title
       text-align: center
