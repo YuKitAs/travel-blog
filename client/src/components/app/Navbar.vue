@@ -44,9 +44,8 @@ export default {
   @import "src/assets/styles/main"
 
   @keyframes item-hover-animation
-    from
-      padding-left: 0
     to
+      background-color: $dark-background-color-highlighted
       padding-left: 0.5rem
 
   .tb-navbar
