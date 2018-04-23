@@ -34,9 +34,9 @@ export default {
     max-width: $bp-large-max
 
   .tb-sidebar-container
-    width: 12.5rem
+    width: 12.5em
 
   .tb-content-container
     @include make-fill-rest-space
-    padding: 0 0.625rem 0 0.625rem
+    padding: 0 0.625em 0 0.625em
 </style>

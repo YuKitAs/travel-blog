@@ -49,14 +49,14 @@ export default {
 
   .tb-navbar
     list-style-type: none
-    padding: 0.5rem 0 0 2.2rem
+    padding: 0.5em 0 0 2.2em
 
     &__item
       @include make-row
       align-items: center
       color: $light-text-color
       cursor: pointer
-      padding: 0 0 1px 0.5rem
+      padding: 0 0 1px 0.5em
       transition: background-color 0.5s
 
       &:hover
@@ -70,10 +70,10 @@ export default {
         border-color: $light-text-color-highlighted
 
     &__text
-      padding-left: 0.5rem
+      padding-left: 0.5em
 
     &__icon
-      height: 1.8rem
+      height: 1.8em
 
       &--activated
         filter: brightness(122%) saturate(33%)

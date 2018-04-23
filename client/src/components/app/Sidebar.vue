@@ -50,7 +50,7 @@ export default {
   @import "src/assets/styles/main"
 
   .tb-sidebar
-    margin: 0 0.625rem 0 0.625rem
+    margin: 0 0.625em 0 0.625em
 
     &__content
       background-color: $dark-background-color
@@ -60,12 +60,12 @@ export default {
         overflow: hidden
         transition: all 1s ease
       @include page-width(medium-and-up)
-        padding-top: 2rem
+        padding-top: 2em
 
       &--expanded
         @include page-width(small)
-          padding-top: 2rem
-          max-height: 150vh
+          padding-top: 1em
+          max-height: 110vh
 
     &__title
       text-align: center
@@ -73,7 +73,7 @@ export default {
 
     &__logo-container
       background-color: $light-text-color
-      padding: 1rem 0 1rem 0
+      padding: 1em 0 1em 0
 
     &__logo
       display: block
