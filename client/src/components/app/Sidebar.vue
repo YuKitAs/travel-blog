@@ -4,14 +4,21 @@
       <div class="tb-sidebar__logo-container">
         <img src="@/assets/images/logo.png" class="tb-sidebar__logo"/>
       </div>
+      <h1 class="tb-sidebar__title">Captain Bonbon</h1>
+      <navbar/>
     </div>
     <div class="tb-sidebar__tail"></div>
   </div>
 </template>
 
 <script>
+import Navbar from '@/components/app/Navbar';
+
 export default {
   name: 'Sidebar',
+  components: {
+    Navbar,
+  },
 };
 </script>
 
@@ -24,6 +31,10 @@ export default {
     &__content
       background-color: $dark-background-color
       padding-top: 2rem
+
+    &__title
+      text-align: center
+      color: $light-text-color
 
     &__logo-container
       background-color: $light-text-color

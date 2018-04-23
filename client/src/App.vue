@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Sidebar from '@/components/Sidebar';
+import Sidebar from '@/components/app/Sidebar';
 
 export default {
   name: 'App',
@@ -23,9 +23,15 @@ export default {
 <style lang="sass">
   @import "src/assets/styles/main"
 
+  h1, h2, h3, h4, h5, h6
+    font-family: $title-font
+    color: $dark-text-color
+
   body
     background-color: $light-background-color
     margin-top: 0
+    font-family: $content-font
+    color: $dark-text-color
 
   .tb-global-container
     @include page-width(medium)
