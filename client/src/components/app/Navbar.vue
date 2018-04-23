@@ -43,26 +43,20 @@ export default {
 <style lang="sass">
   @import "src/assets/styles/main"
 
-  @keyframes item-hover-animation
-    to
-      background-color: $dark-background-color-highlighted
-      padding-left: 0.5rem
-
   .tb-navbar
     list-style-type: none
-    padding: 1rem 0 0 2.2rem
+    padding: 0.5rem 0 0 2.2rem
 
     &__item
       @include make-row
       align-items: center
       color: $light-text-color
       cursor: pointer
-      padding-bottom: 1px
+      padding: 0 0 1px 0.5rem
+      transition: background-color 0.5s
 
       &:hover
-        animation-name: item-hover-animation
-        animation-duration: 0.5s
-        animation-fill-mode: forwards
+        background-color: $dark-background-color-highlighted
 
       &--activated
         color: $light-text-color-highlighted

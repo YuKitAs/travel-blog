@@ -34,7 +34,7 @@ export default {
     color: $dark-text-color
 
   .tb-global-container
-    @include page-width(medium)
+    @include page-width(medium-and-up)
       @include make-row
     @include page-width(small)
       @include make-column

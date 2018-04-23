@@ -8,13 +8,13 @@ $bp-medium-max: 50rem
 $bp-small-max: 31.25rem
 
 @mixin page-width($point)
-  @if $point == xlarge
+  @if $point == xlarge-and-up
     @media (min-width: $bp-large-max)
       @content
-  @else if $point == large
+  @else if $point == large-and-up
     @media (min-width: $bp-medium-max)
       @content
-  @else if $point == medium
+  @else if $point == medium-and-up
     @media (min-width: $bp-small-max)
       @content
   @else if $point == small
