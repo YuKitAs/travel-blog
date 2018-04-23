@@ -1,11 +1,7 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Articles from '@/pages/Articles';
 import About from '@/pages/About';
+import Articles from '@/pages/Articles';
 
-Vue.use(Router);
-
-export default new Router({
+export default {
   routes: [
     {
       path: '/',
@@ -22,4 +18,4 @@ export default new Router({
       component: About,
     },
   ],
-});
+};
