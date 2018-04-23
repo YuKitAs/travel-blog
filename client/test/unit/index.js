@@ -1,4 +1,9 @@
+import Router from 'vue-router';
 import Vue from 'vue';
+import VueComponentWrapper from 'vue-component-wrapper';
+import routes from '@/routes';
+
+Vue.use(Router);
 
 Vue.config.productionTip = false;
 
@@ -11,3 +16,7 @@ testsContext.keys().forEach(testsContext);
 // you want coverage for.
 const srcContext = require.context('../../src', true, /^\.\/(?!main(\.js)?$)/);
 srcContext.keys().forEach(srcContext);
+
+VueComponentWrapper.setSpyOnMethod(sinon.spy);
+VueComponentWrapper.setCreateSpyMethod(sinon.spy);
+VueComponentWrapper.setCreateRouterMethod(() => new Router(routes));
