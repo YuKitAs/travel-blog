@@ -22,16 +22,7 @@ export default {
 
 <style lang="sass">
   @import "src/assets/styles/main"
-
-  h1, h2, h3, h4, h5, h6
-    font-family: $title-font
-    color: $dark-text-color
-
-  body
-    background-color: $light-background-color
-    margin-top: 0
-    font-family: $content-font
-    color: $dark-text-color
+  @import "src/assets/styles/reset"
 
   .tb-global-container
     @include page-width(medium-and-up)
@@ -47,4 +38,5 @@ export default {
 
   .tb-content-container
     @include make-fill-rest-space
+    padding: 0 0.625rem 0 0.625rem
 </style>
