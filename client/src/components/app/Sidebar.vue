@@ -31,6 +31,12 @@ export default {
     }
   },
 
+  watch: {
+    '$route'() {
+      this.sidebarExpandedInSmallDevice = false
+    }
+  },
+
   methods: {
     toggleSidebarExpanded() {
       if (this.$refs['expand-button'].style.display === 'none') {
