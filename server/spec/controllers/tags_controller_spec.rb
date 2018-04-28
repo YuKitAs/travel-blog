@@ -9,86 +9,112 @@ RSpec.describe TagsController, type: 'controller' do
     @tag_id = Tag.create!(@tag).to_param
   end
 
-  it 'lists all tags' do
-    get :index
-    tags = JSON.parse(response.body)
-    tag = tags.first
+  describe 'GET #index' do
+    context 'without article' do
+      it 'lists all tags' do
+        get :index
+        tags = JSON.parse(response.body)
+        tag = tags.first
 
-    expect(response.message).to eq 'OK'
+        expect(response.message).to eq 'OK'
 
-    expect(tags.size).to be 1
+        expect(tags.size).to be 1
 
-    expect(tag['name']).to eq @tag['name']
+        expect(tag['name']).to eq @tag['name']
+      end
+    end
+
+    context 'with article' do
+      it 'lists all tags of an article by article id' do
+        article_id = Article.create!(tag_ids: [@tag_id, Tag.create!(@new_tag).to_param]).to_param
+        get :index, params: { article_id: article_id }
+        tags = JSON.parse(response.body)
+
+        expect(response.message).to eq 'OK'
+
+        expect(tags.size).to be 2
+
+        expect(tags[0]['name']).to eq @tag['name']
+        expect(tags[1]['name']).to eq @new_tag['name']
+      end
+    end
   end
 
-  it 'lists all tags of an article by article id' do
-    article_id = Article.create!(tag_ids: [@tag_id, Tag.create!(@new_tag).to_param]).to_param
-    get :index, params: { article_id: article_id }
-    tags = JSON.parse(response.body)
+  describe 'GET #show' do
+    it 'shows a single tag by id' do
+      get :show, params: { id: @tag_id }
+      tag = JSON.parse(response.body)
 
-    expect(response.message).to eq 'OK'
+      expect(response.message).to eq 'OK'
 
-    expect(tags.size).to be 2
-
-    expect(tags[0]['name']).to eq @tag['name']
-    expect(tags[1]['name']).to eq @new_tag['name']
+      expect(tag['name']).to eq @tag['name']
+    end
   end
 
-  it 'shows a single tag by id' do
-    get :show, params: { id: @tag_id }
-    tag = JSON.parse(response.body)
+  describe 'POST #create' do
+    context 'with authorization' do
+      it 'creates a new tag' do
+        login
 
-    expect(response.message).to eq 'OK'
+        post :create, params: { tag: @new_tag }
+        new_tag = JSON.parse(response.body)
 
-    expect(tag['name']).to eq @tag['name']
+        expect(response.message).to eq 'OK'
+
+        expect(Tag.all.size). to be 2
+
+        expect(new_tag['name']).to eq @new_tag['name']
+      end
+    end
+
+    context 'without authorization' do
+      it 'does not create tag' do
+        post :create, params: { tag: @new_tag }
+
+        expect(response.message).to eq 'Unauthorized'
+      end
+    end
   end
 
-  it 'creates a new tag' do
-    login
+  describe 'PUT #update' do
+    context 'with authorization' do
+      it 'updates a new tag' do
+        login
 
-    post :create, params: { tag: @new_tag }
-    new_tag = JSON.parse(response.body)
+        put :update, params: { id: @tag_id, tag: @new_tag }
+        tag = Tag.find(@tag_id)
 
-    expect(response.message).to eq 'OK'
+        expect(tag['name']).to eq @new_tag['name']
+      end
+    end
 
-    expect(Tag.all.size). to be 2
+    context 'without authorization' do
+      it 'does not update tag' do
+        put :update, params: { id: @tag_id, tag: @new_tag }
 
-    expect(new_tag['name']).to eq @new_tag['name']
+        expect(response.message).to eq 'Unauthorized'
+      end
+    end
   end
 
-  it 'does not create tag without authorization' do
-    post :create, params: { tag: @new_tag }
+  describe 'DELETE #destroy' do
+    context 'with authorization' do
+      it 'deletes an tag by id' do
+        login
 
-    expect(response.message).to eq 'Unauthorized'
-  end
+        delete :destroy, params: { id: @tag_id }
 
-  it 'updates a new tag' do
-    login
+        expect(Tag.all).to be_empty
+      end
+    end
 
-    put :update, params: { id: @tag_id, tag: @new_tag }
-    tag = Tag.find(@tag_id)
+    context 'without authorization' do
+      it 'does not delete tag' do
+        delete :destroy, params: { id: @tag_id }
 
-    expect(tag['name']).to eq @new_tag['name']
-  end
-
-  it 'does not create tag without authorization' do
-    put :update, params: { id: @tag_id, tag: @new_tag }
-
-    expect(response.message).to eq 'Unauthorized'
-  end
-
-  it 'deletes an tag by id' do
-    login
-
-    delete :destroy, params: { id: @tag_id }
-
-    expect(Tag.all).to be_empty
-  end
-
-  it 'does not create tag without authorization' do
-    delete :destroy, params: { id: @tag_id }
-
-    expect(response.message).to eq 'Unauthorized'
+        expect(response.message).to eq 'Unauthorized'
+      end
+    end
   end
 end
 
