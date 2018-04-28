@@ -1,15 +1,15 @@
-import Navbar from '@/components/app/Navbar';
-import NavbarSelectors from '../../../../selector/components/app/Navbar';
-import VueTestComponentWrapper from 'vue-test-component-wrapper';
+import Navbar from '@/components/app/Navbar'
+import NavbarSelectors from '../../../../selector/components/app/Navbar'
+import VueTestComponentWrapper from 'vue-test-component-wrapper'
 
 describe('Navbar', () => {
-  let wrapper;
+  let wrapper
 
   beforeEach(async () => {
-    wrapper = await VueTestComponentWrapper.mounted(Navbar);
-  });
+    wrapper = await VueTestComponentWrapper.mounted(Navbar)
+  })
 
   it('shows correct nav item text', () => {
-    expect(wrapper.getTextContents(NavbarSelectors.navItems)).to.eql(['Articles', 'Places', 'Timeline', 'About']);
-  });
-});
+    expect(wrapper.getTextContents(NavbarSelectors.navItems)).to.eql(['Articles', 'Places', 'Timeline', 'About'])
+  })
+})

@@ -1,9 +1,9 @@
-import CrudHttpClient from '@/services/CrudHttpClient';
+import CrudHttpClient from '@/services/CrudHttpClient'
 
 class PlaceService extends CrudHttpClient {
   constructor() {
-    super('places');
+    super('places')
   }
 }
 
-export default new PlaceService();
+export default new PlaceService()

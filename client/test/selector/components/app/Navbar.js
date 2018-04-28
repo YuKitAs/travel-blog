@@ -1,3 +1,3 @@
 export default {
-  navItems: '.tb-navbar__item',
-};
+  navItems: '.tb-navbar__item'
+}

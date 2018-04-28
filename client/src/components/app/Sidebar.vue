@@ -20,30 +20,30 @@
 </template>
 
 <script>
-import Navbar from '@/components/app/Navbar';
+import Navbar from '@/components/app/Navbar'
 
 export default {
   name: 'Sidebar',
 
   data() {
     return {
-      sidebarExpandedInSmallDevice: false,
-    };
+      sidebarExpandedInSmallDevice: false
+    }
   },
 
   methods: {
     toggleSidebarExpanded() {
       if (this.$refs['expand-button'].style.display === 'none') {
-        return;
+        return
       }
-      this.sidebarExpandedInSmallDevice = !this.sidebarExpandedInSmallDevice;
-    },
+      this.sidebarExpandedInSmallDevice = !this.sidebarExpandedInSmallDevice
+    }
   },
 
   components: {
-    Navbar,
-  },
-};
+    Navbar
+  }
+}
 </script>
 
 <style lang="sass">

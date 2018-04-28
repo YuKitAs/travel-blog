@@ -1,9 +1,9 @@
-import CrudHttpClient from '@/services/CrudHttpClient';
+import CrudHttpClient from '@/services/CrudHttpClient'
 
 class ArticleService extends CrudHttpClient {
   constructor() {
-    super('articles');
+    super('articles')
   }
 }
 
-export default new ArticleService();
+export default new ArticleService()

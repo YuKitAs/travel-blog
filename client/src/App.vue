@@ -10,14 +10,14 @@
 </template>
 
 <script>
-import Sidebar from '@/components/app/Sidebar';
+import Sidebar from '@/components/app/Sidebar'
 
 export default {
   name: 'App',
   components: {
-    Sidebar,
-  },
-};
+    Sidebar
+  }
+}
 </script>
 
 <style lang="sass">

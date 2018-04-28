@@ -12,36 +12,36 @@
 </template>
 
 <script>
-import _ from 'lodash';
+import _ from 'lodash'
 
 export default {
   name: 'Navbar',
 
   data() {
     return {
-      navItems: ['Articles', 'Places', 'Timeline', 'About'],
-    };
+      navItems: ['Articles', 'Places', 'Timeline', 'About']
+    }
   },
 
   methods: {
     imagePath(navItem) {
       // eslint-disable-next-line
-      return require(`@/assets/images/icon-${_.kebabCase(navItem)}.png`);
+      return require(`@/assets/images/icon-${_.kebabCase(navItem)}.png`)
     },
 
     capitalized(navItem) {
-      return _.startCase(navItem);
+      return _.startCase(navItem)
     },
 
     navItemActivated(navItem) {
-      return this.$route.name === navItem;
+      return this.$route.name === navItem
     },
 
     navigateTo(navItem) {
-      this.$router.push(navItem);
-    },
-  },
-};
+      this.$router.push(navItem)
+    }
+  }
+}
 </script>
 
 <style lang="sass">
