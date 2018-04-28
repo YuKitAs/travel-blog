@@ -1,12 +1,12 @@
 import Navbar from '@/components/app/Navbar';
 import NavbarSelectors from '../../../../selector/components/app/Navbar';
-import VueComponentWrapper from 'vue-component-wrapper';
+import VueTestComponentWrapper from 'vue-test-component-wrapper';
 
 describe('Navbar', () => {
   let wrapper;
 
   beforeEach(async () => {
-    wrapper = await VueComponentWrapper.mounted(Navbar);
+    wrapper = await VueTestComponentWrapper.mounted(Navbar);
   });
 
   it('shows correct nav item text', () => {

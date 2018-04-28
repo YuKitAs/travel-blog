@@ -1,6 +1,6 @@
 import Router from 'vue-router';
 import Vue from 'vue';
-import VueComponentWrapper from 'vue-component-wrapper';
+import VueTestComponentWrapper from 'vue-test-component-wrapper';
 import routes from '@/routes';
 
 Vue.use(Router);
@@ -17,6 +17,6 @@ testsContext.keys().forEach(testsContext);
 const srcContext = require.context('../../src', true, /^\.\/(?!main(\.js)?$)/);
 srcContext.keys().forEach(srcContext);
 
-VueComponentWrapper.setSpyOnMethod(sinon.spy);
-VueComponentWrapper.setCreateSpyMethod(sinon.spy);
-VueComponentWrapper.setCreateRouterMethod(() => new Router(routes));
+VueTestComponentWrapper.setSpyOnMethod(sinon.spy);
+VueTestComponentWrapper.setCreateSpyMethod(sinon.spy);
+VueTestComponentWrapper.setCreateRouterMethod(() => new Router(routes));

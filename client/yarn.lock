@@ -7687,12 +7687,6 @@ void-elements@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
-vue-component-wrapper@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/vue-component-wrapper/-/vue-component-wrapper-0.0.4.tgz#9c97f6e9234812d458647460d84e65f6dda8de94"
-  dependencies:
-    lodash "^4.17.5"
-
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"
@@ -7748,7 +7742,15 @@ vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
 
-vue@^2.5.2:
+vue-test-component-wrapper@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/vue-test-component-wrapper/-/vue-test-component-wrapper-0.0.5.tgz#4e022029d3e0c3a71ba1d9b58f9e2309caea0d66"
+  dependencies:
+    lodash "^4.17.5"
+    vue "^2.5.16"
+    vue-router "^3.0.1"
+
+vue@^2.5.16, vue@^2.5.2:
   version "2.5.16"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
