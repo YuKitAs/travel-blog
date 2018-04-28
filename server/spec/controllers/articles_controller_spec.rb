@@ -6,8 +6,7 @@ RSpec.describe ArticlesController, type: 'controller' do
     @article = @articles['article']
     @new_article = @articles['new_article']
 
-    Article.create!(@article)
-    @article_id = Article.find_by(title: @article['title']).id
+    @article_id = Article.create!(@article).to_param
   end
 
   it 'lists all articles' do
@@ -23,6 +22,7 @@ RSpec.describe ArticlesController, type: 'controller' do
     expect(article['content']).to eq @article['content']
     expect(article['date']).to eq @article['date']
     expect(article['place_id']).to eq @article['place_id']
+    expect(article['tag_ids']).to eq @article['tag_ids']
   end
 
   it 'shows a single article by id' do
@@ -35,6 +35,7 @@ RSpec.describe ArticlesController, type: 'controller' do
     expect(article['content']).to eq @article['content']
     expect(article['date']).to eq @article['date']
     expect(article['place_id']).to eq @article['place_id']
+    expect(article['tag_ids']).to eq @article['tag_ids']
   end
 
   it 'creates a new article' do
@@ -51,6 +52,7 @@ RSpec.describe ArticlesController, type: 'controller' do
     expect(new_article['content']).to eq @new_article['content']
     expect(new_article['date']).to eq @new_article['date']
     expect(new_article['place_id']).to eq @new_article['place_id']
+    expect(new_article['tag_ids']).to eq @new_article['tag_ids']
   end
 
   it 'does not create article without authorization' do
@@ -69,6 +71,7 @@ RSpec.describe ArticlesController, type: 'controller' do
     expect(article['content']).to eq @new_article['content']
     expect(article['date']).to eq @new_article['date']
     expect(article['place_id']).to eq @new_article['place_id']
+    expect(article['tag_ids']).to eq @new_article['tag_ids']
   end
 
   it 'does not create article without authorization' do

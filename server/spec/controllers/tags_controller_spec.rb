@@ -6,8 +6,7 @@ RSpec.describe TagsController, type: 'controller' do
     @tag = @tags['tag']
     @new_tag = @tags['new_tag']
 
-    Tag.create!(@tag)
-    @tag_id = Tag.find_by(name: @tag['name']).id
+    @tag_id = Tag.create!(@tag).to_param
   end
 
   it 'lists all tags' do
@@ -20,6 +19,19 @@ RSpec.describe TagsController, type: 'controller' do
     expect(tags.size).to be 1
 
     expect(tag['name']).to eq @tag['name']
+  end
+
+  it 'lists all tags of an article by article id' do
+    article_id = Article.create!(tag_ids: [@tag_id, Tag.create!(@new_tag).to_param]).to_param
+    get :index, params: { article_id: article_id }
+    tags = JSON.parse(response.body)
+
+    expect(response.message).to eq 'OK'
+
+    expect(tags.size).to be 2
+
+    expect(tags[0]['name']).to eq @tag['name']
+    expect(tags[1]['name']).to eq @new_tag['name']
   end
 
   it 'shows a single tag by id' do

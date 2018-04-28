@@ -6,8 +6,7 @@ RSpec.describe PlacesController, type: :controller do
     @place = @places['place']
     @new_place = @places['new_place']
 
-    Place.create!(@place)
-    @place_id = Place.find_by(name: @place['name']).id
+    @place_id = Place.create!(@place).to_param
   end
 
   it 'lists all places' do
