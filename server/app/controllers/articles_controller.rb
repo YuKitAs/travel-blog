@@ -3,6 +3,19 @@ class ArticlesController < ApplicationController
   before_action :set_model, only: [:show, :update, :destroy]
   before_action :set_model_params, only: [:create, :update]
 
+  def index
+    if params[:tag_id].nil?
+      super
+    else
+      article_representations = []
+      Article.all.each do |article|
+        article_representations.push(article.representation) if article[:tag_ids].include?(params[:tag_id])
+      end
+
+      render(json: article_representations)
+    end
+  end
+
   private
 
   def set_entity
