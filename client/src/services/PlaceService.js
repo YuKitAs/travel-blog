@@ -2,7 +2,7 @@ import CrudHttpClient from '@/services/CrudHttpClient'
 
 class PlaceService extends CrudHttpClient {
   constructor() {
-    super('places')
+    super('place')
   }
 }
 

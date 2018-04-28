@@ -1,12 +1,18 @@
 import About from '@/pages/About'
 import Articles from '@/pages/Articles'
 import Article from '@/pages/Article'
+import Error from '@/pages/Error'
 
 export default {
   routes: [
     {
       path: '/',
       redirect: { name: 'Articles' }
+    },
+    {
+      path: '/error',
+      name: 'Error',
+      component: Error
     },
     {
       path: '/articles',

@@ -3,7 +3,7 @@ import marked from 'marked'
 
 class ArticleService extends CrudHttpClient {
   constructor() {
-    super('articles')
+    super('article')
   }
 
   parseMarkdown(markdownCode) {

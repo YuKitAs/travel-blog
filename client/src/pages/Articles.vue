@@ -1,5 +1,6 @@
 <template>
   <div>
-    <router-link :to="{name: 'Articles.Article', params: {articleId: 'f52fcb39-8cca-4b63-9b8a-2e4cadcb681e'}}">Test Article</router-link>
+    <router-link :to="{name: 'Articles.Article', params: {articleId: 'dbc5e11c-0f89-45b3-8f89-3cf53f9f5458'}}">Test Article</router-link>
+    <router-link :to="{name: 'Articles.Article', params: {articleId: 'does-not-exist'}}">Error Article</router-link>
   </div>
 </template>

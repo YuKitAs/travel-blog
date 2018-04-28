@@ -1,9 +1,11 @@
 import _ from 'lodash'
 import axios from 'axios'
+import pluralize from 'pluralize'
 
 export default class CrudHttpClient {
-  constructor(resourcePluralName) {
-    this.resourcePluralName = resourcePluralName
+  constructor(resourceName) {
+    this.resourceName = resourceName
+    this.resourcePluralName = pluralize(resourceName)
   }
 
   buildUrl(id) {
