@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   put 'api/places/:id' => 'places#update'
   delete 'api/places/:id' => 'places#destroy'
 
-  get 'api/tags' => 'tags#index'
+  get 'api/tags(:article_id)' => 'tags#index'
   get 'api/tags/:id' => 'tags#show'
   post 'api/tags' => 'tags#create'
   put 'api/tags/:id' => 'tags#update'
