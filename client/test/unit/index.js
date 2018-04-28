@@ -17,6 +17,6 @@ testsContext.keys().forEach(testsContext)
 const srcContext = require.context('../../src', true, /^\.\/(?!main(\.js)?$)/)
 srcContext.keys().forEach(srcContext)
 
-VueTestComponentWrapper.setSpyOnMethod(sinon.spy)
-VueTestComponentWrapper.setCreateSpyMethod(sinon.spy)
+VueTestComponentWrapper.setSpyOnMethod(sinon.stub)
+VueTestComponentWrapper.setCreateSpyMethod(sinon.stub)
 VueTestComponentWrapper.setCreateRouterMethod(() => new Router(routes))

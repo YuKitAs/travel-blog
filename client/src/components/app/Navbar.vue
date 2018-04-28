@@ -15,8 +15,6 @@
 import _ from 'lodash'
 
 export default {
-  name: 'Navbar',
-
   data() {
     return {
       navItems: ['Articles', 'Places', 'Timeline', 'About']
@@ -34,11 +32,11 @@ export default {
     },
 
     navItemActivated(navItem) {
-      return this.$route.name === navItem
+      return this.$route.name.includes(navItem)
     },
 
     navigateTo(navItem) {
-      this.$router.push(navItem)
+      this.$router.push({name: navItem})
     }
   }
 }
