@@ -21,12 +21,12 @@ export default class CrudHttpClient {
     })
   }
 
-  getMany(limit = 10, offset = 0) {
+  getMany(params) {
     return axios({
       ...this.buildCommonHttpClientSettings(),
       method: 'get',
       url: this.buildUrl(),
-      params: { limit, offset }
+      params
     })
   }
 

@@ -2,6 +2,9 @@
   <div class="tb-article" v-if="loaded">
     <h1 class="tb-article__title">{{article.title}}</h1>
     <div class="tb-article__meta-data">{{article.date | date}} | {{article.place.name}}</div>
+    <div class="tb-article__tags">
+      <a v-for="tag in article.tags" :key="tag.id" class="tb-article__tag">{{tag.name}}</a>
+    </div>
     <hr/>
     <div class="tb-article__content" v-html="parsedContent"></div>
   </div>
@@ -10,6 +13,7 @@
 <script>
 import ArticleService from '@/services/ArticleService'
 import PlaceService from '@/services/PlaceService'
+import TagService from '@/services/TagService'
 
 export default {
   props: {
@@ -40,6 +44,7 @@ export default {
       try {
         this.article = (await ArticleService.getOne(this.articleId)).data
         this.article.place = (await PlaceService.getOne(this.article.place_id)).data
+        this.article.tags = (await TagService.getByArticleId(this.articleId)).data
       } catch (e) {
         this.$router.push({name: 'Error'})
       }
@@ -57,5 +62,17 @@ export default {
     &__meta-data
       font-size: 0.9rem
       font-style: italic
-      color: #999999
+      color: $dark-text-color-highlighted
+
+    &__tags
+      margin-top: 1rem
+
+    &__tag
+      display: inline-block
+      font-size: 0.9rem
+      color: $light-text-color-grey
+      background-color: $dark-background-color-highlighted
+      padding: 0.2rem 0.5rem 0.2rem 0.5rem
+      margin-right: 0.2rem
+      border-radius: 0.25rem
 </style>
