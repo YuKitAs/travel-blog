@@ -6,7 +6,7 @@
       <a v-for="tag in article.tags" :key="tag.id" class="tb-article__tag">{{tag.name}}</a>
     </div>
     <hr/>
-    <div class="tb-article__content" v-html="parsedContent"></div>
+    <div class="tb-article__content" :inner-html.prop="article.content | markdown"></div>
   </div>
 </template>
 
@@ -29,12 +29,6 @@ export default {
 
   mounted() {
     this.loadData()
-  },
-
-  computed: {
-    parsedContent() {
-      return ArticleService.parseMarkdown(this.article.content)
-    }
   },
 
   methods: {

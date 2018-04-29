@@ -4,6 +4,7 @@ import App from './App'
 import Router from 'vue-router'
 import Vue from 'vue'
 import moment from 'moment'
+import marked from 'marked'
 import routes from './routes'
 
 Vue.use(Router)
@@ -13,6 +14,10 @@ Vue.filter('date', (date) => {
     return ''
   }
   return moment(date, 'YYYY-MM-DD').format('MMM. D, YYYY')
+})
+
+Vue.filter('markdown', (markdown) => {
+  return marked(markdown)
 })
 
 Vue.config.productionTip = false
