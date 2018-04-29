@@ -18,5 +18,6 @@ describe('Navbar', () => {
     await wrapper.click(NavbarSelectors.firstNavItem).untilAsyncTasksDone()
 
     expect(wrapper.getRouterStub()).to.calledWith({name: 'Articles'})
+    wrapper.getRouterStub().restore()
   })
 })

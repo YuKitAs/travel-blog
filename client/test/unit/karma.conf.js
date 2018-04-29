@@ -4,6 +4,7 @@
 //   https://github.com/webpack/karma-webpack
 
 const webpackConfig = require('../../build/webpack.test.conf')
+const path = require('path')
 
 module.exports = function karmaConfig(config) {
   config.set({
@@ -12,11 +13,22 @@ module.exports = function karmaConfig(config) {
     //    http://karma-runner.github.io/0.13/config/browsers.html
     // 2. add it to the `browsers` array below.
     browsers: ['Chrome'],
-    frameworks: ['mocha', 'sinon-chai'],
+    frameworks: ['mocha', 'fixture', 'sinon-chai'],
     reporters: ['spec', 'coverage'],
-    files: ['./index.js'],
+    files: [
+      './index.js',
+      '../fixture/**/*.json'
+    ],
     preprocessors: {
-      './index.js': ['webpack', 'sourcemap']
+      './index.js': ['webpack', 'sourcemap'],
+      '../fixture/**/*.json': ['json_fixtures']
+    },
+    jsonFixturesPreprocessor: {
+      variableName: '__json__',
+      // We have to set stripPrefix, otherwise the key is the absolute path:
+      stripPrefix: path.join(__dirname, '../fixture'),
+      // This is the default searching path:
+      prependPrefix: 'spec/fixtures'
     },
     webpack: webpackConfig,
     webpackMiddleware: {

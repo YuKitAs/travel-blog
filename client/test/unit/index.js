@@ -1,11 +1,10 @@
 import Router from 'vue-router'
 import Vue from 'vue'
 import VueTestComponentWrapper from 'vue-test-component-wrapper'
+import initialize from '@/initialize'
 import routes from '@/routes'
 
-Vue.use(Router)
-
-Vue.config.productionTip = false
+initialize(Vue)
 
 // require all test files (files that ends with .spec.js)
 const testsContext = require.context('./specs', true, /\.spec$/)

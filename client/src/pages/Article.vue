@@ -1,7 +1,7 @@
 <template>
   <div class="tb-article" v-if="loaded">
     <h1 class="tb-article__title">{{article.title}}</h1>
-    <div class="tb-article__meta-data">{{article.date | date}} | {{article.place.name}}</div>
+    <div class="tb-article__metadata">{{article.date | date}} | {{article.place.name}}</div>
     <div class="tb-article__tags">
       <a v-for="tag in article.tags" :key="tag.id" class="tb-article__tag">{{tag.name}}</a>
     </div>
@@ -53,7 +53,7 @@ export default {
   @import "src/assets/styles/main"
 
   .tb-article
-    &__meta-data
+    &__metadata
       font-size: 0.9rem
       font-style: italic
       color: $dark-text-color-highlighted
