@@ -46,7 +46,7 @@ export default {
         this.article.place = (await PlaceService.getOne(this.article.place_id)).data
         this.article.tags = (await TagService.getByArticleId(this.articleId)).data
       } catch (e) {
-        this.$router.push({name: 'Error'})
+        this.$router.replace({name: 'Error'})
       }
 
       this.loaded = true
