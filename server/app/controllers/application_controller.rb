@@ -25,7 +25,7 @@ class ApplicationController < ActionController::API
     @model = entity.new(@model_params.merge(_id: SecureRandom.uuid))
 
     if @model.save
-      render(json: @model.representation)
+      render(json: @model.representation, status: :created)
     else
       render(json: @model.errors, status: :unprocessable_entity)
     end

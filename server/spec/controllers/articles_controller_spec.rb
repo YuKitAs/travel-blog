@@ -2,7 +2,7 @@ require_relative '../utils/fixture_reader'
 
 RSpec.describe ArticlesController, type: 'controller' do
   before :each do
-    @articles = read_fixture('articles.json')
+    @articles = read_json('articles.json')
     @article = @articles['article']
     @new_article = @articles['new_article']
 
@@ -25,6 +25,7 @@ RSpec.describe ArticlesController, type: 'controller' do
         expect(article['date']).to eq @article['date']
         expect(article['place_id']).to eq @article['place_id']
         expect(article['tag_ids']).to eq @article['tag_ids']
+        expect(article['thumbnail_id']).to eq @article['thumbnail_id']
       end
     end
 
@@ -43,6 +44,7 @@ RSpec.describe ArticlesController, type: 'controller' do
         expect(article['content']).to eq @new_article['content']
         expect(article['date']).to eq @new_article['date']
         expect(article['place_id']).to eq @new_article['place_id']
+        expect(article['thumbnail_id']).to eq @new_article['thumbnail_id']
       end
     end
   end
@@ -59,6 +61,7 @@ RSpec.describe ArticlesController, type: 'controller' do
       expect(article['date']).to eq @article['date']
       expect(article['place_id']).to eq @article['place_id']
       expect(article['tag_ids']).to eq @article['tag_ids']
+      expect(article['thumbnail_id']).to eq @article['thumbnail_id']
     end
   end
 
@@ -70,7 +73,7 @@ RSpec.describe ArticlesController, type: 'controller' do
         post :create, params: { article: @new_article }
         new_article = JSON.parse(response.body)
 
-        expect(response.message).to eq 'OK'
+        expect(response.message).to eq 'Created'
 
         expect(Article.all.size). to be 2
 
@@ -79,6 +82,7 @@ RSpec.describe ArticlesController, type: 'controller' do
         expect(new_article['date']).to eq @new_article['date']
         expect(new_article['place_id']).to eq @new_article['place_id']
         expect(new_article['tag_ids']).to eq @new_article['tag_ids']
+        expect(new_article['thumbnail_id']).to eq @new_article['thumbnail_id']
       end
     end
 
@@ -104,6 +108,7 @@ RSpec.describe ArticlesController, type: 'controller' do
         expect(article['date']).to eq @new_article['date']
         expect(article['place_id']).to eq @new_article['place_id']
         expect(article['tag_ids']).to eq @new_article['tag_ids']
+        expect(article['thumbnail_id']).to eq @new_article['thumbnail_id']
       end
     end
 

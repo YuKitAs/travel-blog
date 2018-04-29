@@ -2,7 +2,7 @@ require_relative '../utils/fixture_reader'
 
 RSpec.describe PlacesController, type: :controller do
   before :each do
-    @places = read_fixture('places.json')
+    @places = read_json('places.json')
     @place = @places['place']
     @new_place = @places['new_place']
 
@@ -46,7 +46,7 @@ RSpec.describe PlacesController, type: :controller do
         post :create, params: { place: @new_place }
         new_place = JSON.parse(response.body)
 
-        expect(response.message).to eq 'OK'
+        expect(response.message).to eq 'Created'
 
         expect(Place.all.size). to be 2
 

@@ -2,7 +2,7 @@ require_relative '../utils/fixture_reader'
 
 RSpec.describe TagsController, type: 'controller' do
   before :each do
-    @tags = read_fixture('tags.json')
+    @tags = read_json('tags.json')
     @tag = @tags['tag']
     @new_tag = @tags['new_tag']
 
@@ -59,7 +59,7 @@ RSpec.describe TagsController, type: 'controller' do
         post :create, params: { tag: @new_tag }
         new_tag = JSON.parse(response.body)
 
-        expect(response.message).to eq 'OK'
+        expect(response.message).to eq 'Created'
 
         expect(Tag.all.size). to be 2
 

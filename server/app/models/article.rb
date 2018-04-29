@@ -6,4 +6,5 @@ class Article
   field :content, type: String
   field :place_id, type: String
   field :tag_ids, type: Array, default: []
+  field :thumbnail_id, type: String
 end

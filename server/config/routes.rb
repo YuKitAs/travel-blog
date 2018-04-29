@@ -17,5 +17,9 @@ Rails.application.routes.draw do
   put 'api/tags/:id' => 'tags#update'
   delete 'api/tags/:id' => 'tags#destroy'
 
+  get 'api/images/:id' => 'images#show'
+  post 'api/images' => 'images#create'
+  delete 'api/images/:id' => 'images#destroy'
+
   post 'login(:username&:password)' => 'authentication#login'
 end
