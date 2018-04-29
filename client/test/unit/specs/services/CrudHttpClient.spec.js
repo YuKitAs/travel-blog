@@ -4,7 +4,8 @@ const RESOURCE_PLURAL_NAME = 'entities'
 const RESOURCE_PLURAL_URL = 'api/entities'
 const LIMIT = 10
 const OFFSET = 30
-const QUERY_PARAMS = `?limit=${LIMIT}&offset=${OFFSET}`
+const QUERY_PARAMS = {limit: LIMIT, offset: OFFSET}
+const QUERY_PARAMS_IN_URL = `?limit=${LIMIT}&offset=${OFFSET}`
 const RESOURCE_ID = 'resource-id'
 const RESOURCE_SINGULAR_URL = `api/entities/${RESOURCE_ID}`
 const RESPONSE = { valid: 'json' }
@@ -37,9 +38,10 @@ describe('CrudHttpClient', () => {
   })
 
   it('gets many objects', async () => {
-    server.respondWith('GET', `${RESOURCE_PLURAL_URL}${QUERY_PARAMS}`, [200, { 'Content-Type': 'application/json' }, RESPONSE_STRING])
+    server.respondWith('GET', `${RESOURCE_PLURAL_URL}${QUERY_PARAMS_IN_URL}`,
+      [200, { 'Content-Type': 'application/json' }, RESPONSE_STRING])
 
-    const response = await crudHttpClient.getMany(LIMIT, OFFSET)
+    const response = await crudHttpClient.getMany(QUERY_PARAMS)
 
     expect(response.status).to.equal(200)
     expect(response.data).to.eql(RESPONSE)

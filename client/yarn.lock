@@ -7687,9 +7687,9 @@ vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
 
-vue-test-component-wrapper@>=0.0.5:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/vue-test-component-wrapper/-/vue-test-component-wrapper-0.0.6.tgz#d6e48e69b2e16aea7d2646f6446ece87e949d122"
+vue-test-component-wrapper@>=0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/vue-test-component-wrapper/-/vue-test-component-wrapper-0.0.10.tgz#997a913e9dc2929cd7384e3a800b35cb016b8f66"
   dependencies:
     lodash "^4.17.5"
     vue "^2.5.16"
