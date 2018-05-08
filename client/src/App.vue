@@ -1,10 +1,10 @@
 <template>
   <div class="tb-global-container">
-    <div class="tb-sidebar-container">
-      <sidebar/>
-    </div>
     <div class="tb-content-container">
       <router-view/>
+    </div>
+    <div class="tb-sidebar-container">
+      <sidebar/>
     </div>
   </div>
 </template>
@@ -25,18 +25,31 @@ export default {
   @import "src/assets/styles/reset"
 
   .tb-global-container
-    @include page-width(medium-and-up)
-      @include make-row
-    @include page-width(small)
-      @include make-column
-    margin: 0 auto 0 auto
-    width: 100%
-    max-width: $bp-large-max
+    display: flex
+    flex-direction: column-reverse
+    @include page-width("medium-and-up")
+      flex-direction: row
 
   .tb-sidebar-container
-    width: 12.5rem
+    width: 100%
+    @include page-width("medium-and-up")
+      width: 150px
 
   .tb-content-container
-    @include make-fill-rest-space
-    padding: 0 0.625rem 0 0.625rem
+    min-height: 100vh
+    width: 300px
+    padding: 0 calc((100vw - 300px) / 2) 0 calc((100vw - 300px) / 2)
+    @include page-width("medium-and-up")
+      width: 300px
+      padding: 0 50px 0 50px
+      border-width: 0
+      border-style: solid
+      border-color: $theme-color-2
+      border-left-width: calc((100vw - 150px - 400px) / 2)
+    @include page-width("large-and-up")
+      width: 650px
+      border-left-width: calc((100vw - 150px - 750px) / 2)
+    @include page-width("xlarge-and-up")
+      width: 1000px
+      border-left-width: calc((100vw - 150px - 1100px) / 2)
 </style>
