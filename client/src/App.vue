@@ -33,7 +33,13 @@ export default {
   .tb-sidebar-container
     width: 100%
     @include page-width("medium-and-up")
+      position: absolute
+      left: calc((100vw - 150px - 400px) / 2 + 400px)
       width: 150px
+    @include page-width("large-and-up")
+      left: calc((100vw - 150px - 750px) / 2 + 750px)
+    @include page-width("xlarge-and-up")
+      left: calc((100vw - 150px - 1100px) / 2 + 1100px)
 
   .tb-content-container
     min-height: 100vh
