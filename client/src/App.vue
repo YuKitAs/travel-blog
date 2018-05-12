@@ -3,19 +3,19 @@
     <div class="tb-content-container">
       <router-view/>
     </div>
-    <div class="tb-sidebar-container">
-      <sidebar/>
+    <div class="tb-menu-container">
+      <main-menu/>
     </div>
   </div>
 </template>
 
 <script>
-import Sidebar from '@/components/app/Sidebar'
+import MainMenu from '@/components/app/MainMenu'
 
 export default {
   name: 'App',
   components: {
-    Sidebar
+    MainMenu
   }
 }
 </script>
@@ -30,32 +30,32 @@ export default {
     @include page-width("medium-and-up")
       flex-direction: row
 
-  .tb-sidebar-container
+  .tb-menu-container
     width: 100%
     @include page-width("medium-and-up")
       position: absolute
-      left: calc((100vw - 150px - 400px) / 2 + 400px)
-      width: 150px
+      left: calc((100vw - #{content-width(1) + $menu-width}) / 2 + #{content-width(1)})
+      width: $menu-width
     @include page-width("large-and-up")
-      left: calc((100vw - 150px - 750px) / 2 + 750px)
+      left: calc((100vw - #{content-width(2) + $menu-width}) / 2 + #{content-width(2)})
     @include page-width("xlarge-and-up")
-      left: calc((100vw - 150px - 1100px) / 2 + 1100px)
+      left: calc((100vw - #{content-width(3) + $menu-width}) / 2 + #{content-width(3)})
 
   .tb-content-container
     min-height: 100vh
-    width: 300px
-    padding: 0 calc((100vw - 300px) / 2) 0 calc((100vw - 300px) / 2)
+    width: $article-width
+    padding: 0 calc((100vw - #{$article-width)}) / 2) 0 calc((100vw - #{$article-width)}) / 2)
     @include page-width("medium-and-up")
-      width: 300px
-      padding: 0 50px 0 50px
+      width: $article-width
+      padding: 0 $space-width 0 $space-width
       border-width: 0
       border-style: solid
       border-color: $theme-color-2
-      border-left-width: calc((100vw - 150px - 400px) / 2)
+      border-left-width: calc((100vw - #{content-width(1) + $menu-width}) / 2)
     @include page-width("large-and-up")
-      width: 650px
-      border-left-width: calc((100vw - 150px - 750px) / 2)
+      width: $article-width + $space-width + $article-width
+      border-left-width: calc((100vw - #{content-width(2) + $menu-width}) / 2)
     @include page-width("xlarge-and-up")
-      width: 1000px
-      border-left-width: calc((100vw - 150px - 1100px) / 2)
+      width: ($article-width + $space-width) * 2 + $article-width
+      border-left-width: calc((100vw - #{content-width(3) + $menu-width}) / 2)
 </style>

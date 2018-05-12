@@ -47,7 +47,7 @@ export default {
       display: inline-block
       padding: 6px 0 4px 0
       color: $theme-color-2
-      font-size: 110%
+      font-size: 120%
       cursor: pointer
 
       &:hover

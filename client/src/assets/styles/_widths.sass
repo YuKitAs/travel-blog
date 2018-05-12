@@ -1,0 +1,25 @@
+$min-page-margin-width: 25px
+$article-width: 300px
+$space-width: 50px
+$menu-width: 150px
+
+@function content-width($number-of-articles)
+  @return ($space-width + $article-width) * $number-of-articles + $space-width
+
+$large-screen-max-width: $min-page-margin-width + content-width(3) + $menu-width + $min-page-margin-width
+$medium-screen-max-width: $min-page-margin-width + content-width(2) + $menu-width + $min-page-margin-width
+$small-screen-max-width: $min-page-margin-width + content-width(1) + $menu-width + $min-page-margin-width
+
+@mixin page-width($point)
+  @if $point == "xlarge-and-up"
+    @media (min-width: $large-screen-max-width)
+      @content
+  @else if $point == "large-and-up"
+    @media (min-width: $medium-screen-max-width)
+      @content
+  @else if $point == "medium-and-up"
+    @media (min-width: $small-screen-max-width)
+      @content
+  @else if $point == "small"
+    @media (max-width: $small-screen-max-width)
+      @content

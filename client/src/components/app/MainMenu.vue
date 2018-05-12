@@ -1,42 +1,41 @@
 <template>
-  <div class="tb-sidebar" ref="sidebar" :style="dynamicStyle">
-    <div class="tb-sidebar__vertical-line-top"/>
-    <img :src="require('@/assets/images/logo.png')" class="tb-sidebar__logo"/>
-    <h1 class="tb-sidebar__website-title">Captain<br/>Bonbon</h1>
-    <div class="tb-sidebar__vertical-line-middle-end"/>
-    <div class="tb-sidebar__vertical-line-middle"/>
+  <div ref="main-menu" class="tb-main-menu">
+    <div class="tb-main-menu__vertical-line-top"/>
+    <img :src="require('@/assets/images/logo.png')" class="tb-main-menu__logo"/>
+    <h1 class="tb-main-menu__website-title">Captain<br/>Bonbon</h1>
+    <div class="tb-main-menu__vertical-line-middle-end"/>
+    <div class="tb-main-menu__vertical-line-middle"/>
     <nav-item-list/>
-    <div class="tb-sidebar__vertical-line-bottom"/>
-    <hamburger-button :expanded="expanded" @toggle="toggleExpanded" class="tb-sidebar__hamburger-button"/>
+    <div class="tb-main-menu__vertical-line-bottom"/>
+    <hamburger-button ref="hamburger-button" :expanded="expanded" @toggle="toggleExpanded"
+        class="tb-main-menu__hamburger-button"/>
   </div>
 </template>
 
 <script>
-import _ from 'lodash'
 import HamburgerButton from '@/components/app/HamburgerButton'
 import NavItemList from '@/components/app/NavItemList'
 
 export default {
   data() {
     return {
-      expanded: false,
-      dynamicStyle: {marginTop: '0'}
+      expanded: false
     }
   },
 
   mounted() {
     setTimeout(this.updateMarginTop, 0)
-    addEventListener('resize', _.debounce(this.updateMarginTop, 200))
+    addEventListener('resize', this.updateMarginTop)
   },
 
   methods: {
     toggleExpanded() {
       // Only apply transition when needed
-      if (this.$refs.sidebar.style.transition === '') {
-        this.$refs.sidebar.style.transition = '0.5s'
+      if (this.$refs['main-menu'].style.transition === '') {
+        this.$refs['main-menu'].style.transition = '0.5s'
 
         setTimeout(() => {
-          this.$refs.sidebar.style.transition = ''
+          this.$refs['main-menu'].style.transition = ''
         }, 500)
       }
 
@@ -46,9 +45,12 @@ export default {
     },
 
     updateMarginTop() {
-      this.dynamicStyle = (window.innerWidth >= 600 || this.expanded)
-        ? {marginTop: '0'}
-        : {marginTop: `${55 - this.$refs.sidebar.offsetHeight}px`}
+      const isWideScreen = this.$refs['hamburger-button'].$el.offsetHeight === 0
+      const remainHeight = 55
+      const calculatedHeight = this.$refs['main-menu'].offsetHeight
+
+      this.$refs['main-menu'].style.marginTop =
+        (isWideScreen || this.expanded) ? '0' : `${remainHeight - calculatedHeight}px`
     }
   },
 
@@ -62,7 +64,7 @@ export default {
 <style lang="sass">
   @import "src/assets/styles/main"
 
-  .tb-sidebar
+  .tb-main-menu
     display: flex
     flex-direction: column
     align-items: center

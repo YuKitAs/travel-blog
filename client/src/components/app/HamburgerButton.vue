@@ -1,8 +1,8 @@
 <template>
   <div class="tb-hamburger-button" @click="toggle">
-    <div class="tb-hamburger-button__strip" :class="{'tb-hamburger-button__strip--expanded': expanded}"></div>
-    <div class="tb-hamburger-button__strip" :class="{'tb-hamburger-button__strip--expanded': expanded}"></div>
-    <div class="tb-hamburger-button__strip" :class="{'tb-hamburger-button__strip--expanded': expanded}"></div>
+    <div class="tb-hamburger-button__strip" :class="{'tb-hamburger-button__strip--expanded': expanded}"/>
+    <div class="tb-hamburger-button__strip" :class="{'tb-hamburger-button__strip--expanded': expanded}"/>
+    <div class="tb-hamburger-button__strip" :class="{'tb-hamburger-button__strip--expanded': expanded}"/>
   </div>
 </template>
 
