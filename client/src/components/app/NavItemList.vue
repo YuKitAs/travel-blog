@@ -14,7 +14,7 @@ import _ from 'lodash'
 export default {
   data() {
     return {
-      navItems: ['Articles', 'Places', 'Timeline', 'About']
+      navItems: ['Articles', 'About']
     }
   },
 
@@ -56,10 +56,4 @@ export default {
       &--activated
         color: $theme-color-1
         cursor: default
-
-    &__icon
-      height: 1.8rem
-
-      &--activated
-        filter: brightness(122%) saturate(33%)
 </style>

@@ -15,6 +15,7 @@
 <script>
 import HamburgerButton from '@/components/app/HamburgerButton'
 import NavItemList from '@/components/app/NavItemList'
+import Responsive from '@/services/Responsive'
 
 export default {
   data() {
@@ -45,12 +46,8 @@ export default {
     },
 
     updateMarginTop() {
-      const isWideScreen = this.$refs['hamburger-button'].$el.offsetHeight === 0
-      const remainHeight = 55
-      const calculatedHeight = this.$refs['main-menu'].offsetHeight
-
       this.$refs['main-menu'].style.marginTop =
-        (isWideScreen || this.expanded) ? '0' : `${remainHeight - calculatedHeight}px`
+        (Responsive.MEDIUM_AND_UP || this.expanded) ? '0' : `${55 - this.$refs['main-menu'].offsetHeight}px`
     }
   },
 

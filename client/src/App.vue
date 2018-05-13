@@ -33,7 +33,7 @@ export default {
   .tb-menu-container
     width: 100%
     @include page-width("medium-and-up")
-      position: absolute
+      position: fixed
       left: calc((100vw - #{content-width(1) + $menu-width}) / 2 + #{content-width(1)})
       width: $menu-width
     @include page-width("large-and-up")
@@ -42,12 +42,12 @@ export default {
       left: calc((100vw - #{content-width(3) + $menu-width}) / 2 + #{content-width(3)})
 
   .tb-content-container
-    min-height: 100vh
+    min-height: calc(100vh - 20px)
     width: $article-width
-    padding: 0 calc((100vw - #{$article-width)}) / 2) 0 calc((100vw - #{$article-width)}) / 2)
+    padding: 10px calc((100vw - #{$article-width)}) / 2) 10px calc((100vw - #{$article-width)}) / 2)
     @include page-width("medium-and-up")
       width: $article-width
-      padding: 0 $space-width 0 $space-width
+      padding: 5px ($space-width - $content-offset) 10px ($space-width + $content-offset)
       border-width: 0
       border-style: solid
       border-color: $theme-color-2
