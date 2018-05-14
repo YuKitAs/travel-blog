@@ -1,8 +1,4 @@
 class ArticlesController < ApplicationController
-  before_action :set_entity
-  before_action :set_model, only: [:show, :update, :destroy]
-  before_action :set_model_params, only: [:create, :update]
-
   def index
     if params[:tag_id].nil?
       super
@@ -18,15 +14,11 @@ class ArticlesController < ApplicationController
 
   private
 
-  def set_entity
-    self.entity = Article
+  def entity
+    return Article
   end
 
-  def set_model_params
-    self.model_params = article_params
-  end
-
-  def article_params
-    params.require(:article).permit(:title, :content, :date, :place_id, :thumbnail_id, tag_ids: [])
+  def model_params
+    return params.require(:article).permit(:title, :content, :date, :place_id, :thumbnail_id, tag_ids: [])
   end
 end
