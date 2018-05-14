@@ -5,7 +5,7 @@ class PlacesController < ApplicationController
     return Place
   end
 
-  def model_params
+  def entity_field_params
     return params.require(:place).permit(:name, location: [:lat, :lng])
   end
 end

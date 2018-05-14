@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
     return Article
   end
 
-  def model_params
+  def entity_field_params
     return params.require(:article).permit(:title, :content, :date, :place_id, :thumbnail_id, tag_ids: [])
   end
 end

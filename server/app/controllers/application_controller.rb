@@ -11,34 +11,30 @@ class ApplicationController < ActionController::API
   end
 
   def show
-    render(json: model.representation)
+    render(json: entity.find(params[:id]).representation)
   end
 
   def create
-    model = entity.new(model_params)
+    new_entity = entity.new(entity_field_params)
 
-    if model.save
-      render(json: model.representation, status: :created)
+    if new_entity.save
+      render(json: new_entity.representation, status: :created)
     else
-      render(json: model.errors, status: :unprocessable_entity)
+      render(json: new_entity.errors, status: :unprocessable_entity)
     end
   end
 
   def update
-    if model.update(model_params)
-      render(json: model)
+    found_entity = entity.find(params[:id])
+
+    if found_entity.update(entity_field_params)
+      render(json: found_entity)
     else
-      render(json: model.errors, status: :unprocessable_entity)
+      render(json: found_entity.errors, status: :unprocessable_entity)
     end
   end
 
   def destroy
-    model.destroy
-  end
-
-  protected
-
-  def model
-    return entity.find(params[:id])
+    entity.find(params[:id]).destroy
   end
 end

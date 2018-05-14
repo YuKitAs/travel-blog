@@ -22,7 +22,7 @@ class TagsController < ApplicationController
     return Tag
   end
 
-  def model_params
+  def entity_field_params
     return params.require(:tag).permit(:name)
   end
 end
