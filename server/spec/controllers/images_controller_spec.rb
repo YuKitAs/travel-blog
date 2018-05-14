@@ -10,11 +10,8 @@ RSpec.describe ImagesController, type: :controller do
   describe 'GET #show' do
     it 'shows a single image by id' do
       get :show, params: { id: @image_id }
-      image = JSON.parse(response.body)
 
       expect(response.message).to eq 'OK'
-
-      expect(Base64.decode64(image['content'])).to eq @image_binary.data
     end
   end
 
@@ -24,10 +21,13 @@ RSpec.describe ImagesController, type: :controller do
         login
 
         post :create, params: { image: @image }
+        new_image = JSON.parse(response.body)
 
         expect(response.message).to eq 'Created'
 
         expect(Image.all.size). to be 2
+
+        expect(new_image['id']).to be_uuid
       end
     end
 
