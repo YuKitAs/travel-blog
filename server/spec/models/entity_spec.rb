@@ -1,17 +1,18 @@
-require 'models/entity'
+require 'models/entity_with_representation'
 
 class DummyClass
   include Mongoid::Document
+  include EntityWithRepresentation
   field :dummy_field, type: String
 end
 
-RSpec.describe Entity do
+RSpec.describe EntityWithRepresentation do
   before(:each) do
-    @dummy_class = DummyClass.new
-    @dummy_class.extend(Entity)
+    @dummy_object = DummyClass.new
   end
 
   it 'gets representation' do
-    expect(@dummy_class.representation).to include(:id, :dummy_field)
+    expect(@dummy_object.representation).to include(:id, :dummy_field)
+    expect(@dummy_object.representation).not_to include(:_id)
   end
 end

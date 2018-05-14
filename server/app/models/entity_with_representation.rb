@@ -1,4 +1,4 @@
-module Entity
+module EntityWithRepresentation
   def representation
     representation = {}
 

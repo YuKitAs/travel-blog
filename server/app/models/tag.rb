@@ -1,5 +1,5 @@
 class Tag
   include Mongoid::Document
-  include Entity
+  include EntityWithRepresentation
   field :name, type: String
 end
