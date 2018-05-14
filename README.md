@@ -21,3 +21,5 @@
 - [ ] Setup local test environment (@xiGUAwanOU)
 
 - [x] Authentication
+
+- [ ] Research for Google Maps (@YuKitAs)
