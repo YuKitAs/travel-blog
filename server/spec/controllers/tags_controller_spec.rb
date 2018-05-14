@@ -63,6 +63,7 @@ RSpec.describe TagsController, type: 'controller' do
 
         expect(Tag.all.size). to be 2
 
+        expect(new_tag['id']).to be_uuid
         expect(new_tag['name']).to eq @new_tag['name']
       end
     end

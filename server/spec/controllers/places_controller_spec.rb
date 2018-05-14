@@ -50,6 +50,7 @@ RSpec.describe PlacesController, type: :controller do
 
         expect(Place.all.size). to be 2
 
+        expect(new_place['id']).to be_uuid
         expect(new_place['name']).to eq @new_place['name']
         expect(new_place['location'][0].to_s).to eq @new_place['location']['lng']
         expect(new_place['location'][1].to_s).to eq @new_place['location']['lat']

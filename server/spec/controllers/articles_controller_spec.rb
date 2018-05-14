@@ -77,6 +77,7 @@ RSpec.describe ArticlesController, type: 'controller' do
 
         expect(Article.all.size). to be 2
 
+        expect(new_article['id']).to be_uuid
         expect(new_article['title']).to eq @new_article['title']
         expect(new_article['content']).to eq @new_article['content']
         expect(new_article['date']).to eq @new_article['date']
