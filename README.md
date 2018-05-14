@@ -13,13 +13,19 @@
 - [x] Setup Ruby on Rails project
 - [x] Write Rakefile to bind two projects
 
-- [ ] Research for list view and post view (@xiGUAwanOU)
+Frontend:
+- [x] Research for list view and post view (@xiGUAwanOU)
 - [ ] Implement list view and post view (@xiGUAwanOU)
+- [ ] Refactor unit test utilities (@xiGUAwanOU)
+- [ ] Implement unit tests for list view and post view (@xiGUAwanOU)
+
+- [ ] Research for Google Maps (@YuKitAs)
+
+Backend:
 - [x] Research for Rails with MongoDB (@YuKitAs)
 - [x] Setup Rails with MongoDB (@YuKitAs)
 - [x] Research for reading/writing images with MongoDB (@YuKitAs)
-- [ ] Setup local test environment (@xiGUAwanOU)
 
-- [x] Authentication
+- [x] Authentication (@YuKitAs)
 
-- [ ] Research for Google Maps (@YuKitAs)
+- [ ] Display images fetched with GET from image endpoint (@YuKitAs)
