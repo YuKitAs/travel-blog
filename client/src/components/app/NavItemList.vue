@@ -1,8 +1,8 @@
 <template>
   <ul class="tb-nav-item-list">
     <li v-for="navItem in navItems" :key="navItem">
-      <span class="tb-nav-item-list__text"
-          :class="{'tb-nav-item-list__text--activated': navItemActivated(navItem)}"
+      <span class="tb-item"
+          :class="{'tb-item--activated': navItemActivated(navItem)}"
           @click="navigateTo(navItem)">{{capitalized(navItem)}}</span>
     </li>
   </ul>
@@ -34,8 +34,8 @@ export default {
 }
 </script>
 
-<style lang="sass">
-  @import "src/assets/styles/main"
+<style lang="sass" scoped>
+  @import "src/assets/styles/mixins"
 
   .tb-nav-item-list
     padding: 0
@@ -43,17 +43,17 @@ export default {
     text-align: center
     list-style-type: none
 
-    &__text
-      display: inline-block
-      padding: 6px 0 4px 0
-      color: $theme-color-2
-      font-size: 120%
-      cursor: pointer
+  .tb-item
+    display: inline-block
+    padding: 6px 0 4px 0
+    color: $theme-color-2
+    font-size: 120%
+    cursor: pointer
 
-      &:hover
-        color: $theme-color-1
+    &:hover
+      color: $theme-color-1
 
-      &--activated
-        color: $theme-color-1
-        cursor: default
+    &--activated
+      color: $theme-color-1
+      cursor: default
 </style>

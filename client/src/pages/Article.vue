@@ -49,8 +49,8 @@ export default {
 }
 </script>
 
-<style lang="sass">
-  @import "src/assets/styles/main"
+<style lang="sass" scoped>
+  @import "src/assets/styles/mixins"
 
   .tb-article
     &__metadata

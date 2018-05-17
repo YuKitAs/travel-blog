@@ -21,6 +21,7 @@ export default {
 </script>
 
 <style lang="sass">
+  @import "src/assets/styles/mixins"
   @import "src/assets/styles/main"
   @import "src/assets/styles/reset"
 

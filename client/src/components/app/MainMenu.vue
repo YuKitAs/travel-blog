@@ -1,14 +1,14 @@
 <template>
   <div ref="main-menu" class="tb-main-menu">
-    <div class="tb-main-menu__vertical-line-top"/>
-    <img :src="require('@/assets/images/logo.png')" class="tb-main-menu__logo"/>
-    <h1 class="tb-main-menu__website-title">Captain<br/>Bonbon</h1>
-    <div class="tb-main-menu__vertical-line-middle-end"/>
-    <div class="tb-main-menu__vertical-line-middle"/>
+    <div class="tb-vertical-line tb-line-top"/>
+    <img :src="require('@/assets/images/logo.png')" class="tb-logo"/>
+    <h1 class="tb-website-title">Captain<br/>Bonbon</h1>
+    <div class="tb-line-head"/>
+    <div class="tb-vertical-line tb-line-middle"/>
     <nav-item-list/>
-    <div class="tb-main-menu__vertical-line-bottom"/>
+    <div class="tb-vertical-line tb-line-bottom"/>
     <hamburger-button ref="hamburger-button" :expanded="expanded" @toggle="toggleExpanded"
-        class="tb-main-menu__hamburger-button"/>
+        class="tb-hamburger-button-visible-mask"/>
   </div>
 </template>
 
@@ -58,8 +58,8 @@ export default {
 }
 </script>
 
-<style lang="sass">
-  @import "src/assets/styles/main"
+<style lang="sass" scoped>
+  @import "src/assets/styles/mixins"
 
   .tb-main-menu
     display: flex
@@ -69,33 +69,24 @@ export default {
       height: 100vh
       overflow: hidden
 
-    &__website-title
+  .tb-website-title
       text-align: center
       margin: 5px 0 5px 0
       color: $theme-color-1
 
-    &__vertical-line-top, &__vertical-line-middle, &__vertical-line-bottom
-      width: 0
-      border-left: 1px solid $theme-color-1
+  .tb-line-top, .tb-line-middle
+    min-height: 25px
 
-    &__vertical-line-top, &__vertical-line-middle
-      min-height: 25px
-
-    &__vertical-line-bottom
+  .tb-line-bottom
       min-height: 35px
       @include page-width('medium-and-up')
         min-height: 100%
 
-    &__vertical-line-middle-end
-      width: 9px
-      min-height: 9px
-      background-color: $theme-color-1
-
-    &__logo
+  .tb-logo
       width: 120px
       height: auto
 
-    &__hamburger-button
-      @include page-width('medium-and-up')
-        display: none
+  .tb-hamburger-button-visible-mask
+    @include page-width('medium-and-up')
+      display: none
 </style>

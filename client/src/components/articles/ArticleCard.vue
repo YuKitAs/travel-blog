@@ -1,13 +1,13 @@
 <template>
   <div class="tb-article-card">
-    <img :src="thumbnail" class="tb-article-card__thumbnail"/>
-    <h2 class="tb-article-card__title">{{title}}</h2>
-    <div class="tb-article-card__splitter">
-      <span class="tb-article-card__splitter-line"/>
-      <span class="tb-article-card__splitter-end"/>
+    <img :src="thumbnail" class="tb-thumbnail"/>
+    <h2 class="tb-title">{{title}}</h2>
+    <div class="tb-splitter">
+      <span class="tb-horizontal-line tb-splitter-line"/>
+      <span class="tb-line-head"/>
     </div>
-    <div class="tb-article-card__meta-data">{{date}} | {{placeName}}</div>
-    <p class="tb-article-card__intro">{{intro}}</p>
+    <div class="tb-meta-data">{{date}} | {{placeName}}</div>
+    <p class="tb-intro">{{intro}}</p>
   </div>
 </template>
 
@@ -23,40 +23,33 @@ export default {
 }
 </script>
 
-<style lang="sass">
-  @import "src/assets/styles/main"
+<style lang="sass" scoped>
+  @import "src/assets/styles/mixins"
 
   .tb-article-card
     width: $article-width
     margin-bottom: $space-width
 
-    &__thumbnail
-      display: block
-      width: 100%
-      height: auto
+  .tb-thumbnail
+    display: block
+    width: 100%
+    height: auto
 
-    &__title
-      color: $theme-color-1
-      margin-bottom: 0
+  .tb-title
+    color: $theme-color-1
+    margin-bottom: 0
 
-    &__splitter
-      display: flex
-      align-items: center
-      margin-bottom: 15px
+  .tb-splitter
+    display: flex
+    align-items: center
+    margin-bottom: 15px
 
-    &__splitter-line
-      display: inline-block
-      width: calc(100% - 9px)
-      height: 0
-      border-bottom: 1px solid $theme-color-1
+  .tb-splitter-line
+    display: inline-block
+    width: calc(100% - 9px)
+    height: 0
+    border-bottom: 1px solid $theme-color-1
 
-    &__splitter-end
-      display: inline-block
-      float: right
-      min-width: 9px
-      height: 9px
-      background-color: $theme-color-1
-
-    &__meta-data
-      color: $theme-color-1
+  .tb-meta-data
+    color: $theme-color-1
 </style>

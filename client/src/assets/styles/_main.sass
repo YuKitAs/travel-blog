@@ -1,3 +1,15 @@
-@import "colors"
-@import "fonts"
-@import "widths"
+@import "mixins"
+
+.tb-vertical-line
+  width: 0
+  border-left: 1px solid $theme-color-1
+
+.tb-horizontal-line
+  display: inline-block
+  height: 0
+  border-bottom: 1px solid $theme-color-1
+
+.tb-line-head
+  min-width: 9px
+  min-height: 9px
+  background-color: $theme-color-1

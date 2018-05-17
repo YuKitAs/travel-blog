@@ -6,9 +6,9 @@
       date="May. 13, 2018"
       placeName="Home"
       intro="#0 Yes, it is the very very first article. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-      class="tb-articles__featured-article"/>
-    <div class="tb-articles__columns">
-      <div ref="column" v-for="(column, index) in columns" :key="index" class="tb-articles__column">
+      class="tb-featured-article-visible-mask"/>
+    <div class="tb-columns">
+      <div ref="column" v-for="(column, index) in columns" :key="index" class="tb-column">
         <article-card v-for="article in column" :key="article.id"
           :thumbnail="article.thumbnail.path"
           :title="article.title"
@@ -159,20 +159,19 @@ export default {
 }
 </script>
 
-<style lang="sass">
-  @import "src/assets/styles/main"
+<style lang="sass" scoped>
+  @import "src/assets/styles/mixins"
 
-  .tb-articles
-    &__featured-article
-      display: none
-      @include page-width("large-and-up")
-        display: block
+  .tb-featured-article-visible-mask
+    display: none
+    @include page-width("large-and-up")
+      display: block
 
-    &__columns
-      display: flex
-      align-items: flex-start
-      justify-content: space-between
+  .tb-columns
+    display: flex
+    align-items: flex-start
+    justify-content: space-between
 
-    &__column
+  .tb-column
       width: 300px
 </style>
