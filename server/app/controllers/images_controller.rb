@@ -1,15 +1,19 @@
 class ImagesController < ApplicationController
   def show
-    render(json: Image.find(params[:id]).representation)
+    send_data(Image.find(params[:id])[:content].data, type: 'image/jpeg', disposition: 'inline')
   end
 
   def create
-    new_image = Image.new(content: BSON::Binary.new(params[:image].read))
-
-    if new_image.save
-      render(json: new_image.representation, status: :created)
+    if params[:image].content_type != 'image/jpeg'
+      render(status: :bad_request)
     else
-      render(json: new_image.errors, status: :unprocessable_entity)
+      new_image = Image.new(content: BSON::Binary.new(params[:image].read))
+
+      if new_image.save
+        render(status: :created)
+      else
+        render(json: new_image.errors, status: :unprocessable_entity)
+      end
     end
   end
 
