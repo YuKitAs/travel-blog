@@ -25,4 +25,4 @@ Backend:
 - [x] Setup Rails with MongoDB (@YuKitAs)
 - [x] Research for reading/writing images with MongoDB (@YuKitAs)
 - [x] Authentication (@YuKitAs)
-- [ ] Display images fetched with GET from image endpoint (@YuKitAs)
+- [x] Display images fetched with GET from image endpoint (@YuKitAs)
