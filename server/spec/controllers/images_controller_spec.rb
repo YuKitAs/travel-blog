@@ -2,9 +2,7 @@ require_relative '../utils/fixture_reader'
 
 RSpec.describe ImagesController, type: :controller do
   before :each do
-    @image = Rack::Test::UploadedFile.new(get_fixture('testshu.jpg'), 'image/jpeg')
-    @image_binary = BSON::Binary.new(@image.read)
-    @image_id = Image.create!(content: @image_binary).to_param
+    @image_id = Image.create!(content: BSON::Binary.new(image_stream.read)).to_param
   end
 
   describe 'GET #show' do
@@ -12,6 +10,7 @@ RSpec.describe ImagesController, type: :controller do
       get :show, params: { id: @image_id }
 
       expect(response.message).to eq 'OK'
+      expect(response.body).to eq image_stream.read
     end
   end
 
@@ -20,19 +19,23 @@ RSpec.describe ImagesController, type: :controller do
       it 'creates a new image with jpg format' do
         login
 
-        post :create, params: { image: @image }
+        post :create, params: { image: image_stream }
+
+        image = JSON.parse(response.body)
+        stored_image = Image.find(image['id'])
 
         expect(response.message).to eq 'Created'
+        expect(image['id']).to be_uuid
 
-        expect(Image.all.size). to be 2
+        expect(Image.all.size).to be 2
+        expect(stored_image.thumbnail.width).to be 300
+        expect(stored_image.thumbnail.height).to be 222
       end
 
       it 'does not create image with other format' do
         login
 
-        png_image = Rack::Test::UploadedFile.new(get_fixture('testtu.png'), 'image/png')
-
-        post :create, params: { image: png_image }
+        post :create, params: { image: Rack::Test::UploadedFile.new(get_fixture('testtu.png'), 'image/png') }
 
         expect(response.message).to eq 'Bad Request'
       end
@@ -40,7 +43,7 @@ RSpec.describe ImagesController, type: :controller do
 
     context 'without authorization' do
       it 'does not create image' do
-        post :create, params: { image: @image }
+        post :create, params: { image: image_stream }
 
         expect(response.message).to eq 'Unauthorized'
       end
@@ -74,4 +77,8 @@ private
 
 def login
   allow(AuthorizeApiRequest).to receive_message_chain(:call, :result){:user}
+end
+
+def image_stream
+  return Rack::Test::UploadedFile.new(get_fixture('testshu.jpg'), 'image/jpeg')
 end
