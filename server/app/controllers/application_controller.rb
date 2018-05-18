@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
   end
 
   def show
-    render(json: entity.find(params[:id]).representation)
+    render(json: found_entity.representation) if found_entity
   end
 
   def create
@@ -25,9 +25,7 @@ class ApplicationController < ActionController::API
   end
 
   def update
-    found_entity = entity.find(params[:id])
-
-    if found_entity.update(entity_field_params)
+    if found_entity&.update(entity_field_params)
       render(json: found_entity)
     else
       render(json: found_entity.errors, status: :unprocessable_entity)
@@ -35,6 +33,10 @@ class ApplicationController < ActionController::API
   end
 
   def destroy
-    entity.find(params[:id]).destroy
+    found_entity&.destroy
+  end
+
+  def found_entity
+    return entity.find(params[:id])
   end
 end

@@ -1,6 +1,17 @@
+require 'mini_magick'
+
 class ImagesController < ApplicationController
   def show
-    send_data(Image.find(params[:id])[:content].data, type: 'image/jpeg', disposition: 'inline')
+    send_data(found_entity[:content].data, type: 'image/jpeg', disposition: 'inline') if image_valid
+  end
+
+  def show_thumbnail
+    image = MiniMagick::Image.read(found_entity[:content].data) if image_valid
+
+    new_height = 300 * image.height / image.width
+    image.resize("300x#{new_height}")
+
+    send_data(File.open(image.path, 'rb'), type: 'image/jpeg', disposition: 'inline')
   end
 
   def create
@@ -17,7 +28,13 @@ class ImagesController < ApplicationController
     end
   end
 
-  def destroy
-    Image.find(params[:id]).destroy
+  private
+
+  def entity
+    return Image
+  end
+
+  def image_valid
+    found_entity.has_attribute?(:content) && found_entity[:content]
   end
 end

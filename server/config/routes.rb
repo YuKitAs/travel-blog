@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   delete 'api/tags/:id' => 'tags#destroy'
 
   get 'api/images/:id' => 'images#show'
+  get 'api/images/:id/thumbnail' => 'images#show_thumbnail'
   post 'api/images' => 'images#create'
   delete 'api/images/:id' => 'images#destroy'
 
