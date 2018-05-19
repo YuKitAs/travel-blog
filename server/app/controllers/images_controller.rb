@@ -1,6 +1,13 @@
 require 'mini_magick'
 
 class ImagesController < ApplicationController
+  def index
+    start = params[:start].to_i || 0
+    limit = params[:limit].to_i || (Image.count + 1)
+
+    render(json: Image.order_by(:created_at.desc, :_id.asc).skip(start).limit(limit).to_a.map(&:representation))
+  end
+
   def show
     send_data(found_entity[:content].data, type: 'image/jpeg', disposition: 'inline') if image_valid?
   end
@@ -18,7 +25,7 @@ class ImagesController < ApplicationController
       new_image = Image.new(content: image_content, thumbnail: resize(MiniMagick::Image.read(image_content.data)))
 
       if new_image.save
-        render(json: { id: new_image[:id] }, status: :created)
+        render(json: new_image.representation, status: :created)
       else
         render(json: new_image.errors, status: :unprocessable_entity)
       end

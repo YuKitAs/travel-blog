@@ -14,11 +14,11 @@ class ArticlesController < ApplicationController
 
   def index_preview
     start = params[:start].to_i || 0
-    limit = params[:limit].to_i || (Article.all.length + 1)
+    limit = params[:limit].to_i || (Article.count + 1)
 
     article_previews = []
-    Article.desc(:date).skip(start).limit(limit).to_a.each do |article|
-      thumbnail = Image.where('thumbnail._id' => article[:thumbnail_id]).first[:thumbnail]
+    Article.order_by(:date.desc, :_id.asc).skip(start).limit(limit).to_a.each do |article|
+      thumbnail = Image.where('_id' => article[:thumbnail_id]).first[:thumbnail]
       place = Place.where('_id' => article[:place_id]).first
 
       article_previews.push(

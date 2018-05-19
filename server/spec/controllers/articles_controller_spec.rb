@@ -56,8 +56,14 @@ RSpec.describe ArticlesController, type: 'controller' do
       @place = read_json('places.json')['place']
       Place.create!(@place.merge('_id': @article['place_id']))
       Place.create!(@place.merge('_id': @new_article['place_id']))
-      Image.create!('thumbnail': { 'id': @article['thumbnail_id'], 'width': 300, 'height': 222 })
-      Image.create!('thumbnail': { 'id': @new_article['thumbnail_id'], 'width': 300, 'height': 222 })
+      Image.create!(
+        '_id': @article['thumbnail_id'],
+        'thumbnail': { 'id': 'valid-thumbnail-id-01', 'width': 300, 'height': 222 }
+      )
+      Image.create!(
+        '_id': @new_article['thumbnail_id'],
+        'thumbnail': { 'id': 'valid-thumbnail-id-02', 'width': 300, 'height': 222 }
+      )
       Article.create!(@new_article)
     end
 
