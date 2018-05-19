@@ -26,3 +26,4 @@ Backend:
 - [x] Research for reading/writing images with MongoDB (@YuKitAs)
 - [x] Authentication (@YuKitAs)
 - [x] Display images fetched with GET from image endpoint (@YuKitAs)
+- [ ] Articel preview (@YuKitAs)
