@@ -1,6 +1,7 @@
 {
   "article": {
     "title": "Some Title 标题标题",
+    "introduction": "Lorem __ipsum__ 测试文本",
     "content": "Lorem __ipsum__ dolor sit amet, consectetur adipiscing elit.\n测试文本，本段文字为测试文本。",
     "date": "2018-04-06",
     "place_id": "00000000-0000-0000-0000-111111111111",
@@ -9,6 +10,7 @@
   },
   "new_article": {
     "title": "Another Title 标题标题",
+    "introduction": "Lorem __ipsum__ 测试文本",
     "content": "Lorem __ipsum__ dolor sit amet, consectetur adipiscing elit.\n测试文本，本段文字为测试文本。",
     "date": "2018-04-07",
     "place_id": "00000000-0000-0000-0000-111111111112",

@@ -6,6 +6,7 @@ class Article
   field :_id, type: String, default: ->{SecureRandom.uuid}
   field :title, type: String
   field :date, type: String
+  field :introduction, type: String
   field :content, type: String
   field :place_id, type: String
   field :tag_ids, type: Array, default: []

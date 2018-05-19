@@ -21,6 +21,7 @@ RSpec.describe ArticlesController, type: 'controller' do
         expect(articles.size).to be 1
 
         expect(article['title']).to eq @article['title']
+        expect(article['introduction']).to eq @article['introduction']
         expect(article['content']).to eq @article['content']
         expect(article['date']).to eq @article['date']
         expect(article['place_id']).to eq @article['place_id']
@@ -41,11 +42,52 @@ RSpec.describe ArticlesController, type: 'controller' do
         expect(articles.size).to be 1
 
         expect(article['title']).to eq @new_article['title']
+        expect(article['introduction']).to eq @new_article['introduction']
         expect(article['content']).to eq @new_article['content']
         expect(article['date']).to eq @new_article['date']
         expect(article['place_id']).to eq @new_article['place_id']
         expect(article['thumbnail_id']).to eq @new_article['thumbnail_id']
       end
+    end
+  end
+
+  describe 'GET #index_preview' do
+    before :each do
+      @place = read_json('places.json')['place']
+      Place.create!(@place.merge('_id': @article['place_id']))
+      Place.create!(@place.merge('_id': @new_article['place_id']))
+      Image.create!('thumbnail': { 'id': @article['thumbnail_id'], 'width': 300, 'height': 222 })
+      Image.create!('thumbnail': { 'id': @new_article['thumbnail_id'], 'width': 300, 'height': 222 })
+      Article.create!(@new_article)
+    end
+
+    it 'lists previews with correct fields' do
+      get :index_preview
+
+      previews = JSON.parse(response.body)
+      preview = previews.first
+
+      expect(response.message).to eq 'OK'
+
+      expect(previews.size).to eq 2
+
+      expect(preview.keys).to include('id', 'thumbnail', 'title', 'introduction', 'date', 'place')
+      expect(preview['thumbnail']).to include('id', 'width', 'height')
+      expect(preview['place']).to include('id', 'name')
+    end
+
+    it 'lists previews within a given range' do
+      get :index_preview, params: { start: 0, limit: 1 }
+
+      expect(response.message).to eq 'OK'
+
+      expect(JSON.parse(response.body).size).to eq 1
+    end
+
+    it 'lists previews sorted descendingly by date' do
+      get :index_preview
+
+      expect(JSON.parse(response.body).first['title']).to eq @new_article['title']
     end
   end
 
@@ -57,6 +99,7 @@ RSpec.describe ArticlesController, type: 'controller' do
       expect(response.message).to eq 'OK'
 
       expect(article['title']).to eq @article['title']
+      expect(article['introduction']).to eq @article['introduction']
       expect(article['content']).to eq @article['content']
       expect(article['date']).to eq @article['date']
       expect(article['place_id']).to eq @article['place_id']
@@ -79,6 +122,7 @@ RSpec.describe ArticlesController, type: 'controller' do
 
         expect(new_article['id']).to be_uuid
         expect(new_article['title']).to eq @new_article['title']
+        expect(new_article['introduction']).to eq @new_article['introduction']
         expect(new_article['content']).to eq @new_article['content']
         expect(new_article['date']).to eq @new_article['date']
         expect(new_article['place_id']).to eq @new_article['place_id']
@@ -105,6 +149,7 @@ RSpec.describe ArticlesController, type: 'controller' do
         article = Article.find(@article_id)
 
         expect(article['title']).to eq @new_article['title']
+        expect(article['introduction']).to eq @new_article['introduction']
         expect(article['content']).to eq @new_article['content']
         expect(article['date']).to eq @new_article['date']
         expect(article['place_id']).to eq @new_article['place_id']
