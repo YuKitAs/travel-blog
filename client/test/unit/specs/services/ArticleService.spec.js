@@ -8,15 +8,23 @@ const RESPONSE = { valid: 'json' }
 const RESPONSE_STRING = JSON.stringify(RESPONSE)
 
 describe('ArticleService', () => {
+  let server
+
+  beforeEach(() => {
+    server = sinon.createFakeServer()
+    server.autoRespond = true
+  })
+
+  afterEach(() => {
+    server.restore()
+  })
+
   it('builds correct url with its resource name', () => {
     expect(ArticleService.buildUrl()).to.equal('api/articles')
     expect(ArticleService.buildUrl('article-id')).to.equal('api/articles/article-id')
   })
 
-  it('gets many objects', async () => {
-    const server = sinon.createFakeServer()
-    server.autoRespond = true
-
+  it('gets article previews', async () => {
     server.respondWith('GET', `api/articles/preview${QUERY_PARAMS_IN_URL}`,
       [200, { 'Content-Type': 'application/json' }, RESPONSE_STRING])
 
@@ -24,7 +32,15 @@ describe('ArticleService', () => {
 
     expect(response.status).to.equal(200)
     expect(response.data).to.eql(RESPONSE)
+  })
 
-    server.restore()
+  it('gets featured article', async () => {
+    server.respondWith('GET', `api/articles/featured`,
+      [200, { 'Content-Type': 'application/json' }, RESPONSE_STRING])
+
+    const response = await ArticleService.getFeatured()
+
+    expect(response.status).to.equal(200)
+    expect(response.data).to.eql(RESPONSE)
   })
 })

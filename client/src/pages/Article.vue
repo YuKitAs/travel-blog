@@ -50,11 +50,23 @@ export default {
 </script>
 
 <style lang="sass">
-  img[alt="markdown-image"]
+  @import "src/assets/styles/mixins"
+
+  img[alt="portrait"]
     display: block
-    width: 50%
+    width: 100%
     height: auto
     margin: 0 auto
+    @include page-width("large-and-up")
+      width: 50%
+
+  img[alt="landscape"]
+    display: block
+    width: 105%
+    height: auto
+    margin: 0 auto
+    @include page-width("large-and-up")
+      width: 75%
 </style>
 
 <style lang="sass" scoped>

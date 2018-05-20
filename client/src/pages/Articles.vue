@@ -1,11 +1,13 @@
 <template>
   <div class="tb-articles">
     <featured-article
-      :thumbnail="require('@/assets/images/im2.jpg')"
-      title="Hello world!"
-      date="May. 13, 2018"
-      placeName="Home"
-      introduction="#0 Yes, it is the very very first article. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      v-if="featuredArticle"
+      :thumbnail="featuredArticle.thumbnail.id"
+      :title="featuredArticle.title"
+      :date="featuredArticle.date"
+      :place-name="featuredArticle.place.name"
+      :introduction="featuredArticle.introduction"
+      @click="navigateTo(featuredArticle.id)"
       class="tb-featured-article-visible-mask"/>
     <div class="tb-columns">
       <div ref="column" v-for="(column, index) in columns" :key="index" class="tb-column">
@@ -48,8 +50,11 @@ export default {
 
   methods: {
     async fetchData() {
-      const response = await ArticleService.getMany()
-      this.articles = response.data
+      const articlesResponse = await ArticleService.getMany()
+      this.articles = articlesResponse.data
+
+      const featuredArticleResponse = await ArticleService.getFeatured()
+      this.featuredArticle = featuredArticleResponse.data
     },
 
     navigateTo(articleId) {

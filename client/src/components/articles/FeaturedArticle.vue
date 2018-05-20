@@ -1,6 +1,6 @@
 <template>
-  <div class="tb-featured-article">
-    <img :src="thumbnail" class="tb-thumbnail"/>
+  <div class="tb-featured-article" @click="$emit('click')">
+    <photo-frame :image-id="thumbnail"/>
     <div class="tb-info-card-anchor">
       <div class="tb-info-card">
         <h2 class="tb-title">{{title}}</h2>
@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import PhotoFrame from '@/components/articles/PhotoFrame'
+
 export default {
   props: {
     thumbnail: {type: String, required: true},
@@ -19,6 +21,10 @@ export default {
     date: {type: String, required: true},
     placeName: {type: String, required: true},
     introduction: {type: String, required: true}
+  },
+
+  components: {
+    PhotoFrame
   }
 }
 </script>
@@ -29,10 +35,7 @@ export default {
   .tb-featured-article
     width: 100%
     margin: 25px 0 $space-width 0
-
-  .tb-thumbnail
-    width: 100%
-    max-height: auto
+    cursor: pointer
 
   .tb-title
     color: $theme-color-1-shaded-1

@@ -14,6 +14,14 @@ class ArticleService extends CrudHttpClient {
       params
     })
   }
+
+  getFeatured() {
+    return axios({
+      ...this.buildCommonHttpClientSettings(),
+      method: 'get',
+      url: `${this.buildUrl()}/featured`
+    })
+  }
 }
 
 export default new ArticleService()

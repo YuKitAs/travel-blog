@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  get 'api/articles(:tag_id)' => 'articles#index'
   get 'api/articles/preview(:start&:limit)' => 'articles#index_preview'
-  get 'api/articles/:id' => 'articles#show'
+  get 'api/articles(:tag_id)' => 'articles#index'
   get 'api/articles/featured' => 'articles#show_featured'
+  get 'api/articles/:id' => 'articles#show'
   post 'api/articles' => 'articles#create'
   put 'api/articles/:id' => 'articles#update'
   put 'api/articles/featured/:id' => 'articles#update_featured'
