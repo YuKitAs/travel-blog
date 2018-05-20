@@ -1,4 +1,6 @@
 class PlacesController < ApplicationController
+  skip_before_action :authenticate_request, except: [:create, :update, :destroy]
+
   private
 
   def entity

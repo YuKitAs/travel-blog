@@ -1,10 +1,6 @@
-require 'securerandom'
-
 class ApplicationController < ActionController::API
   include TokenAuthenticatable
   include DocumentProcessable
-
-  skip_before_action :authenticate_request, except: [:create, :update, :destroy]
 
   def index
     render(json: entity.all.map(&:representation))

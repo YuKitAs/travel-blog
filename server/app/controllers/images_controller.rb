@@ -1,6 +1,8 @@
 require 'mini_magick'
 
 class ImagesController < ApplicationController
+  skip_before_action :authenticate_request, except: [:create, :destroy]
+
   def index
     start = params[:start].to_i || 0
     limit = params[:limit].to_i || (Image.count + 1)

@@ -1,4 +1,6 @@
 class TagsController < ApplicationController
+  skip_before_action :authenticate_request, except: [:create, :update, :destroy]
+
   def index
     if params[:article_id].nil?
       super

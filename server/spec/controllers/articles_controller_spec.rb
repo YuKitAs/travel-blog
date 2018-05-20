@@ -7,6 +7,18 @@ RSpec.describe ArticlesController, type: 'controller' do
     @new_article = @articles['new_article']
 
     @article_id = Article.create!(@article).to_param
+
+    @place = read_json('places.json')['place']
+    Place.create!(@place.merge('_id': @article['place_id']))
+    Place.create!(@place.merge('_id': @new_article['place_id']))
+    Image.create!(
+      '_id': @article['thumbnail_id'],
+      'thumbnail': { 'id': 'valid-thumbnail-id-01', 'width': 300, 'height': 222 }
+    )
+    Image.create!(
+      '_id': @new_article['thumbnail_id'],
+      'thumbnail': { 'id': 'valid-thumbnail-id-02', 'width': 300, 'height': 222 }
+    )
   end
 
   describe 'GET #index' do
@@ -53,17 +65,6 @@ RSpec.describe ArticlesController, type: 'controller' do
 
   describe 'GET #index_preview' do
     before :each do
-      @place = read_json('places.json')['place']
-      Place.create!(@place.merge('_id': @article['place_id']))
-      Place.create!(@place.merge('_id': @new_article['place_id']))
-      Image.create!(
-        '_id': @article['thumbnail_id'],
-        'thumbnail': { 'id': 'valid-thumbnail-id-01', 'width': 300, 'height': 222 }
-      )
-      Image.create!(
-        '_id': @new_article['thumbnail_id'],
-        'thumbnail': { 'id': 'valid-thumbnail-id-02', 'width': 300, 'height': 222 }
-      )
       Article.create!(@new_article)
     end
 
@@ -114,6 +115,19 @@ RSpec.describe ArticlesController, type: 'controller' do
     end
   end
 
+  describe 'GET #show_featured' do
+    it 'shows preview of the featured article' do
+      SiteConfiguration.create(key: 'featured_article_id', value: @article_id)
+
+      get :show_featured
+      preview = JSON.parse(response.body)
+
+      expect(response.message).to eq 'OK'
+
+      expect(preview['id']).to eq @article_id
+    end
+  end
+
   describe 'POST #create' do
     context 'with authorization' do
       it 'creates a new article' do
@@ -154,6 +168,8 @@ RSpec.describe ArticlesController, type: 'controller' do
         put :update, params: { id: @article_id, article: @new_article }
         article = Article.find(@article_id)
 
+        expect(response.message).to eq 'OK'
+
         expect(article['title']).to eq @new_article['title']
         expect(article['introduction']).to eq @new_article['introduction']
         expect(article['content']).to eq @new_article['content']
@@ -170,6 +186,25 @@ RSpec.describe ArticlesController, type: 'controller' do
 
         expect(response.message).to eq 'Unauthorized'
       end
+    end
+  end
+
+  describe 'PUT #update_featured' do
+    it 'updates the featured article by id' do
+      login
+
+      put :update_featured, params: { id: 'valid-article-id-01' }
+
+      expect(response.message).to eq 'No Content'
+
+      expect(SiteConfiguration.find_by(key: 'featured_article_id').value).to eq 'valid-article-id-01'
+
+      put :update_featured, params: { id: 'valid-article-id-02' }
+
+      expect(response.message).to eq 'No Content'
+
+      expect(SiteConfiguration.where(key: 'featured_article_id').size).to be 1
+      expect(SiteConfiguration.find_by(key: 'featured_article_id').value).to eq 'valid-article-id-02'
     end
   end
 
