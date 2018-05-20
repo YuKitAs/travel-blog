@@ -55,5 +55,4 @@ export default {
 
     &--activated
       color: $theme-color-1
-      cursor: default
 </style>

@@ -5,7 +5,7 @@
       <div class="tb-info-card">
         <h2 class="tb-title">{{title}}</h2>
         <div class="tb-meta-data">{{date}} | {{placeName}}</div>
-        <p class="tb-intro">{{intro}}</p>
+        <p class="tb-introduction">{{introduction}}</p>
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@ export default {
     title: {type: String, required: true},
     date: {type: String, required: true},
     placeName: {type: String, required: true},
-    intro: {type: String, required: true}
+    introduction: {type: String, required: true}
   }
 }
 </script>

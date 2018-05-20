@@ -18,13 +18,14 @@ class ArticlesController < ApplicationController
 
     article_previews = []
     Article.order_by(:date.desc, :_id.asc).skip(start).limit(limit).to_a.each do |article|
-      thumbnail = Image.where('_id' => article[:thumbnail_id]).first[:thumbnail]
+      image = Image.where('_id' => article[:thumbnail_id]).first
+      thumbnail = image[:thumbnail]
       place = Place.where('_id' => article[:place_id]).first
 
       article_previews.push(
         id: article[:_id],
         thumbnail: {
-          id: thumbnail[:_id],
+          id: image[:_id],
           width: thumbnail[:width],
           height: thumbnail[:height]
         },

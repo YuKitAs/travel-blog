@@ -49,6 +49,14 @@ export default {
 }
 </script>
 
+<style lang="sass">
+  img[alt="markdown-image"]
+    display: block
+    width: 50%
+    height: auto
+    margin: 0 auto
+</style>
+
 <style lang="sass" scoped>
   @import "src/assets/styles/mixins"
 

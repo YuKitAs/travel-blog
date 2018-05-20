@@ -45,7 +45,7 @@ export default {
   .tb-content-container
     min-height: calc(100vh - 20px)
     width: $article-width
-    padding: 10px calc((100vw - #{$article-width)}) / 2) 10px calc((100vw - #{$article-width)}) / 2)
+    padding: 10px calc((100vw - #{$article-width)}) / 2)
     @include page-width("medium-and-up")
       width: $article-width
       padding: 5px ($space-width - $content-offset) 10px ($space-width + $content-offset)
