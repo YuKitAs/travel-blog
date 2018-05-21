@@ -3,6 +3,8 @@ matrix:
     - language: ruby
       rvm:
         - 2.5
+      services:
+        - mongodb
       before_install:
         - cd server
 
