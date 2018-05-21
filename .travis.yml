@@ -8,7 +8,7 @@ matrix:
       before_install:
         - cd server
 
-    - language: javascript
+    - language: node_js
       node_js:
         - "10"
       before_install:
