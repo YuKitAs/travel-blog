@@ -13,10 +13,12 @@ RSpec.describe ArticlesController, type: 'controller' do
     Place.create!(@place.merge('_id': @new_article['place_id']))
     Image.create!(
       '_id': @article['thumbnail_id'],
+      'content': BSON::Binary.new,
       'thumbnail': { 'id': 'valid-thumbnail-id-01', 'width': 300, 'height': 222 }
     )
     Image.create!(
       '_id': @new_article['thumbnail_id'],
+      'content': BSON::Binary.new,
       'thumbnail': { 'id': 'valid-thumbnail-id-02', 'width': 300, 'height': 222 }
     )
   end

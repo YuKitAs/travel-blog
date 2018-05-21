@@ -6,10 +6,7 @@ class ArticlesController < ApplicationController
     limit = params[:limit].to_i || (Article.count + 1)
 
     search_criteria = Article
-
-    if params[:tag_ids]
-      search_criteria = search_criteria.all(tag_ids: params[:tag_ids])
-    end
+    search_criteria = search_criteria.all(tag_ids: params[:tag_ids]) if params[:tag_ids]
 
     article_previews = search_criteria
       .order_by(:date.desc, :_id.asc).skip(start).limit(limit).to_a

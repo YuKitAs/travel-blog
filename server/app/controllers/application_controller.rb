@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::API
+  rescue_from StandardError, with: ->{render(status: :internal_server_error)}
+  include MongoErrorHandleable
+  include ControllerErrorHandleable
   include TokenAuthenticatable
-  include DocumentProcessable
 
   def index
     render(json: entity.all.map(&:representation))

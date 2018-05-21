@@ -26,7 +26,8 @@ RSpec.describe TagsController, type: 'controller' do
 
     context 'with article' do
       it 'lists all tags of an article by article id' do
-        article_id = Article.create!(tag_ids: [@tag_id, Tag.create!(@new_tag).to_param]).to_param
+        article = read_json('articles.json')['article']
+        article_id = Article.create!(article.merge(tag_ids: [@tag_id, Tag.create!(@new_tag).to_param])).to_param
         get :index, params: { article_id: article_id }
         tags = JSON.parse(response.body)
 

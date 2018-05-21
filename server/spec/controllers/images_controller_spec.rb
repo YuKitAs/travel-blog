@@ -2,7 +2,30 @@ require_relative '../utils/fixture_reader'
 
 RSpec.describe ImagesController, type: :controller do
   before :each do
-    @image_id = Image.create!(content: BSON::Binary.new(image_stream.read)).to_param
+    @image_id = Image.create!(
+      content: BSON::Binary.new(image_stream.read),
+      thumbnail: { 'id': 'valid-thumbnail-id-01', 'width': 300, 'height': 222 },
+      created_at: Time.at(1_514_764_800)
+    ).to_param
+  end
+
+  describe 'GET #index' do
+    it 'lists image representations within a given range' do
+      new_image_id = Image.create!(
+        content: BSON::Binary.new,
+        thumbnail: { 'id': 'valid-thumbnail-id-01', 'width': 300, 'height': 222 },
+        created_at: Time.at(1_514_592_000)
+      ).to_param
+
+      get :index, params: { start: 1, limit: 1 }
+      images = JSON.parse(response.body)
+
+      expect(response.message).to eq 'OK'
+
+      expect(images.size).to eq 1
+
+      expect(images.first['id']).to eq new_image_id
+    end
   end
 
   describe 'GET #show' do

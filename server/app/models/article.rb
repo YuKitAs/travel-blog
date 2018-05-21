@@ -11,4 +11,6 @@ class Article
   field :place_id, type: String
   field :tag_ids, type: Array, default: []
   field :thumbnail_id, type: String
+
+  validates :title, :date, :introduction, :content, :place_id, :thumbnail_id, presence: true
 end

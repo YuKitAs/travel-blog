@@ -6,6 +6,8 @@ class Image
   field :content, type: BSON::Binary
   embeds_one :thumbnail
 
+  validates :content, presence: true
+
   def representation
     return {
       id: _id,
