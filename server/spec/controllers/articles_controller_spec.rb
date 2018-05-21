@@ -21,80 +21,53 @@ RSpec.describe ArticlesController, type: 'controller' do
     )
   end
 
-  describe 'GET #index' do
+  describe 'GET #index_preview' do
+    before :each do
+      @new_article_id = Article.create!(@new_article).to_param
+    end
+
     context 'without tag' do
-      it 'lists all articles' do
-        get :index
-        articles = JSON.parse(response.body)
-        article = articles.first
+      it 'lists previews with correct fields' do
+        get :index_preview
+
+        previews = JSON.parse(response.body)
+        preview = previews.first
 
         expect(response.message).to eq 'OK'
 
-        expect(articles.size).to be 1
+        expect(previews.size).to eq 2
 
-        expect(article['title']).to eq @article['title']
-        expect(article['introduction']).to eq @article['introduction']
-        expect(article['content']).to eq @article['content']
-        expect(article['date']).to eq @article['date']
-        expect(article['place_id']).to eq @article['place_id']
-        expect(article['tag_ids']).to eq @article['tag_ids']
-        expect(article['thumbnail_id']).to eq @article['thumbnail_id']
+        expect(preview.keys).to include('id', 'thumbnail', 'title', 'introduction', 'date', 'place')
+        expect(preview['thumbnail']).to include('id', 'width', 'height')
+        expect(preview['place']).to include('id', 'name')
+      end
+
+      it 'lists previews within a given range' do
+        get :index_preview, params: { start: 0, limit: 1 }
+
+        expect(response.message).to eq 'OK'
+
+        expect(JSON.parse(response.body).size).to eq 1
+      end
+
+      it 'lists previews sorted descendingly by date' do
+        get :index_preview
+
+        expect(JSON.parse(response.body).first['title']).to eq @new_article['title']
       end
     end
 
     context 'with tag' do
-      it 'lists all articles of a tag by tag id' do
-        Article.create!(@new_article)
-        get :index, params: { tag_id: @new_article['tag_ids'][1] }
-        articles = JSON.parse(response.body)
-        article = articles.first
+      it 'lists all previews of tags by tag ids' do
+        get :index_preview, params: { tag_ids: @new_article['tag_ids'] }
+        previews = JSON.parse(response.body)
 
         expect(response.message).to eq 'OK'
 
-        expect(articles.size).to be 1
+        expect(previews.size).to be 1
 
-        expect(article['title']).to eq @new_article['title']
-        expect(article['introduction']).to eq @new_article['introduction']
-        expect(article['content']).to eq @new_article['content']
-        expect(article['date']).to eq @new_article['date']
-        expect(article['place_id']).to eq @new_article['place_id']
-        expect(article['thumbnail_id']).to eq @new_article['thumbnail_id']
+        expect(previews.first['id']).to eq @new_article_id
       end
-    end
-  end
-
-  describe 'GET #index_preview' do
-    before :each do
-      Article.create!(@new_article)
-    end
-
-    it 'lists previews with correct fields' do
-      get :index_preview
-
-      previews = JSON.parse(response.body)
-      preview = previews.first
-
-      expect(response.message).to eq 'OK'
-
-      expect(previews.size).to eq 2
-
-      expect(preview.keys).to include('id', 'thumbnail', 'title', 'introduction', 'date', 'place')
-      expect(preview['thumbnail']).to include('id', 'width', 'height')
-      expect(preview['place']).to include('id', 'name')
-    end
-
-    it 'lists previews within a given range' do
-      get :index_preview, params: { start: 0, limit: 1 }
-
-      expect(response.message).to eq 'OK'
-
-      expect(JSON.parse(response.body).size).to eq 1
-    end
-
-    it 'lists previews sorted descendingly by date' do
-      get :index_preview
-
-      expect(JSON.parse(response.body).first['title']).to eq @new_article['title']
     end
   end
 
