@@ -27,11 +27,12 @@ export default {
 
   methods: {
     async fetchData() {
-      const articlePreviewsResponse = await ArticleService.getAll()
-      this.articlePreviews = articlePreviewsResponse.data
-
-      const featuredArticleResponse = await ArticleService.getFeatured()
-      this.featuredArticle = featuredArticleResponse.data
+      try {
+        this.articlePreviews = (await ArticleService.getAll()).data
+        this.featuredArticle = (await ArticleService.getFeatured()).data
+      } catch (e) {
+        this.$router.replace({name: 'Error'})
+      }
     }
   },
 

@@ -42,10 +42,12 @@ export default {
 
   methods: {
     async fetchData() {
-      const tagsResponse = await TagService.getMany()
-      this.tags = tagsResponse.data
-
-      this.fetchArticles()
+      try {
+        this.tags = (await TagService.getMany()).data
+        this.fetchArticles()
+      } catch (e) {
+        this.$router.replace({name: 'Error'})
+      }
     },
 
     async fetchArticles() {

@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import axios from 'axios'
 import pluralize from 'pluralize'
 import qs from 'qs'
@@ -31,32 +30,6 @@ export default class CrudHttpClient {
     })
   }
 
-  create(data) {
-    return axios({
-      ...this.buildCommonHttpClientSettings(),
-      method: 'post',
-      url: this.buildUrl(),
-      data: this.removeId(data)
-    })
-  }
-
-  update(id, data) {
-    return axios({
-      ...this.buildCommonHttpClientSettings(),
-      method: 'put',
-      url: this.buildUrl(id),
-      data: this.removeId(data)
-    })
-  }
-
-  delete(id) {
-    return axios({
-      ...this.buildCommonHttpClientSettings(),
-      method: 'delete',
-      url: this.buildUrl(id)
-    })
-  }
-
   buildCommonHttpClientSettings() {
     return {
       headers: {
@@ -67,12 +40,5 @@ export default class CrudHttpClient {
         return qs.stringify(params, { arrayFormat: 'brackets', encode: false })
       }
     }
-  }
-
-  removeId(data) {
-    const clonedData = _.cloneDeep(data)
-    delete clonedData.id
-
-    return clonedData
   }
 }

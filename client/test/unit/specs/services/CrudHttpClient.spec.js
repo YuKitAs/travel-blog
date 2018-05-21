@@ -10,8 +10,6 @@ const RESOURCE_ID = 'resource-id'
 const RESOURCE_SINGULAR_URL = `api/entities/${RESOURCE_ID}`
 const RESPONSE = { valid: 'json' }
 const RESPONSE_STRING = JSON.stringify(RESPONSE)
-const QUERY_DATA = { id: 'random-id', key: 'value' }
-const QUERY_DATA_WITHOUT_ID = { key: 'value' }
 
 describe('CrudHttpClient', () => {
   let server
@@ -42,45 +40,6 @@ describe('CrudHttpClient', () => {
       [200, { 'Content-Type': 'application/json' }, RESPONSE_STRING])
 
     const response = await crudHttpClient.getMany(QUERY_PARAMS)
-
-    expect(response.status).to.equal(200)
-    expect(response.data).to.eql(RESPONSE)
-  })
-
-  it('creates object', async () => {
-    let requestBody
-
-    server.respondWith('POST', RESOURCE_PLURAL_URL, (request) => {
-      requestBody = request.requestBody
-      request.respond(200, { 'Content-Type': 'application/json' }, RESPONSE_STRING)
-    })
-
-    const response = await crudHttpClient.create(QUERY_DATA)
-
-    expect(JSON.parse(requestBody)).to.eql(QUERY_DATA_WITHOUT_ID)
-    expect(response.status).to.equal(200)
-    expect(response.data).to.eql(RESPONSE)
-  })
-
-  it('updates entity', async () => {
-    let requestBody
-
-    server.respondWith('PUT', RESOURCE_SINGULAR_URL, (request) => {
-      requestBody = request.requestBody
-      request.respond(200, { 'Content-Type': 'application/json' }, RESPONSE_STRING)
-    })
-
-    const response = await crudHttpClient.update(RESOURCE_ID, QUERY_DATA)
-
-    expect(JSON.parse(requestBody)).to.eql(QUERY_DATA_WITHOUT_ID)
-    expect(response.status).to.equal(200)
-    expect(response.data).to.eql(RESPONSE)
-  })
-
-  it('deletes object', async () => {
-    server.respondWith('DELETE', RESOURCE_SINGULAR_URL, [200, { 'Content-Type': 'application/json' }, RESPONSE_STRING])
-
-    const response = await crudHttpClient.delete(RESOURCE_ID)
 
     expect(response.status).to.equal(200)
     expect(response.data).to.eql(RESPONSE)
