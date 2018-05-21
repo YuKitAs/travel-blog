@@ -1,5 +1,7 @@
 # Travel Blog
 
+[![Build Status](https://travis-ci.org/YuKitAs/travel-blog.svg?branch=master)](https://travis-ci.org/YuKitAs/travel-blog)
+
 ## Start Server and client
 1. Make sure that MongoDB (>= 3.6.0) is installed and running.
 2. Use `$ bundle install` in `server` folder to install dependencies.
