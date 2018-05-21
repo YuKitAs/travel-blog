@@ -1,6 +1,9 @@
 <template>
   <div class="tb-photo-frame">
-    <img :src="photoUrl" class="tb-photo"/>
+    <img :src="photoUrl"
+      class="tb-photo"
+      :class="{'tb-photo--fullsized': !isThumbnail, 'tb-photo--thumbnail': isThumbnail}"
+      @click="$emit('click')"/>
   </div>
 </template>
 
@@ -27,9 +30,16 @@ export default {
 
   .tb-photo
     display: block
+    text-align: center
     width: 100%
     height: auto
-    transition: 0.5s
+    transition: $transition-time
+
+  .tb-photo--fullsized
     &:hover
-      transform: scale(1.05, 1.05)
+      transform: scale(1.015, 1.015)
+
+  .tb-photo--thumbnail
+    &:hover
+      transform: scale(1.03, 1.03)
 </style>

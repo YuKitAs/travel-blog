@@ -1,16 +1,15 @@
 <template>
   <div class="tb-article" v-if="loaded">
-    <h1 class="tb-article__title">{{article.title}}</h1>
-    <div class="tb-article__metadata">{{article.date | date}} | {{article.place.name}}</div>
-    <div class="tb-article__tags">
-      <a v-for="tag in article.tags" :key="tag.id" class="tb-article__tag">{{tag.name}}</a>
-    </div>
+    <h1 class="tb-page-title">{{article.title}}</h1>
+    <metadata :date="article.date" :place="article.place" :tags="article.tags"/>
     <hr/>
-    <div class="tb-article__content" :inner-html.prop="article.content | markdown"></div>
+    <div class="tb-page-content" :inner-html.prop="article.content | markdown"></div>
   </div>
 </template>
 
 <script>
+import Metadata from '@/components/common/Metadata'
+
 import ArticleService from '@/services/ArticleService'
 import PlaceService from '@/services/PlaceService'
 import TagService from '@/services/TagService'
@@ -45,6 +44,10 @@ export default {
 
       this.loaded = true
     }
+  },
+
+  components: {
+    Metadata
   }
 }
 </script>
@@ -67,26 +70,4 @@ export default {
     margin: 0 auto
     @include page-width("large-and-up")
       width: 75%
-</style>
-
-<style lang="sass" scoped>
-  @import "src/assets/styles/mixins"
-
-  .tb-article
-    &__metadata
-      font-size: 0.9rem
-      font-style: italic
-      color: $dark-text-color-highlighted
-
-    &__tags
-      margin-top: 1rem
-
-    &__tag
-      display: inline-block
-      font-size: 0.9rem
-      color: $light-text-color-grey
-      background-color: $dark-background-color-highlighted
-      padding: 0.2rem 0.5rem 0.2rem 0.5rem
-      margin-right: 0.2rem
-      border-radius: 0.25rem
 </style>

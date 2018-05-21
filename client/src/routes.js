@@ -1,6 +1,7 @@
 import About from '@/pages/About'
 import Articles from '@/pages/Articles'
 import Article from '@/pages/Article'
+import Tags from '@/pages/Tags'
 import Error from '@/pages/Error'
 
 export default {
@@ -23,6 +24,12 @@ export default {
       path: '/articles/:articleId',
       name: 'Articles.Article',
       component: Article,
+      props: true
+    },
+    {
+      path: '/tags',
+      name: 'Tags',
+      component: Tags,
       props: true
     },
     {

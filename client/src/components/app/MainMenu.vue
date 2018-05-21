@@ -29,6 +29,14 @@ export default {
     addEventListener('resize', this.updateMarginTop)
   },
 
+  watch: {
+    '$route'() {
+      if (this.expanded) {
+        this.toggleExpanded()
+      }
+    }
+  },
+
   methods: {
     toggleExpanded() {
       // Only apply transition when needed
@@ -72,7 +80,6 @@ export default {
   .tb-website-title
       text-align: center
       margin: 5px 0 5px 0
-      color: $theme-color-1
 
   .tb-line-top, .tb-line-middle
     min-height: 25px

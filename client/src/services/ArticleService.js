@@ -15,6 +15,14 @@ class ArticleService extends CrudHttpClient {
     })
   }
 
+  getAll(start, limit) {
+    return this.getMany({start, limit})
+  }
+
+  getByTags(tagIds, start, limit) {
+    return this.getMany({tag_ids: tagIds, start, limit})
+  }
+
   getFeatured() {
     return axios({
       ...this.buildCommonHttpClientSettings(),

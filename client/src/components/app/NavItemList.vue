@@ -14,7 +14,7 @@ import _ from 'lodash'
 export default {
   data() {
     return {
-      navItems: ['Articles', 'About']
+      navItems: ['Articles', 'Tags', 'About']
     }
   },
 
@@ -49,6 +49,7 @@ export default {
     color: $theme-color-2
     font-size: 120%
     cursor: pointer
+    transition: $transition-time
 
     &:hover
       color: $theme-color-1

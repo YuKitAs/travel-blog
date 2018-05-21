@@ -1,24 +1,17 @@
 class ArticlesController < ApplicationController
   skip_before_action :authenticate_request, except: [:create, :update, :destroy, :update_featured]
 
-  def index
-    if params[:tag_id].nil?
-      super
-    else
-      article_representations = []
-      Article.all.each do |article|
-        article_representations.push(article.representation) if article[:tag_ids].include?(params[:tag_id])
-      end
-
-      render(json: article_representations)
-    end
-  end
-
   def index_preview
     start = params[:start].to_i || 0
     limit = params[:limit].to_i || (Article.count + 1)
 
-    article_previews = Article
+    search_criteria = Article
+
+    if params[:tag_ids]
+      search_criteria = search_criteria.all(tag_ids: params[:tag_ids])
+    end
+
+    article_previews = search_criteria
       .order_by(:date.desc, :_id.asc).skip(start).limit(limit).to_a
       .map{|article| article_preview_of(article)}
 

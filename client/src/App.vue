@@ -48,7 +48,7 @@ export default {
     padding: 10px calc((100vw - #{$article-width)}) / 2)
     @include page-width("medium-and-up")
       width: $article-width
-      padding: 5px ($space-width - $content-offset) 10px ($space-width + $content-offset)
+      padding: 10px ($space-width - $content-offset) 10px ($space-width + $content-offset)
       border-width: 0
       border-style: solid
       border-color: $theme-color-2

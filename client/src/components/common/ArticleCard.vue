@@ -1,29 +1,33 @@
 <template>
-  <div class="tb-article-card" @click="$emit('click')">
-    <photo-frame :image-id="thumbnail" is-thumbnail/>
-    <h2 class="tb-title">{{title}}</h2>
+  <div class="tb-article-card">
+    <photo-frame :image-id="articlePreview.thumbnail.id" is-thumbnail @click="navigateTo(articlePreview.id)"/>
+    <h2 class="tb-title" @click="navigateTo(articlePreview.id)">{{articlePreview.title}}</h2>
     <div class="tb-splitter">
       <span class="tb-horizontal-line tb-splitter-line"/>
       <span class="tb-line-head"/>
     </div>
-    <div class="tb-meta-data">{{date}} | {{placeName}}</div>
-    <p class="tb-introduction">{{introduction}}</p>
+    <metadata :date="articlePreview.date" :place="articlePreview.place"/>
+    <p class="tb-introduction">{{articlePreview.introduction}}</p>
   </div>
 </template>
 
 <script>
+import Metadata from '@/components/common/Metadata'
 import PhotoFrame from '@/components/articles/PhotoFrame'
 
 export default {
   props: {
-    thumbnail: {type: String, required: true},
-    title: {type: String, required: true},
-    date: {type: String, required: true},
-    placeName: {type: String, required: true},
-    introduction: {type: String, required: true}
+    articlePreview: {type: Object, required: true}
+  },
+
+  methods: {
+    navigateTo(articleId) {
+      this.$router.push({name: 'Articles.Article', params: {articleId}})
+    }
   },
 
   components: {
+    Metadata,
     PhotoFrame
   }
 }
@@ -38,8 +42,9 @@ export default {
     cursor: pointer
 
   .tb-title
-    color: $theme-color-1
     margin-bottom: 0
+    &:hover
+      color: $theme-color-1-highlighted-2
 
   .tb-splitter
     display: flex
@@ -51,7 +56,4 @@ export default {
     width: calc(100% - 9px)
     height: 0
     border-bottom: 1px solid $theme-color-1
-
-  .tb-meta-data
-    color: $theme-color-1
 </style>

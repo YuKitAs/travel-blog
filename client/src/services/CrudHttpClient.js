@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import axios from 'axios'
 import pluralize from 'pluralize'
+import qs from 'qs'
 
 export default class CrudHttpClient {
   constructor(resourceName) {
@@ -61,7 +62,10 @@ export default class CrudHttpClient {
       headers: {
         'Content-Type': 'application/json'
       },
-      timeout: 5000
+      timeout: 5000,
+      paramsSerializer: (params) => {
+        return qs.stringify(params, { arrayFormat: 'brackets', encode: false })
+      }
     }
   }
 

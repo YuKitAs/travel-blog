@@ -1,99 +1,42 @@
 <template>
   <div class="tb-articles">
-    <featured-article
-      v-if="featuredArticle"
-      :thumbnail="featuredArticle.thumbnail.id"
-      :title="featuredArticle.title"
-      :date="featuredArticle.date"
-      :place-name="featuredArticle.place.name"
-      :introduction="featuredArticle.introduction"
-      @click="navigateTo(featuredArticle.id)"
+    <h1 class="tb-page-title">Articles</h1>
+    <featured-article v-if="featuredArticle" :article-preview="featuredArticle"
       class="tb-featured-article-visible-mask"/>
-    <div class="tb-columns">
-      <div ref="column" v-for="(column, index) in columns" :key="index" class="tb-column">
-        <article-card v-for="article in column" :key="article.id"
-          :thumbnail="article.thumbnail.id"
-          :title="article.title"
-          :date="article.date"
-          :place-name="article.place.name"
-          :introduction="article.introduction"
-          @click="navigateTo(article.id)"/>
-      </div>
-    </div>
+    <article-list :article-previews="articlePreviews"/>
   </div>
 </template>
 
 <script>
-import _ from 'lodash'
-import ArticleCard from '@/components/articles/ArticleCard'
+import ArticleList from '@/components/common/ArticleList'
 import FeaturedArticle from '@/components/articles/FeaturedArticle'
+
 import ArticleService from '@/services/ArticleService'
-import Responsive from '@/services/Responsive'
 
 export default {
   data() {
     return {
       featuredArticle: null,
-      articles: [],
-      notArrangedArticles: [],
-      columns: []
+      articlePreviews: []
     }
   },
 
   async mounted() {
     await this.fetchData()
-
-    this.rearrangeArticles(this.articles)
-
-    window.addEventListener('resize', () => this.rearrangeArticles(this.articles))
   },
 
   methods: {
     async fetchData() {
-      const articlesResponse = await ArticleService.getMany()
-      this.articles = articlesResponse.data
+      const articlePreviewsResponse = await ArticleService.getAll()
+      this.articlePreviews = articlePreviewsResponse.data
 
       const featuredArticleResponse = await ArticleService.getFeatured()
       this.featuredArticle = featuredArticleResponse.data
-    },
-
-    navigateTo(articleId) {
-      this.$router.push({name: 'Articles.Article', params: {articleId}})
-    },
-
-    rearrangeArticles(notArrangedArticles) {
-      if (Responsive.XLARGE_AND_UP) {
-        this.columns = [[], [], []]
-      } else if (Responsive.LARGE_AND_UP) {
-        this.columns = [[], []]
-      } else {
-        this.columns = [[]]
-      }
-
-      notArrangedArticles.forEach(notArrangedArticle => {
-        setTimeout(() => {
-          const heights = this.columns.map((articles, index) => {
-            const thumbnailHeight = articles.reduce((totalHeight, article) => totalHeight + article.thumbnail.height, 0)
-            const textHeight = _.get(this.$refs.column[index], 'scrollHeight', 0)
-            return thumbnailHeight + textHeight
-          })
-
-          let indexOfColumnWithMinHeight = 0
-
-          heights.forEach((height, index) => {
-            if (height < heights[indexOfColumnWithMinHeight]) {
-              indexOfColumnWithMinHeight = index
-            }
-          })
-
-          this.columns[indexOfColumnWithMinHeight].push(notArrangedArticle)
-        }, 0)
-      })
     }
   },
 
   components: {
-    ArticleCard,
+    ArticleList,
     FeaturedArticle
   }
 }
@@ -106,12 +49,4 @@ export default {
     display: none
     @include page-width("large-and-up")
       display: block
-
-  .tb-columns
-    display: flex
-    align-items: flex-start
-    justify-content: space-between
-
-  .tb-column
-      width: 300px
 </style>

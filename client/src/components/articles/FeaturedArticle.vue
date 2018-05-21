@@ -1,29 +1,33 @@
 <template>
-  <div class="tb-featured-article" @click="$emit('click')">
-    <photo-frame :image-id="thumbnail"/>
+  <div class="tb-featured-article">
+    <photo-frame :image-id="articlePreview.thumbnail.id" @click="navigateTo(articlePreview.id)"/>
     <div class="tb-info-card-anchor">
       <div class="tb-info-card">
-        <h2 class="tb-title">{{title}}</h2>
-        <div class="tb-meta-data">{{date}} | {{placeName}}</div>
-        <p class="tb-introduction">{{introduction}}</p>
+        <h2 class="tb-title" @click="navigateTo(articlePreview.id)">{{articlePreview.title}}</h2>
+        <metadata :date="articlePreview.date" :place="articlePreview.place"/>
+        <p class="tb-introduction">{{articlePreview.introduction}}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Metadata from '@/components/common/Metadata'
 import PhotoFrame from '@/components/articles/PhotoFrame'
 
 export default {
   props: {
-    thumbnail: {type: String, required: true},
-    title: {type: String, required: true},
-    date: {type: String, required: true},
-    placeName: {type: String, required: true},
-    introduction: {type: String, required: true}
+    articlePreview: {type: Object, required: true}
+  },
+
+  methods: {
+    navigateTo(articleId) {
+      this.$router.push({name: 'Articles.Article', params: {articleId}})
+    }
   },
 
   components: {
+    Metadata,
     PhotoFrame
   }
 }
@@ -34,15 +38,13 @@ export default {
 
   .tb-featured-article
     width: 100%
-    margin: 25px 0 $space-width 0
+    margin: 20px 0 $space-width 0
     cursor: pointer
 
   .tb-title
-    color: $theme-color-1-shaded-1
     margin-bottom: 0.5em
-
-  .tb-meta-data
-    color: $theme-color-1-shaded-1
+    &:hover
+      color: $theme-color-1-highlighted-2
 
   .tb-info-card-anchor
     height: 0
@@ -53,5 +55,5 @@ export default {
     top: -50px
     width: 55%
     padding: 1px 20px 1px 20px
-    background: rgba(255, 255, 255, 0.8)
+    background: rgba(255, 255, 255, 0.88)
 </style>

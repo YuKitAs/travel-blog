@@ -13,3 +13,31 @@
   min-width: 9px
   min-height: 9px
   background-color: $theme-color-1
+
+h1.tb-page-title
+  margin: 10px 0
+  text-transform: uppercase
+  font-size: 300%
+  @include page-width("large-and-up")
+    font-size: 450%
+
+.tb-page-content
+  @include page-width("large-and-up")
+    font-size: 120%
+
+.tb-tag
+  display: inline-block
+  font-size: 90%
+  color: $theme-color-1
+  background-color: $theme-color-3
+  padding: 3px 8px
+  margin-right: 4px
+  border-style: solid
+  border-width: 1px
+  border-color: $theme-color-1
+  border-radius: 4px
+  cursor: pointer
+  transition: $transition-time-fast
+  &:hover
+    text-decoration: none
+    background-color: $theme-color-1-highlighted-6
