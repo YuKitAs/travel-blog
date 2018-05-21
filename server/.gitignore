@@ -16,3 +16,6 @@ tmp/*
 # Ignore all built frontend files.
 public/
 !public/robots.txt
+
+# Ignore test coverage files.
+coverage/*
