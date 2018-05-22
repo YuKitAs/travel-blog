@@ -4,7 +4,9 @@ RSpec.describe ImagesController, type: :controller do
   before :each do
     @image_id = Image.create!(
       content: BSON::Binary.new(image_stream.read),
-      thumbnail: { 'id': 'valid-thumbnail-id-01', 'width': 300, 'height': 222 },
+      thumbnail: { 'id': 'valid-thumbnail-id-01', 'width': 300, 'height': 222, 'content': BSON::Binary.new(
+        Rack::Test::UploadedFile.new(get_fixture('testshu-thumbnail.jpg'), 'image/jpeg').read
+      ) },
       created_at: Time.at(1_514_764_800)
     ).to_param
   end
@@ -34,6 +36,18 @@ RSpec.describe ImagesController, type: :controller do
 
       expect(response.message).to eq 'OK'
       expect(response.body).to eq image_stream.read
+    end
+  end
+
+  describe 'GET #show_thumbnail' do
+    it 'shows the thumbnail of an image by image id' do
+      get :show_thumbnail, params: { id: @image_id }
+
+      expect(response.message).to eq 'OK'
+
+      expect(response.headers['Content-Type']).to eq 'image/jpeg'
+
+      expect(response.body).to eq Image.find(@image_id)[:thumbnail][:content].data
     end
   end
 
