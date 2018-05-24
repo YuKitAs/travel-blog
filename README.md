@@ -17,7 +17,7 @@
 
 Frontend:
 - [x] Research for list view and post view (@xiGUAwanOU)
-- [ ] Implement list view and post view (@xiGUAwanOU)
+- [x] Implement list view and post view (@xiGUAwanOU)
 - [ ] Refactor unit test utilities (@xiGUAwanOU)
 - [ ] Implement unit tests for list view and post view (@xiGUAwanOU)
 - [ ] Research for Google Maps (@YuKitAs)
