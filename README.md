@@ -11,21 +11,4 @@
 6. Navigate to `http://localhost:8080` to view the homepage.
 
 ## TODO List
-- [x] Setup vue.js project
-- [x] Setup Ruby on Rails project
-- [x] Write Rakefile to bind two projects
-
-Frontend:
-- [x] Research for list view and post view (@xiGUAwanOU)
-- [x] Implement list view and post view (@xiGUAwanOU)
-- [ ] Refactor unit test utilities (@xiGUAwanOU)
-- [ ] Implement unit tests for list view and post view (@xiGUAwanOU)
-- [ ] Research for Google Maps (@YuKitAs)
-
-Backend:
-- [x] Research for Rails with MongoDB (@YuKitAs)
-- [x] Setup Rails with MongoDB (@YuKitAs)
-- [x] Research for reading/writing images with MongoDB (@YuKitAs)
-- [x] Authentication (@YuKitAs)
-- [x] Display images fetched with GET from image endpoint (@YuKitAs)
-- [x] Articel preview (@YuKitAs)
+See cards in [Main Project](https://github.com/YuKitAs/travel-blog/projects/1?add_cards_query=is%3Aopen)
