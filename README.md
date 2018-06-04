@@ -9,7 +9,7 @@
 
 ## Start Client
 1. In `client` folder, use `yarn install` to install frontend dependencies.
-2. Use `yarn dev` to start frontend server.
+2. Use `yarn dev` to start the frontend server.
 3. Navigate to `http://localhost:8080` to view the homepage.
 
 ## TODO List
