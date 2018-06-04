@@ -4,12 +4,12 @@
 
 ## Start Server
 1. Make sure that MongoDB (>= 3.6.0) is installed and running.
-2. Use `$ bundle install` in `server` folder to install dependencies.
-3. Use `$ rails server` to start the backend server.
+2. In `server` folder, use `bundle install` to install backend dependencies.
+3. Use `rails server` to start the backend server.
 
 ## Start Client
-1. Use `$ yarn install` in `client` folder to install frontend dependencies.
-2. Use `$ yarn dev` in `client` folder to start frontend server.
+1. In `client` folder, use `yarn install` to install frontend dependencies.
+2. Use `yarn dev` to start frontend server.
 3. Navigate to `http://localhost:8080` to view the homepage.
 
 ## TODO List
