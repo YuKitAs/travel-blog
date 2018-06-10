@@ -40,11 +40,11 @@ export default {
   methods: {
     toggleExpanded() {
       // Only apply transition when needed
-      if (this.$refs['main-menu'].style.transition === '') {
-        this.$refs['main-menu'].style.transition = '0.5s'
+      if (this.$refs['main-menu'].style.getPropertyValue('transition') === '') {
+        this.$refs['main-menu'].style.setProperty('transition', '0.5s')
 
         setTimeout(() => {
-          this.$refs['main-menu'].style.transition = ''
+          this.$refs['main-menu'].style.setProperty('transition', '')
         }, 500)
       }
 
@@ -54,8 +54,10 @@ export default {
     },
 
     updateMarginTop() {
-      this.$refs['main-menu'].style.marginTop =
+      this.$refs['main-menu'].style.setProperty(
+        'margin-top',
         (Responsive.MEDIUM_AND_UP || this.expanded) ? '0' : `${55 - this.$refs['main-menu'].offsetHeight}px`
+      )
     }
   },
 
