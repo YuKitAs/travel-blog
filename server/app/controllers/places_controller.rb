@@ -1,13 +1,27 @@
-class PlacesController < ApplicationController
-  skip_before_action :authenticate_request, except: [:create, :update, :destroy]
-
-  private
-
-  def entity
+class PlacesController < CrudController
+  def entity_class
     return Place
   end
 
-  def entity_field_params
-    return params.require(:place).permit(:name, location: [:lat, :lng])
+  def entity_params
+    return {
+      name: params.fetch(:name),
+      location: {
+        lat: params.fetch(:location).require(:lat),
+        lng: params.fetch(:location).require(:lng)
+      }
+    }
+  rescue ActionController::ParameterMissing
+    raise(InvalidDataError, 'Location must contain "lat" and "lng" subfields.')
+  end
+
+  def render_entities(places, status)
+    @places = places
+    render(:places, status: status)
+  end
+
+  def render_entity(place, status)
+    @place = place
+    render(:place, status: status)
   end
 end

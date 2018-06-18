@@ -1,0 +1,8 @@
+json.id(article._id)
+json.title(article.title)
+json.date(article.date)
+json.introduction(article.introduction)
+json.content(article.content)
+json.place_id(article.place_id)
+json.tag_ids(article.tag_ids)
+json.thumbnail_id(article.thumbnail_id)
