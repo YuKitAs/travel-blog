@@ -19,13 +19,13 @@ class ImagesController < ApplicationController
   def show
     send_data(Image.find(params[:id])[:content].data, type: 'image/jpeg', disposition: 'inline')
   rescue Mongoid::Errors::DocumentNotFound
-    raise(EntityNotFoundError, "Image #{params[:id]} cannot be found")
+    send_data(nil, type: 'image/jpeg', disposition: 'inline', status: :not_found)
   end
 
   def show_thumbnail
     send_data(Image.find(params[:id])[:thumbnail][:content].data, type: 'image/jpeg', disposition: 'inline')
   rescue Mongoid::Errors::DocumentNotFound
-    raise(EntityNotFoundError, "Image #{params[:id]} cannot be found")
+    send_data(nil, type: 'image/jpeg', disposition: 'inline', status: :not_found)
   end
 
   def create

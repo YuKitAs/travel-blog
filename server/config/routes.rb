@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  scope '/api', defaults: { format: 'json' } do
+  scope '/api', defaults: { format: :json } do
     get '/articles/featured', to: 'articles#show_featured'
     put '/articles/featured/:id', to: 'articles#update_featured'
 
@@ -10,8 +10,8 @@ Rails.application.routes.draw do
     delete '/articles/:id', to: 'articles#destroy'
 
     get '/images', to: 'images#index'
-    get '/images/:id', to: 'images#show'
-    get '/images/:id/thumbnail', to: 'images#show_thumbnail'
+    get '/images/:id', to: 'images#show', defaults: { format: :jpg }
+    get '/images/:id/thumbnail', to: 'images#show_thumbnail', defaults: { format: :jpg }
     post '/images', to: 'images#create'
     delete '/images/:id' => 'images#destroy'
 
