@@ -1,0 +1,8 @@
+development:
+  time_to_live: 0
+
+test:
+  time_to_live: 60
+
+production:
+  time_to_live: 1209600

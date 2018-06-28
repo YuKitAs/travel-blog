@@ -12,7 +12,8 @@ require 'action_view/railtie'
 require 'action_cable/engine'
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
-require_relative '../lib/middleware/json_parse_error_handler'
+
+require_relative '../app/middleware/json_parse_error_handler'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -23,9 +24,6 @@ module TravelBlog
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults(5.2)
 
-    # Custom JSON parse error handler
-    config.middleware.insert_before(Rack::Head, JsonParseErrorHandler)
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
@@ -35,5 +33,10 @@ module TravelBlog
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # Custom JSON parse error handler
+    config.middleware.insert_before(Rack::Head, JsonParseErrorHandler)
+    # JWT configurations
+    config.jwt = config_for(:jwt)
   end
 end
