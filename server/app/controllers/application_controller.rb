@@ -12,13 +12,17 @@ class ApplicationController < ActionController::API
     render_error(:bad_request, exception.message)
   end
 
+  rescue_from AuthenticationFailedError do |_exception|
+    render_error(:unauthorized)
+  end
+
   rescue_from ActionDispatch::Http::Parameters::ParseError do
     render_error(:bad_request, 'JSON cannot be parsed.')
   end
 
   protected
 
-  def render_error(error, message)
+  def render_error(error, message = '')
     @error = error.to_s.tr('_', ' ')
     @message = message
     render(:error, status: error)

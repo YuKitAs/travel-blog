@@ -1,17 +1,16 @@
 class JwtService
   class << self
     def encode(payload)
-      if Rails.configuration.jwt[:time_to_live] != 0
-        payload[:exp] = Rails.configuration.jwt[:time_to_live].seconds.from_now
+      time_to_live = Rails.configuration.jwt['time_to_live']
+      if time_to_live != 0
+        payload[:exp] = time_to_live.seconds.from_now.to_i
       end
-      JWT.encode(payload, Rails.application.credentials.secret_key_base)
+      return JWT.encode(payload, Rails.application.credentials.secret_key_base)
     end
 
     def decode(token)
-      body = JWT.decode(token, Rails.application.secrets.secret_key_base)[0]
-      HashWithIndifferentAccess.new(body)
-    rescue JWT::DecodeError, JWT::ExpiredSignature
-      raise(AuthenticationFailedError)
+      body = JWT.decode(token, Rails.application.credentials.secret_key_base)[0]
+      return HashWithIndifferentAccess.new(body)
     end
   end
 end

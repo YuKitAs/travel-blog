@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   scope '/api', defaults: { format: :json } do
+    post '/login', to: 'authentication#login'
+
     get '/articles/featured', to: 'articles#show_featured'
     put '/articles/featured/:id', to: 'articles#update_featured'
 
