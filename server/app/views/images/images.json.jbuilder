@@ -1,1 +1,1 @@
-json.array!(@images, partial: 'model', as: :image)
+json.array!(@images, partial: 'models/image', as: :image)

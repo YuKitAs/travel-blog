@@ -1,1 +1,1 @@
-json.partial!('model', tag: @tag)
+json.partial!('models/tag', tag: @tag)

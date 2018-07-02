@@ -1,1 +1,1 @@
-json.array!(@places, partial: 'model', as: :place)
+json.array!(@places, partial: 'models/place', as: :place)

@@ -1,1 +1,1 @@
-json.array!(@articles, partial: 'model', as: :article)
+json.array!(@articles, partial: 'models/article', as: :article)

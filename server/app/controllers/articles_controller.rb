@@ -1,7 +1,7 @@
 class ArticlesController < CrudController
   DEFAULT_ARTICLES_LIMIT = 50
 
-  def index
+  def index_preview
     all_filters = {}
     if params[:tag_ids]
       all_filters[:tag_ids] = params[:tag_ids]
@@ -14,16 +14,16 @@ class ArticlesController < CrudController
                         search_criteria.limit(DEFAULT_ARTICLES_LIMIT)
                       end
 
-    @articles = search_criteria.to_a
+    @articles = search_criteria.to_a.map{|article| to_preview(article)}
 
-    render(:articles, status: :ok)
+    render(:articles_preview, status: :ok)
   end
 
-  def show_featured
+  def show_featured_preview
     featured_article_id = SiteConfiguration.find_by(key: 'featured_article_id').value
-    @article = Article.find(featured_article_id)
+    @article = to_preview(Article.find(featured_article_id))
 
-    render(:article, status: :ok)
+    render(:article_preview, status: :ok)
   end
 
   def update_featured
@@ -56,5 +56,14 @@ class ArticlesController < CrudController
   def render_entity(article, status)
     @article = article
     render(:article, status: status)
+  end
+
+  private
+
+  def to_preview(article)
+    article = OpenStruct.new(article.serializable_hash)
+    article.place = Place.find(article.place_id)
+    article.tags = article.tag_ids.map{|tag_id| Tag.find(tag_id)}
+    return article
   end
 end

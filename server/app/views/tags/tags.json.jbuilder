@@ -1,1 +1,1 @@
-json.array!(@tags, partial: 'model', as: :tag)
+json.array!(@tags, partial: 'models/tag', as: :tag)
