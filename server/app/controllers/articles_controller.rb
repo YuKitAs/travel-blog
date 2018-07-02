@@ -27,6 +27,8 @@ class ArticlesController < CrudController
   end
 
   def update_featured
+    AuthenticationService.authenticate(request.headers)
+
     featured_article_id = params[:id]
     unless /\A[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\z/.match?(featured_article_id)
       raise(InvalidDataError, 'Id has incorrect format.')

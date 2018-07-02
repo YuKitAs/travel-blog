@@ -29,6 +29,8 @@ class ImagesController < ApplicationController
   end
 
   def create
+    AuthenticationService.authenticate(request.headers)
+
     if params[:image].content_type != 'image/jpeg'
       raise(InvalidDataError, 'The format of the image is incorrect')
     end
@@ -45,6 +47,8 @@ class ImagesController < ApplicationController
   end
 
   def destroy
+    AuthenticationService.authenticate(request.headers)
+
     @image = Image.find(params[:id])
     @image.destroy
 
