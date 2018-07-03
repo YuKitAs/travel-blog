@@ -38,10 +38,11 @@ export default {
 
   .tb-article-card
     width: $article-width
-    margin-bottom: $space-width
+    margin-bottom: $space-width * 1.5
     cursor: pointer
 
   .tb-title
+    margin-top: 10px
     margin-bottom: 0
     &:hover
       color: $theme-color-1-highlighted-2
@@ -49,7 +50,7 @@ export default {
   .tb-splitter
     display: flex
     align-items: center
-    margin-bottom: 15px
+    margin-bottom: 10px
 
   .tb-splitter-line
     display: inline-block

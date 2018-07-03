@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
   rescue_from StandardError do |exception|
-    logger.error("#{exception.class.name} :: #{exception}")
+    logger.error("#{exception.class.name} :: #{exception} :: #{exception.backtrace.join("\n")}")
     render_error(:internal_server_error, 'Internal server error occurred, this request has been logged.')
   end
 

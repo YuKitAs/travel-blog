@@ -37,7 +37,7 @@ export default {
 
   .tb-photo--fullsized
     &:hover
-      transform: scale(1.015, 1.015)
+      transform: scale(1.02, 1.02)
 
   .tb-photo--thumbnail
     &:hover

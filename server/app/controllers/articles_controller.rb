@@ -62,8 +62,17 @@ class ArticlesController < CrudController
 
   def to_preview(article)
     article = OpenStruct.new(article.serializable_hash)
-    article.place = Place.find(article.place_id)
-    article.tags = article.tag_ids.map{|tag_id| Tag.find(tag_id)}
+
+    article.place = Place.where(id: article.place_id).first
+
+    article.tags = article.tag_ids.map{|tag_id| Tag.where(id: tag_id).first}.reject(&:nil?)
+
+    article.thumbnail = Image.where(id: article.thumbnail_id).first&.thumbnail
+    if article.thumbnail
+      article.thumbnail = OpenStruct.new(article.thumbnail.serializable_hash)
+      article.thumbnail._id = article.thumbnail_id
+    end
+
     return article
   end
 end
