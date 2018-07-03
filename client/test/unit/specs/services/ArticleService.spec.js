@@ -35,7 +35,7 @@ describe('ArticleService', () => {
   })
 
   it('gets featured article', async () => {
-    server.respondWith('GET', `api/articles/featured`,
+    server.respondWith('GET', `api/articles/featured/preview`,
       [200, { 'Content-Type': 'application/json' }, RESPONSE_STRING])
 
     const response = await ArticleService.getFeatured()
