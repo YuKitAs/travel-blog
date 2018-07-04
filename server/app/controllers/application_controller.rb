@@ -23,8 +23,6 @@ class ApplicationController < ActionController::API
   protected
 
   def render_error(error, message = '')
-    @error = error.to_s.tr('_', ' ')
-    @message = message
-    render(:error, status: error)
+    render(json: { error: error.to_s, message: message }, status: error)
   end
 end

@@ -14,7 +14,7 @@ class CrudController < ApplicationController
 
   def show
     entity = entity_class.find(params[:id])
-    render_entity(entity, :created)
+    render_entity(entity, :ok)
   end
 
   def create
@@ -22,7 +22,7 @@ class CrudController < ApplicationController
 
     entity = entity_class.new(entity_params)
     entity.save!
-    render_entity(entity, :ok)
+    render_entity(entity, :created)
   end
 
   def update
