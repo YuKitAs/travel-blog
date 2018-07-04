@@ -64,14 +64,14 @@ class ArticlesController < CrudController
     article = OpenStruct.new(article.serializable_hash)
 
     article.place = Place.where(id: article.place_id).first
-
     article.tags = article.tag_ids.map{|tag_id| Tag.where(id: tag_id).first}.reject(&:nil?)
 
-    article.thumbnail = Image.where(id: article.thumbnail_id).first&.thumbnail
-    if article.thumbnail
-      article.thumbnail = OpenStruct.new(article.thumbnail.serializable_hash)
-      article.thumbnail._id = article.thumbnail_id
-    end
+    thumbnail_of_image = Image.where(id: article.thumbnail_id).first&.thumbnail
+    article.thumbnail = if thumbnail_of_image
+                          OpenStruct.new(_id: article.thumbnail_id,
+                                         width: thumbnail_of_image.width,
+                                         height: thumbnail_of_image.height)
+                        end
 
     return article
   end
