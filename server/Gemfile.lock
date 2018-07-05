@@ -213,7 +213,7 @@ DEPENDENCIES
   rspec
   rspec-mocks
   rspec-rails
-  rubocop
+  rubocop (= 0.57.2)
   shoulda-matchers
   spring
   spring-watcher-listen (~> 2.0.0)
