@@ -24,7 +24,7 @@ case "$1" in
 
     setup)
         bundle check
-        bundle install
+        bundle install --without development test
         ;;
 
     *)
