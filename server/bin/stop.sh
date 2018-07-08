@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-kill $(tmp/pids/puma.pid)
+kill $(cat tmp/pids/puma.pid)
