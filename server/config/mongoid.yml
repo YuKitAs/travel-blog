@@ -1,7 +1,7 @@
 production:
   clients:
     default:
-      database: travel_blog_development
+      database: travel_blog
       hosts:
         - localhost:27017
 
