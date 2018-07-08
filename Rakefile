@@ -1,4 +1,4 @@
-task :build do
+task 'build' do
   sh 'rm -rf build'
   sh 'cp -r server build'
 
@@ -20,12 +20,13 @@ task :build do
   end
 end
 
-task :package do
-  if File.exist?('build') && File.exist?('travel-blog.tar.gz') && File.ctime('build') < File.ctime('travel-blog.tar.gz')
-    abort('Package is up-to-date')
-  end
-
+task 'package' => 'build' do
   Dir.chdir('build') do
     sh 'tar czf ../travel-blog.tar.gz .'
   end
+end
+
+task 'upload' => 'package' do
+  host = ENV['host']
+  sh "scp travel-blog.tar.gz #{host}:travel-blog-#{Time.now.strftime('%Y%m%d%H%M%S')}.tar.gz"
 end
