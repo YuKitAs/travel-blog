@@ -2,7 +2,7 @@ matrix:
   include:
     - language: ruby
       rvm:
-        - 2.5
+        - 2.5.1
       services:
         - mongodb
       before_install:

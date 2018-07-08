@@ -11,10 +11,21 @@ task :build do
   sh 'mv client/dist/* build/public'
 
   Dir.chdir('build') do
-    sh 'bundle install'
+    sh 'rm -rf spec'
+    sh 'rm -rf .gitignore'
+    sh 'rm -rf .rspec'
+    sh 'rm -rf .rubocop.yml'
+    sh 'rm -rf log/*'
+    sh 'rm -rf tmp/*'
   end
 end
 
-task package: :build do
-  abort 'Git repository not clean. Please commit and push.' unless system('git diff --exit-code')
+task :package do
+  if File.exist?('build') && File.exist?('travel-blog.tar.gz') && File.ctime('build') < File.ctime('travel-blog.tar.gz')
+    abort('Package is up-to-date')
+  end
+
+  Dir.chdir('build') do
+    sh 'tar czf ../travel-blog.tar.gz .'
+  end
 end
