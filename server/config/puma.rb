@@ -9,7 +9,7 @@ rails_env = ENV.fetch('RAILS_ENV'){'development'}
 environment(rails_env)
 
 if rails_env == 'production'
-  ssl_bind('127.0.0.1', '3000',
+  ssl_bind('0.0.0.0', '3000',
     key: '/etc/letsencrypt/live/captain-bonbon.de/privkey.pem',
     cert: '/etc/letsencrypt/live/captain-bonbon.de/fullchain.pem')
   daemonize
