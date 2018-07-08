@@ -1,14 +1,20 @@
 task :build do
-  sh "rm -rf server/public/static server/public/index.html"
+  sh 'rm -rf build'
+  sh 'cp -r server build'
 
-  Dir.chdir("client") do
-    sh "yarn install"
-    sh "yarn build"
+  Dir.chdir('client') do
+    sh 'yarn install'
+    sh 'yarn build'
   end
 
-  sh "mv client/dist/* server/public"
+  sh 'mkdir build/public'
+  sh 'mv client/dist/* build/public'
 
-  Dir.chdir("server") do
-    sh "bundle install"
+  Dir.chdir('build') do
+    sh 'bundle install'
   end
+end
+
+task package: :build do
+  abort 'Git repository not clean. Please commit and push.' unless system('git diff --exit-code')
 end
