@@ -11,8 +11,6 @@
 import Metadata from '@/components/common/Metadata'
 
 import ArticleService from '@/services/ArticleService'
-import PlaceService from '@/services/PlaceService'
-import TagService from '@/services/TagService'
 
 export default {
   props: {
@@ -32,17 +30,12 @@ export default {
 
   methods: {
     async loadData() {
-      this.loaded = false
-
       try {
         this.article = (await ArticleService.getOne(this.articleId)).data
-        this.article.place = (await PlaceService.getOne(this.article.place_id)).data
-        this.article.tags = (await TagService.getByArticleId(this.articleId)).data
+        this.loaded = true
       } catch (e) {
         this.$router.replace({name: 'Error'})
       }
-
-      this.loaded = true
     }
   },
 

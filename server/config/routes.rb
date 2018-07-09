@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get '/articles/featured/preview', to: 'articles#show_featured_preview'
     put '/articles/featured/:id', to: 'articles#update_featured'
     get '/articles/preview', to: 'articles#index_preview'
-    get '/articles/:id', to: 'articles#show'
+    get '/articles/:id/full', to: 'articles#show_full'
     post '/articles', to: 'articles#create'
     put '/articles/:id', to: 'articles#update'
     delete '/articles/:id', to: 'articles#destroy'

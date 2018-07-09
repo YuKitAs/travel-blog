@@ -6,6 +6,14 @@ class ArticleService extends CrudHttpClient {
     super('article')
   }
 
+  getOne(id) {
+    return axios({
+      ...this.buildCommonHttpClientSettings(),
+      method: 'get',
+      url: `${this.buildUrl(id)}/full`
+    })
+  }
+
   getMany(params) {
     return axios({
       ...this.buildCommonHttpClientSettings(),

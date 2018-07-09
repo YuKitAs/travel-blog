@@ -35,4 +35,21 @@ class Article
     with: /\A[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\z/,
     message: 'has invalid format'
   })
+
+  def with_related_fields(place, tags, thumbnail)
+    article_with_related_fields = OpenStruct.new(serializable_hash)
+
+    article_with_related_fields.place = place
+    article_with_related_fields.tags = tags
+
+    if thumbnail
+      article_with_related_fields.thumbnail = OpenStruct.new(
+        _id: thumbnail_id,
+        width: thumbnail.width,
+        height: thumbnail.height
+      )
+    end
+
+    return article_with_related_fields
+  end
 end
