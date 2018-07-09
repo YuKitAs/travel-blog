@@ -21,6 +21,8 @@ task 'build' do
 end
 
 task 'package' => 'build' do
+  sh 'rm -rf travel-blog.tar.gz'
+
   Dir.chdir('build') do
     sh 'tar czf ../travel-blog.tar.gz .'
   end
