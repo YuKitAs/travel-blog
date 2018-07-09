@@ -106,7 +106,7 @@ GEM
     parser (2.5.1.0)
       ast (~> 2.4.0)
     powerpack (0.1.2)
-    puma (3.11.4)
+    puma (3.10.0)
     rack (2.0.5)
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
@@ -208,7 +208,7 @@ DEPENDENCIES
   mongoid (~> 7.0.0)
   mongoid-geospatial (~> 5.0.0)
   mongoid-rspec
-  puma (~> 3.11)
+  puma (~> 3.10.0)
   rails (~> 5.2.0)
   rspec
   rspec-mocks
