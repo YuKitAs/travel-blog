@@ -1,8 +1,7 @@
 <template>
   <div class="tb-articles">
     <h1 class="tb-page-title">Articles</h1>
-    <featured-article v-if="featuredArticle" :article-preview="featuredArticle"
-      class="tb-featured-article-visible-mask"/>
+    <featured-article/>
     <article-list :article-previews="articlePreviews"/>
   </div>
 </template>
@@ -16,7 +15,6 @@ import ArticleService from '@/services/ArticleService'
 export default {
   data() {
     return {
-      featuredArticle: null,
       articlePreviews: []
     }
   },
@@ -29,7 +27,6 @@ export default {
     async fetchData() {
       try {
         this.articlePreviews = (await ArticleService.getAll()).data
-        this.featuredArticle = (await ArticleService.getFeatured()).data
       } catch (e) {
         this.$router.replace({name: 'Error'})
       }
@@ -42,12 +39,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-  @import "src/assets/styles/mixins"
-
-  .tb-featured-article-visible-mask
-    display: none
-    @include page-width("large-and-up")
-      display: block
-</style>

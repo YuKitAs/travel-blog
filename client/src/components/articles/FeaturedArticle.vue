@@ -1,11 +1,11 @@
 <template>
-  <div class="tb-featured-article">
-    <photo-frame :image-id="articlePreview.thumbnail.id" @click="navigateTo(articlePreview.id)"/>
+  <div v-if="loaded" class="tb-featured-article">
+    <photo-frame :image-id="featuredArticle.thumbnail.id" @click="navigateTo(featuredArticle.id)"/>
     <div class="tb-info-card-anchor">
       <div class="tb-info-card">
-        <h2 class="tb-title" @click="navigateTo(articlePreview.id)">{{articlePreview.title}}</h2>
-        <metadata :date="articlePreview.date" :place="articlePreview.place"/>
-        <p class="tb-introduction">{{articlePreview.introduction}}</p>
+        <h2 class="tb-title" @click="navigateTo(featuredArticle.id)">{{featuredArticle.title}}</h2>
+        <metadata :date="featuredArticle.date" :place="featuredArticle.place"/>
+        <p class="tb-introduction">{{featuredArticle.introduction}}</p>
       </div>
     </div>
   </div>
@@ -15,12 +15,30 @@
 import Metadata from '@/components/common/Metadata'
 import PhotoFrame from '@/components/articles/PhotoFrame'
 
+import ArticleService from '@/services/ArticleService'
+
 export default {
-  props: {
-    articlePreview: {type: Object, required: true}
+  data() {
+    return {
+      loaded: false,
+      featuredArticle: null
+    }
+  },
+
+  async mounted() {
+    await this.fetchData()
   },
 
   methods: {
+    async fetchData() {
+      try {
+        this.featuredArticle = (await ArticleService.getFeatured()).data
+        this.loaded = true
+      } catch (e) {
+        this.loaded = false
+      }
+    },
+
     navigateTo(articleId) {
       this.$router.push({name: 'Articles.Article', params: {articleId}})
     }
@@ -37,9 +55,12 @@ export default {
   @import "src/assets/styles/mixins"
 
   .tb-featured-article
-    width: 100%
-    margin: 20px 0 $space-width 0
-    cursor: pointer
+    display: none
+    @include page-width("large-and-up")
+      display: block
+      width: 100%
+      margin: 20px 0 $space-width 0
+      cursor: pointer
 
   .tb-title
     margin-bottom: 0.5em
