@@ -1,5 +1,5 @@
 <template>
-  <div class="tb-article-list">
+  <div class="tb-article-list" ref="columns">
     <div ref="column" v-for="(column, index) in columns" :key="index" class="tb-column">
       <article-card v-for="articlePreview in column" :key="articlePreview.id" :article-preview="articlePreview"
         @click="navigateTo(articlePreview.id)"/>
@@ -10,7 +10,9 @@
 <script>
 import _ from 'lodash'
 import ArticleCard from '@/components/common/ArticleCard'
-import Responsive from '@/services/Responsive'
+
+const ARTICLE_WIDTH = 300
+const SPACE_WIDTH = 50
 
 export default {
   props: {
@@ -30,7 +32,7 @@ export default {
   },
 
   mounted() {
-    window.addEventListener('resize', () => this.rearrangeArticles(this.articlePreviews))
+    window.addEventListener('resize', this.onResize)
   },
 
   methods: {
@@ -38,22 +40,22 @@ export default {
       this.$router.push({name: 'Articles.Article', params: {articleId}})
     },
 
+    onResize() {
+      if (this.columns.length === this.calculateNumberOfColumns) {
+        return
+      }
+      this.rearrangeArticles(this.articlePreviews)
+    },
+
     rearrangeArticles(notArrangedArticles) {
-      if (Responsive.XLARGE_AND_UP) {
-        this.columns = [[], [], []]
-      } else if (Responsive.LARGE_AND_UP) {
-        this.columns = [[], []]
-      } else {
-        this.columns = [[]]
+      let numberOfColumns = this.calculateNumberOfColumns()
+      for (let i = 0; i < numberOfColumns; i += 1) {
+        this.columns.push([])
       }
 
       notArrangedArticles.forEach(notArrangedArticle => {
         setTimeout(() => {
-          const heights = this.columns.map((articles, index) => {
-            const thumbnailHeight = articles.reduce((totalHeight, article) => totalHeight + article.thumbnail.height, 0)
-            const textHeight = _.get(this.$refs.column[index], 'scrollHeight', 0)
-            return thumbnailHeight + textHeight
-          })
+          const heights = this.columns.map((articles, index) => _.get(this.$refs.column[index], 'scrollHeight', 0))
 
           let indexOfColumnWithMinHeight = 0
 
@@ -66,6 +68,10 @@ export default {
           this.columns[indexOfColumnWithMinHeight].push(notArrangedArticle)
         }, 0)
       })
+    },
+
+    calculateNumberOfColumns() {
+      return (this.$refs.columns.offsetWidth + SPACE_WIDTH) / (ARTICLE_WIDTH + SPACE_WIDTH)
     }
   },
 
