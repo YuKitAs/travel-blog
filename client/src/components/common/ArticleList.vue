@@ -41,13 +41,15 @@ export default {
     },
 
     onResize() {
-      if (this.columns.length === this.calculateNumberOfColumns) {
+      if (this.columns.length === this.calculateNumberOfColumns()) {
         return
       }
       this.rearrangeArticles(this.articlePreviews)
     },
 
     rearrangeArticles(notArrangedArticles) {
+      this.columns = []
+
       let numberOfColumns = this.calculateNumberOfColumns()
       for (let i = 0; i < numberOfColumns; i += 1) {
         this.columns.push([])
