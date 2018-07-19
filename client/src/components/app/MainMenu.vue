@@ -1,7 +1,10 @@
 <template>
   <div ref="main-menu" class="tb-main-menu">
     <div class="tb-vertical-line tb-line-top"/>
-    <img :src="require('@/assets/images/logo.png')" class="tb-logo"/>
+    <div>
+      <img :src="require('@/assets/images/logo.png')" class="tb-logo"/>
+      <img :src="require('@/assets/images/logo-hover.png')" class="tb-logo-hover"/>
+    </div>
     <h1 class="tb-website-title">Captain<br/>Bonbon</h1>
     <div class="tb-line-head"/>
     <div class="tb-vertical-line tb-line-middle"/>
@@ -92,6 +95,13 @@ export default {
         min-height: 100%
 
   .tb-logo
+      width: 120px
+      height: auto
+      position: absolute
+      &:hover
+        opacity: 0
+
+  .tb-logo-hover
       width: 120px
       height: auto
 
