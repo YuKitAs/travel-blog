@@ -13,12 +13,40 @@
       </b-col>
     </b-row>
 
+    <b-row>
+      <b-col>
+        <b-form-group>
+          <b-btn size="sm" v-b-modal.new-tag>Add</b-btn>
+        </b-form-group>
+      </b-col>
+    </b-row>
+
     <b-table hover :items="items" :fields="fields" :filter="filter">
       <template slot="actions" slot-scope="row">
-         <b-button size="sm" @click.stop="edit(row.item)">Edit</b-button>
-         <b-button size="sm" @click.stop="remove(row.item)">Delete</b-button>
+         <b-btn size="sm" v-b-modal.edit-tag @click.stop="selectTag(row.item)">Edit</b-btn>
+         <b-btn size="sm" v-b-modal.delete-tag-confirm  @click.stop="selectTag(row.item)">Delete</b-btn>
       </template>
     </b-table>
+
+    <b-modal id="new-tag" title="Create a new tag" no-fade @shown="focusTagName" @ok="addTag">
+      <b-col md="10">
+        <label>Tag name</label>
+        <b-form-input ref="tagName" v-model="newTag"/>
+      </b-col>
+    </b-modal>
+
+    <b-modal id="edit-tag" title="Edit tag" no-fade ok-title="Update" @shown="focusTagName" @ok="updateTag">
+      <b-col md="10">
+        <label>Tag name</label>
+        <b-form-input ref="tagName" v-model="selectedTagName"/>
+      </b-col>
+    </b-modal>
+
+    <b-modal id="delete-tag-confirm" title="Delete tag" no-fade ok-title="Confirm" @ok="removeTag">
+      <b-col md="10">
+        <div>Are you sure to delete the tag <span id="selected-tag-name">{{selectedTagName}}</span>?</div>
+      </b-col>
+    </b-modal>
   </b-container>
 </template>
 
@@ -38,22 +66,46 @@ export default {
         { id: 3, name: 'Cycling' },
         { id: 4, name: 'Driving' }
       ],
-      filter: null
+      filter: null,
+      newTag: '',
+      selectedTag: {},
+      selectedTagName: ''
     }
   },
   methods: {
-    edit(item) {
-      console.log('Edit button clicked!')
-      console.log(`Tag ${item.name} is going to be edited.`)
+    focusTagName(e) {
+      this.$refs.tagName.focus()
     },
-    remove(item) {
-      console.log('Delete button clicked!')
-      console.log(`Tag ${item.name} is going to be deleted.`)
+    addTag() {
+      this.items.push({ id: Math.floor((Math.random() * 100) + 1), name: this.newTag })
+      this.newTag = ''
+    },
+    selectTag(item) {
+      this.selectedTag = item
+      this.selectedTagName = item.name
+    },
+    updateTag() {
+      let tag = this.items.find(t => t.id === this.selectedTag.id)
+      if (tag) {
+        tag.name = this.selectedTagName
+      }
+    },
+    removeTag() {
+      let id = this.items.findIndex(t => t.id === this.selectedTag.id)
+      if (id !== -1) {
+        this.items.splice(id, 1)
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+label {
+  margin-bottom: 10px;
+}
 
+#selected-tag-name {
+  font-weight: 600;
+}
 </style>
