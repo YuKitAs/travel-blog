@@ -2,8 +2,8 @@
   <div ref="main-menu" class="tb-main-menu">
     <div class="tb-vertical-line tb-line-top"/>
     <div>
-      <img :src="require('@/assets/images/logo.png')" class="tb-logo"/>
-      <img :src="require('@/assets/images/logo-hover.png')" class="tb-logo-hover"/>
+      <img :src="require('@/assets/images/logo.png')" class="tb-logo tb-logo--hover-mask"/>
+      <img :src="require('@/assets/images/logo-hover.png')" class="tb-logo"/>
     </div>
     <h1 class="tb-website-title">Captain<br/>Bonbon</h1>
     <div class="tb-line-head"/>
@@ -83,27 +83,25 @@ export default {
       overflow: hidden
 
   .tb-website-title
-      text-align: center
-      margin: 5px 0 5px 0
+    text-align: center
+    margin: 5px 0 5px 0
 
   .tb-line-top, .tb-line-middle
     min-height: 25px
 
   .tb-line-bottom
-      min-height: 35px
-      @include page-width('medium-and-up')
-        min-height: 100%
+    min-height: 35px
+    @include page-width('medium-and-up')
+      min-height: 100%
 
   .tb-logo
-      width: 120px
-      height: auto
-      position: absolute
-      &:hover
-        opacity: 0
+    width: 120px
+    height: auto
 
-  .tb-logo-hover
-      width: 120px
-      height: auto
+  .tb-logo--hover-mask
+    position: absolute
+    &:hover
+      opacity: 0
 
   .tb-hamburger-button-visible-mask
     @include page-width('medium-and-up')
