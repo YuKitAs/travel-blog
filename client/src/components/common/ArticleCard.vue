@@ -1,8 +1,7 @@
 <template>
   <div class="tb-article-card">
     <photo-frame :image-id="articlePreview.thumbnail.id"
-        is-thumbnail :height="articlePreview.thumbnail.height"
-        @click="navigateTo(articlePreview.id)"/>
+        is-thumbnail @click="navigateTo(articlePreview.id)"/>
     <h2 class="tb-title" @click="navigateTo(articlePreview.id)">{{articlePreview.title}}</h2>
     <div class="tb-splitter">
       <span class="tb-horizontal-line tb-splitter-line"/>

@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import ArticleCard from '@/components/common/ArticleCard'
 
 const ARTICLE_WIDTH = 300
@@ -30,18 +29,7 @@ export default {
     }
   },
 
-  mounted() {
-    window.addEventListener('resize', this.onResize)
-  },
-
   methods: {
-    onResize() {
-      if (this.columns.length === this.calculateNumberOfColumns()) {
-        return
-      }
-      this.rearrangeArticles(this.articlePreviews)
-    },
-
     rearrangeArticles(notArrangedArticles) {
       this.columns = []
 
@@ -49,22 +37,6 @@ export default {
       for (let i = 0; i < numberOfColumns; i += 1) {
         this.columns.push([])
       }
-
-      notArrangedArticles.forEach(notArrangedArticle => {
-        setTimeout(() => {
-          const heights = this.columns.map((articles, index) => _.get(this.$refs.column[index], 'scrollHeight', 0))
-
-          let indexOfColumnWithMinHeight = 0
-
-          heights.forEach((height, index) => {
-            if (height < heights[indexOfColumnWithMinHeight]) {
-              indexOfColumnWithMinHeight = index
-            }
-          })
-
-          this.columns[indexOfColumnWithMinHeight].push(notArrangedArticle)
-        }, 0)
-      })
     },
 
     calculateNumberOfColumns() {

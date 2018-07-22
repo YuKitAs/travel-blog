@@ -3,7 +3,6 @@
     <img :src="photoUrl"
       class="tb-photo"
       :class="{'tb-photo--fullsized': !isThumbnail, 'tb-photo--thumbnail': isThumbnail}"
-      :style="{minHeight: height + 'px'}"
       @click="$emit('click')"/>
   </div>
 </template>
@@ -12,7 +11,6 @@
 export default {
   props: {
     imageId: {type: String, required: true},
-    height: {type: Number, default: 0},
     isThumbnail: {type: Boolean, default: false}
   },
 
