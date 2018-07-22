@@ -1,8 +1,7 @@
 <template>
   <div class="tb-article-list" ref="columns">
     <div ref="column" v-for="(column, index) in columns" :key="index" class="tb-column">
-      <article-card v-for="articlePreview in column" :key="articlePreview.id" :article-preview="articlePreview"
-        @click="navigateTo(articlePreview.id)"/>
+      <article-card v-for="articlePreview in column" :key="articlePreview.id" :article-preview="articlePreview"/>
     </div>
   </div>
 </template>
@@ -36,10 +35,6 @@ export default {
   },
 
   methods: {
-    navigateTo(articleId) {
-      this.$router.push({name: 'Articles.Article', params: {articleId}})
-    },
-
     onResize() {
       if (this.columns.length === this.calculateNumberOfColumns()) {
         return
@@ -92,5 +87,5 @@ export default {
     justify-content: space-between
 
   .tb-column
-      width: 300px
+    width: 300px
 </style>

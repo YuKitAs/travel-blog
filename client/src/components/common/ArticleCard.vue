@@ -41,11 +41,14 @@ export default {
   .tb-article-card
     width: $article-width
     margin-bottom: $space-width * 1.5
+
+  .tb-photo-frame
     cursor: pointer
 
   .tb-title
     margin-top: 10px
     margin-bottom: 0
+    cursor: pointer
     &:hover
       color: $theme-color-1-highlighted-2
 
