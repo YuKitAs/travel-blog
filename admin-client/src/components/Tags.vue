@@ -78,7 +78,7 @@ export default {
     focusTagName(e) {
       this.$refs.tagName.focus()
     },
-    
+
     async fetchData() {
       try {
         this.tags = (await TagService.getMany()).data
