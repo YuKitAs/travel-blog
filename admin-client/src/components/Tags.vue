@@ -21,7 +21,7 @@
       </b-col>
     </b-row>
 
-    <b-table hover :items="items" :fields="fields" :filter="filter">
+    <b-table hover :items="tags" :fields="fields" :filter="filter">
       <template slot="actions" slot-scope="row">
          <b-btn size="sm" v-b-modal.edit-tag @click.stop="selectTag(row.item)">Edit</b-btn>
          <b-btn size="sm" v-b-modal.delete-tag-confirm  @click.stop="selectTag(row.item)">Delete</b-btn>
@@ -31,7 +31,7 @@
     <b-modal id="new-tag" title="Create a new tag" no-fade @shown="focusTagName" @ok="addTag">
       <b-col md="10">
         <label>Tag name</label>
-        <b-form-input ref="tagName" v-model="newTag"/>
+        <b-form-input ref="tagName" v-model="newTagName"/>
       </b-col>
     </b-modal>
 
@@ -51,49 +51,70 @@
 </template>
 
 <script>
+import TagService from '@/services/TagService'
+
 export default {
   name: 'Tags',
+
   data() {
     return {
       fields: [
         { key: 'name', sortable: true, sortDirection: 'asc' },
         { key: 'actions' }
       ],
-      items: [
-        { id: 0, name: 'City' },
-        { id: 1, name: 'Nature' },
-        { id: 2, name: 'Hiking' },
-        { id: 3, name: 'Cycling' },
-        { id: 4, name: 'Driving' }
-      ],
+      tags: [],
       filter: null,
-      newTag: '',
+      newTagName: '',
       selectedTag: {},
       selectedTagName: ''
     }
   },
+
+  async mounted() {
+    await this.fetchData()
+  },
+
   methods: {
     focusTagName(e) {
       this.$refs.tagName.focus()
     },
-    addTag() {
-      this.items.push({ id: Math.floor((Math.random() * 100) + 1), name: this.newTag })
-      this.newTag = ''
+    
+    async fetchData() {
+      try {
+        this.tags = (await TagService.getMany()).data
+      } catch (e) {
+        console.log(e)
+      }
     },
+
+    async addTag() {
+      try {
+        let newTag = (await TagService.post({ name: this.newTagName })).data
+        this.tags.push(newTag)
+        this.newTagName = ''
+      } catch (e) {
+        console.log(e)
+      }
+    },
+
     selectTag(item) {
       this.selectedTag = item
       this.selectedTagName = item.name
     },
+
     updateTag() {
-      let tag = this.items.find(t => t.id === this.selectedTag.id)
+      let tag = this.tags.find(t => t.id === this.selectedTag.id)
       if (tag) {
+        TagService.put(tag.id, { name: this.selectedTagName })
         tag.name = this.selectedTagName
       }
     },
+
     removeTag() {
-      let id = this.items.findIndex(t => t.id === this.selectedTag.id)
+      let id = this.tags.find(t => t.id === this.selectedTag.id).id
       if (id !== -1) {
-        this.items.splice(id, 1)
+        TagService.delete(id)
+        this.tags.splice(id, 1)
       }
     }
   }
