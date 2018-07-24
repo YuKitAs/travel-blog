@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <div class="menu-container">
-      <b-nav v-if="authenticated" to="/login" vertical class="d-none d-md-block col-md-3 col-lg-2 pt-1 bg-light sidebar">
+    <div class="menu-container" v-if="authenticated">
+      <b-nav to="/login" vertical class="d-none d-md-block col-md-3 col-lg-2 pt-1 bg-light sidebar">
         <b-nav-item><font-awesome-icon class="icon" icon="file-image" fixed-width />Articles</b-nav-item>
         <b-nav-item><font-awesome-icon class="icon" icon="map-marked-alt" fixed-width />Places</b-nav-item>
         <b-nav-item to="/tags"><font-awesome-icon class="icon" icon="tag" fixed-width />Tags</b-nav-item>
       </b-nav>
     </div>
 
-    <div class="content-container col-12 col-md-9 ml-sm-auto col-lg-10 pt-3">
+    <div class="content-container">
       <router-view @authenticated="setAuthenticated"/>
     </div>
   </div>

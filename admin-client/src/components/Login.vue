@@ -20,7 +20,7 @@
       </b-row>
 
       <b-btn @click="verify">Login</b-btn>
-      <div class="error">{{ error }}</div>
+      <div class="error" v-if="error">Incorrect username and/or password!</div>
     </b-container>
   </div>
 </template>
@@ -34,24 +34,25 @@ export default {
       username: '',
       password: '',
       passwordType: 'password',
-      error: ''
+      error: false
     }
   },
   methods: {
     async verify() {
-      this.error = ''
-
       try {
         let data = (await UserService.post({ username: this.username, password: this.password })).data
         if (data.jwt) {
+          this.error = false
           this.$emit('authenticated', true)
+          localStorage.token = data.jwt
           this.$router.replace('/home')
         }
       } catch (e) {
         console.log(e)
-        this.error = 'Incorrect username and/or password!'
+        this.error = true
         this.username = ''
         this.password = ''
+        delete localStorage.token
       }
     }
   }

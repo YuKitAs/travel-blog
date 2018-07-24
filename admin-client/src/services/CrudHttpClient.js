@@ -50,6 +50,9 @@ export default class CrudHttpClient {
 
   delete(id) {
     return axios({
+      headers: {
+        'Authorization': localStorage.token
+      },
       method: 'delete',
       url: this.buildUrl(id)
     })
@@ -58,7 +61,8 @@ export default class CrudHttpClient {
   buildCommonHttpClientSettings() {
     return {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.token
       },
       timeout: 5000,
       paramsSerializer: (params) => {
