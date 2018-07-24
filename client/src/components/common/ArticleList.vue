@@ -48,6 +48,9 @@ export default {
       let heights = this.columns.map((articles, index) => _.get(this.$refs.column, [index, 'scrollHeight'], 0))
       let minHeight = Math.min(...heights)
 
+      console.log(`heights: [${heights.join(',')}]`)
+      console.log(`minHeight: ${minHeight}`)
+
       return heights.indexOf(minHeight)
     },
 
