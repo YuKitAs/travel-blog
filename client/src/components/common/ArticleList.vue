@@ -39,8 +39,10 @@ export default {
         this.columns.push([])
       }
 
-      notArrangedArticles.forEach(notArrangedArticle => {
-        this.columns[this.getIndexOfShortestColumn()].push(notArrangedArticle)
+      this.$nextTick(() => {
+        notArrangedArticles.forEach(notArrangedArticle => {
+          this.columns[this.getIndexOfShortestColumn()].push(notArrangedArticle)
+        })
       })
     },
 
