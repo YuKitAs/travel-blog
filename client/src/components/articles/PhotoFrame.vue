@@ -12,7 +12,12 @@
 export default {
   props: {
     imageId: {type: String, required: true},
-    isThumbnail: {type: Boolean, default: false}
+    isThumbnail: {type: Boolean, default: false},
+    loaded: false
+  },
+
+  mounted() {
+    setTimeout(this.onImageLoad, 5000)
   },
 
   computed: {
@@ -27,8 +32,10 @@ export default {
 
   methods: {
     onImageLoad() {
-      console.log(`Image ${this.imageId} loaded.`)
-      this.$emit('load')
+      if (!this.loaded) {
+        console.log(`Image ${this.imageId} loaded.`)
+        this.$emit('load')
+      }
     }
   }
 }
