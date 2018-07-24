@@ -24,6 +24,7 @@ export default {
   methods: {
     onImageLoad() {
       console.log(`Image ${this.imageId} loaded.`)
+      this.$emit('load')
     }
   }
 }

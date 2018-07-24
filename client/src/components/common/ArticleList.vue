@@ -1,7 +1,8 @@
 <template>
   <div class="tb-article-list" ref="columns">
     <div ref="column" v-for="(column, index) in columns" :key="index" class="tb-column">
-      <article-card v-for="articlePreview in column" :key="articlePreview.id" :article-preview="articlePreview"/>
+      <article-card v-for="articlePreview in column" :key="articlePreview.id" :article-preview="articlePreview"
+        @load="arrangeNextArticle"/>
     </div>
   </div>
 </template>
@@ -20,30 +21,37 @@ export default {
 
   data() {
     return {
-      columns: []
+      columns: [],
+      notArrangedArticles: []
     }
   },
 
   watch: {
     articlePreviews(articlePreviews) {
-      this.rearrangeArticles(articlePreviews)
+      this.notArrangedArticles.push(...articlePreviews)
+      this.addArticleColumns()
+      this.arrangeNextArticle()
     }
   },
 
   methods: {
-    rearrangeArticles(notArrangedArticles) {
+    addArticleColumns() {
       this.columns = []
 
       let numberOfColumns = this.calculateNumberOfColumns()
       for (let i = 0; i < numberOfColumns; i += 1) {
         this.columns.push([])
       }
+    },
 
-      notArrangedArticles.forEach(notArrangedArticle => {
-        setTimeout(() => {
-          this.columns[this.getIndexOfShortestColumn()].push(notArrangedArticle)
-        }, 0)
-      })
+    arrangeNextArticle() {
+      if (this.notArrangedArticles.length === 0) {
+        return
+      }
+
+      let nextArticle = this.notArrangedArticles.shift()
+
+      this.columns[this.getIndexOfShortestColumn()].push(nextArticle)
     },
 
     getIndexOfShortestColumn() {
