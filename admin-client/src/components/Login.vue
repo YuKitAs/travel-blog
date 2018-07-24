@@ -14,7 +14,7 @@
       <b-row class="justify-content-md-center">
         <b-col md="3">
           <b-form-group>
-              <b-form-input v-model="password" placeholder="Password" :type="passwordType"/>
+              <b-form-input v-model="password" placeholder="Password" :type="passwordType" @keyup.enter.native="verify"/>
           </b-form-group>
         </b-col>
       </b-row>
@@ -44,7 +44,8 @@ export default {
       try {
         let data = (await UserService.post({ username: this.username, password: this.password })).data
         if (data.jwt) {
-          this.$router.replace('/welcome')
+          this.$emit('authenticated', true)
+          this.$router.replace('/home')
         }
       } catch (e) {
         console.log(e)

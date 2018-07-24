@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
-import Welcome from '@/components/Welcome'
+import Home from '@/components/AdminHome'
 import Tags from '@/components/Tags'
 
 Vue.use(Router)
@@ -14,9 +14,9 @@ export default new Router({
       component: Login
     },
     {
-      path: '/welcome',
-      name: 'Welcome',
-      component: Welcome
+      path: '/home',
+      name: 'AdminHome',
+      component: Home
     },
     {
       path: '/tags',
