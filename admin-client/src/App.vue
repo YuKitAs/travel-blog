@@ -8,7 +8,7 @@
       </b-nav>
     </div>
 
-    <div class="content-container">
+    <div class="content-container col-12 col-md-9 ml-sm-auto col-lg-10 pt-3">
       <router-view @authenticated="setAuthenticated"/>
     </div>
   </div>

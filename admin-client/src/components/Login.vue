@@ -20,7 +20,7 @@
       </b-row>
 
       <b-btn @click="verify">Login</b-btn>
-      <div class="error" v-if="error">Incorrect username and/or password!</div>
+      <div class="error" v-if="hasError">Incorrect username and/or password!</div>
     </b-container>
   </div>
 </template>
@@ -34,7 +34,7 @@ export default {
       username: '',
       password: '',
       passwordType: 'password',
-      error: false
+      hasError: false
     }
   },
   methods: {
@@ -42,14 +42,14 @@ export default {
       try {
         let data = (await UserService.post({ username: this.username, password: this.password })).data
         if (data.jwt) {
-          this.error = false
+          this.hasError = false
           this.$emit('authenticated', true)
           localStorage.token = data.jwt
           this.$router.replace('/home')
         }
       } catch (e) {
         console.log(e)
-        this.error = true
+        this.hasError = true
         this.username = ''
         this.password = ''
         delete localStorage.token

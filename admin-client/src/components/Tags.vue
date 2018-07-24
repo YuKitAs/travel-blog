@@ -28,17 +28,17 @@
       </template>
     </b-table>
 
-    <b-modal id="new-tag" title="Create a new tag" no-fade @shown="focusTagName" @ok="addTag">
+    <b-modal id="new-tag" title="Create a new tag" no-fade @shown="focusInput('newTagName')" @ok="addTag">
       <b-col md="10">
         <label>Tag name</label>
-        <b-form-input ref="tagName" v-model="newTagName"/>
+        <b-form-input ref="newTagName" v-model="newTagName"/>
       </b-col>
     </b-modal>
 
-    <b-modal id="edit-tag" title="Edit tag" no-fade ok-title="Update" @shown="focusTagName" @ok="updateTag">
+    <b-modal id="edit-tag" title="Edit tag" no-fade ok-title="Update" @shown="focusInput('editTagName')" @ok="updateTag">
       <b-col md="10">
         <label>Tag name</label>
-        <b-form-input ref="tagName" v-model="selectedTagName"/>
+        <b-form-input ref="editTagName" v-model="selectedTagName"/>
       </b-col>
     </b-modal>
 
@@ -70,13 +70,13 @@ export default {
     }
   },
 
-  async mounted() {
-    await this.fetchData()
+  mounted() {
+    this.fetchData()
   },
 
   methods: {
-    focusTagName(e) {
-      this.$refs.tagName.focus()
+    focusInput(ref) {
+      this.$refs[ref].focus()
     },
 
     async fetchData() {
@@ -111,10 +111,10 @@ export default {
     },
 
     removeTag() {
-      let id = this.tags.find(t => t.id === this.selectedTag.id).id
-      if (id !== -1) {
-        TagService.delete(id)
-        this.tags.splice(id, 1)
+      let index = this.tags.findIndex(t => t.id === this.selectedTag.id)
+      if (index !== -1) {
+        TagService.delete(this.selectedTag.id)
+        this.tags.splice(index, 1)
       }
     }
   }
