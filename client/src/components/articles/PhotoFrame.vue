@@ -17,7 +17,11 @@ export default {
 
   computed: {
     photoUrl() {
-      return `/api/images/${this.imageId}${this.isThumbnail ? '/thumbnail' : ''}`
+      let error = ''
+      if (this.imageId.startsWith('c502525d')) {
+        error = '1234567'
+      }
+      return `/api/images/${this.imageId + error}${this.isThumbnail ? '/thumbnail' : ''}`
     }
   },
 
