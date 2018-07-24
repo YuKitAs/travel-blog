@@ -1,8 +1,13 @@
 <template>
-  <div class="tb-article-list" ref="columns">
-    <div ref="column" v-for="(column, index) in columns" :key="index" class="tb-column">
-      <article-card v-for="articlePreview in column" :key="articlePreview.id" :article-preview="articlePreview"
-        @load="arrangeNextArticle"/>
+  <div>
+    <div class="tb-article-list" ref="columns">
+      <div ref="column" v-for="(column, index) in columns" :key="index" class="tb-column">
+        <article-card v-for="articlePreview in column" :key="articlePreview.id" :article-preview="articlePreview"/>
+      </div>
+    </div>
+    <div class="tb-hidden-loading-area" style="opacity: 0.2;">
+      <article-card v-for="articlePreview in notArrangedArticles" :key="articlePreview.id"
+        :article-preview="articlePreview" @load="markArticleLoaded(articlePreview.id)"/>
     </div>
   </div>
 </template>
@@ -22,7 +27,8 @@ export default {
   data() {
     return {
       columns: [],
-      notArrangedArticles: []
+      notArrangedArticles: [],
+      loadedArticleIds: []
     }
   },
 
@@ -30,8 +36,11 @@ export default {
     articlePreviews(articlePreviews) {
       this.notArrangedArticles.push(...articlePreviews)
       this.addArticleColumns()
-      this.arrangeNextArticle()
     }
+  },
+
+  mounted() {
+    setInterval(this.arrangeFirstLoadedArticle, 50)
   },
 
   methods: {
@@ -44,14 +53,15 @@ export default {
       }
     },
 
-    arrangeNextArticle() {
-      if (this.notArrangedArticles.length === 0) {
-        return
+    markArticleLoaded(id) {
+      this.loadedArticleIds.push(id)
+    },
+
+    arrangeFirstLoadedArticle() {
+      if (this.notArrangedArticles[0] && this.loadedArticleIds.includes(this.notArrangedArticles[0].id)) {
+        let nextArticle = this.notArrangedArticles.shift()
+        this.columns[this.getIndexOfShortestColumn()].push(nextArticle)
       }
-
-      let nextArticle = this.notArrangedArticles.shift()
-
-      this.columns[this.getIndexOfShortestColumn()].push(nextArticle)
     },
 
     getIndexOfShortestColumn() {

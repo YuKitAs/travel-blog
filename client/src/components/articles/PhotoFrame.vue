@@ -12,30 +12,19 @@
 export default {
   props: {
     imageId: {type: String, required: true},
-    isThumbnail: {type: Boolean, default: false},
-    loaded: false
-  },
-
-  mounted() {
-    setTimeout(this.onImageLoad, 5000)
+    isThumbnail: {type: Boolean, default: false}
   },
 
   computed: {
     photoUrl() {
-      let error = ''
-      if (this.imageId.startsWith('c502525d')) {
-        error = '1234567'
-      }
-      return `/api/images/${this.imageId + error}${this.isThumbnail ? '/thumbnail' : ''}`
+      return `/api/images/${this.imageId}${this.isThumbnail ? '/thumbnail' : ''}`
     }
   },
 
   methods: {
     onImageLoad() {
-      if (!this.loaded) {
-        console.log(`Image ${this.imageId} loaded.`)
-        this.$emit('load')
-      }
+      console.log(`Image ${this.imageId} loaded.`)
+      this.$emit('load')
     }
   }
 }
