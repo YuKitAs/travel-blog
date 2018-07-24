@@ -52,19 +52,15 @@ export default {
 
       notArrangedArticles.forEach(notArrangedArticle => {
         setTimeout(() => {
-          const heights = this.columns.map((articles, index) => _.get(this.$refs.column[index], 'scrollHeight', 0))
-
-          let indexOfColumnWithMinHeight = 0
-
-          heights.forEach((height, index) => {
-            if (height < heights[indexOfColumnWithMinHeight]) {
-              indexOfColumnWithMinHeight = index
-            }
-          })
-
-          this.columns[indexOfColumnWithMinHeight].push(notArrangedArticle)
+          this.columns[this.getIndexOfShortestColumn()].push(notArrangedArticle)
         }, 0)
       })
+    },
+
+    getIndexOfShortestColumn() {
+      const heights = this.columns.map((articles, index) => _.get(this.$refs.column, [index, 'scrollHeight'], 0))
+      const minHeight = Math.min(...heights)
+      return heights.indexOf(minHeight)
     },
 
     calculateNumberOfColumns() {
