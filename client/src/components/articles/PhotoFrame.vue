@@ -3,7 +3,8 @@
     <img :src="photoUrl"
       class="tb-photo"
       :class="{'tb-photo--fullsized': !isThumbnail, 'tb-photo--thumbnail': isThumbnail}"
-      @click="$emit('click')"/>
+      @click="$emit('click')"
+      @load="onImageLoad"/>
   </div>
 </template>
 
@@ -17,6 +18,12 @@ export default {
   computed: {
     photoUrl() {
       return `/api/images/${this.imageId}${this.isThumbnail ? '/thumbnail' : ''}`
+    }
+  },
+
+  methods: {
+    onImageLoad() {
+      console.log(`Image ${this.imageId} loaded.`)
     }
   }
 }
