@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import ArticleCard from '@/components/common/ArticleCard'
 
 const ARTICLE_WIDTH = 300
@@ -37,6 +38,17 @@ export default {
       for (let i = 0; i < numberOfColumns; i += 1) {
         this.columns.push([])
       }
+
+      notArrangedArticles.forEach(notArrangedArticle => {
+        this.columns[this.getIndexOfShortestColumn()].push(notArrangedArticle)
+      })
+    },
+
+    getIndexOfShortestColumn() {
+      let heights = this.columns.map((articles, index) => _.get(this.$refs.column, [index, 'scrollHeight'], 0))
+      let minHeight = Math.min(...heights)
+
+      return heights.indexOf(minHeight)
     },
 
     calculateNumberOfColumns() {
