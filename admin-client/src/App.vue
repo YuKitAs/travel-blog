@@ -3,13 +3,19 @@
     <div class="tb-menu d-none d-md-block col-md-3 col-lg-2 bg-light" v-if="authenticated">
       <ul class="nav flex-column">
         <li class="nav-item">
-          <font-awesome-icon class="tb-menu__nav-item-icon" icon="file-image" fixed-width/>Articles
+          <router-link to="articles">
+            <font-awesome-icon class="tb-menu__nav-item-icon" icon="file-image" fixed-width/>Articles
+          </router-link>
         </li>
         <li class="nav-item">
-          <font-awesome-icon class="tb-menu__nav-item-icon" icon="map-marked-alt" fixed-width/>Places
+          <router-link to="places">
+            <font-awesome-icon class="tb-menu__nav-item-icon" icon="map-marked-alt" fixed-width/>Places
+          </router-link>
         </li>
         <li class="nav-item">
-          <font-awesome-icon class="tb-menu__nav-item-icon" icon="tag" fixed-width/>Tags
+          <router-link to="tags">
+            <font-awesome-icon class="tb-menu__nav-item-icon" icon="tag" fixed-width/>Tags
+          </router-link>
         </li>
       </ul>
     </div>
@@ -60,5 +66,9 @@ export default {
 
 .tb-content {
   padding-top: 1em;
+}
+
+a {
+  text-decoration: none;
 }
 </style>
