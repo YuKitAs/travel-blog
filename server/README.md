@@ -1,24 +1,13 @@
-# README
+# Server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Update dependencies:
 
-Things you may want to cover:
+```console
+$ bundle update
+```
 
-* Ruby version
+Run tests (MongoDB should be running):
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```console
+$ rake test
+```
