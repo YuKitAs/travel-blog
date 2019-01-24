@@ -1,7 +1,5 @@
 # Travel Blog
 
-[![Build Status](https://travis-ci.org/YuKitAs/travel-blog.svg?branch=master)](https://travis-ci.org/YuKitAs/travel-blog)
-
 ## Development
 
 ### Start Server
